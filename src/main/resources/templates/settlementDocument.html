@@ -89,10 +89,10 @@
                 elem: '#main',
                 url:'/demo/table/user/',
                 cols: [[
-                     {type:'numbers' ,title:"序号",width: 45}
-                    ,{type: 'checkbox' ,field:'id'}
-                    ,{field:'id', title:'采购单编号',width: 45}
-                    ,{field:'username', title:'采购单名称', width:150}
+                     {type:'numbers' ,title:"序号",width: 10}
+                    ,{type: 'checkbox' ,field:'id',width: 20}
+                    ,{field:'id', title:'采购单编号',width: 10}
+                    ,{field:'username', title:'采购单名称', width:80}
                     ,{field:'city', title:'采购医院' ,width: 45}
                     ,{field:'wealth', title: '流水号',width: 45 }
                     ,{field:'sex', title:'通用名',width: 45}
@@ -101,54 +101,18 @@
                     ,{field:'lock', title:'采购量',width: 45}
                     ,{field:'lock', title:'采购金额',width: 45}
                     ,{field:'lock', title:'入库量',width: 45}
-                    ,{field:'lock', title:'实际交易金额',width: 70}
+                    ,{field:'lock', title:'实际交易金额',width: 60}
                     ,{field:'lock', title:'发票号或入库单号',width: 45}
                     ,{field:'lock', title:'药品批号',width: 45}
                     ,{field:'lock', title:'药品有效期',width: 45}
                     ,{field:'lock', title:'退货量',width: 45}
                     ,{field:'lock', title:'退货金额',width: 45}
-                    ,{field:'lock', title:'剂型',width: 45}
-                    ,{field:'lock', title:'规格',width: 45}
-                    ,{field:'lock', title:'单位',width: 45}
+                    ,{field:'lock', title:'剂型',width: 30}
+                    ,{field:'lock', title:'规格',width: 30}
+                    ,{field:'lock', title:'单位',width: 30}
                     ,{field:'lock', title:'转换系数',width: 45}
                     ,{field:'lock', title:'质量层次',width: 45}
-                    ,{field:'lock', title:'生产企业',width: 80}
-                    ,{field:'lock', title:'供货企业',width: 45}
-                    ,{field:'lock', title:'开始采购时间',width: 45}
-                    ,{field:'lock', title:'结束采购时间',width: 45}
-                    ,{field:'lock', title:'采购状态',width: 45}
-                    ,{field:'lock', title:'详细',width: 45}
-                ]],
-                page: true
-            });
-            table.render({
-                elem: '#addmedicine',
-                url:'/demo/table/user/',
-                cols: [[
-                    {type:'numbers' ,title:"序号",width: 45}
-                    ,{type: 'checkbox' ,field:'id'}
-                    ,{field:'id', title:'采购单编号',width: 45}
-                    ,{field:'username', title:'采购单名称', width:150}
-                    ,{field:'city', title:'采购医院' ,width: 45}
-                    ,{field:'wealth', title: '流水号',width: 45 }
-                    ,{field:'sex', title:'通用名',width: 45}
-                    ,{field:'lock', title:'商品名',width: 45}
-                    ,{field:'lock', title:'中标价',width: 45}
-                    ,{field:'lock', title:'采购量',width: 45}
-                    ,{field:'lock', title:'采购金额',width: 45}
-                    ,{field:'lock', title:'入库量',width: 45}
-                    ,{field:'lock', title:'实际交易金额',width: 70}
-                    ,{field:'lock', title:'发票号或入库单号',width: 45}
-                    ,{field:'lock', title:'药品批号',width: 45}
-                    ,{field:'lock', title:'药品有效期',width: 45}
-                    ,{field:'lock', title:'退货量',width: 45}
-                    ,{field:'lock', title:'退货金额',width: 45}
-                    ,{field:'lock', title:'剂型',width: 45}
-                    ,{field:'lock', title:'规格',width: 45}
-                    ,{field:'lock', title:'单位',width: 45}
-                    ,{field:'lock', title:'转换系数',width: 45}
-                    ,{field:'lock', title:'质量层次',width: 45}
-                    ,{field:'lock', title:'生产企业',width: 80}
+                    ,{field:'lock', title:'生产企业',width: 50}
                     ,{field:'lock', title:'供货企业',width: 45}
                     ,{field:'lock', title:'开始采购时间',width: 45}
                     ,{field:'lock', title:'结束采购时间',width: 45}
@@ -309,10 +273,12 @@
                         <th>
                             <div class="layui-inline">
                                 <label class="layui-form-label">采购状态</label>
-                                <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
-                                    <option value="0">全部</option>
-                                    <option value="1">山西医药</option>
-                                </select>
+                                <div class="layui-input-block">
+                                    <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
+                                        <option value="0">全部</option>
+                                        <option value="1">山西医药</option>
+                                    </select>
+                                </div>
                             </div>
                         </th>
                         <th>
@@ -422,7 +388,6 @@
                                     <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
                                         <option value="0">全部</option>
                                         <option value="1">山西医药</option>
-
                                     </select>
                                 </div>
                             </div>
@@ -430,10 +395,12 @@
                         <th>
                             <div class="layui-inline">
                                 <label class="layui-form-label">药品类别</label>
-                                <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
-                                    <option value="0">全部</option>
-                                    <option value="1">山西医药</option>
-                                </select>
+                                <div class="layui-input-block">
+                                    <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
+                                        <option value="0">全部</option>
+                                        <option value="1">山西医药</option>
+                                    </select>
+                                </div>
                             </div>
                         </th>
                     </tr>
@@ -471,10 +438,12 @@
                         <th>
                             <div class="layui-inline">
                                 <label class="layui-form-label">供货商</label>
+                                <div class="layui-input-block">
                                     <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
                                         <option value="0">全部</option>
                                         <option value="1">山西医药</option>
                                     </select>
+                                </div>
                             </div>
                         </th>
                     </tr>
@@ -487,7 +456,7 @@
         </form>
     </div>
 </div>
-
+<!--创建结算单-->
 <div class="layui-container" id="settlementDocument" style="display: none">
     <div class="layui-row">
         <form class="layui-form" action="">
@@ -613,8 +582,6 @@
         </table>
     </form>
 </div>
-
-<!--创建结算单-->
 
 </body>
 </html>
