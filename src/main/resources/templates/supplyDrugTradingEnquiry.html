@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
-    <!--监督管理   查询药品交易明细-->
+    <!-- 供货管理 按交易药品查询-->
+
 </head>
 <body>
 <div class="layui-container">
@@ -16,7 +17,7 @@
             <table class="layui-table" lay-size="sm">
                 <thead>
                 <tr class="layui-row">
-                    <td><h2 align="center" style="font-weight: bold;">查询药品交易明细</h2></td>
+                    <td><h2 align="center" style="font-weight: bold;">按交易药品查询</h2></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -173,7 +174,7 @@
                     </td>
                     <td>
                         <div class="layui-inline">
-                            <label class="layui-form-label">质量层次：</label>
+                            <label class="layui-form-label">药品类别：</label>
                             <div class="layui-input-inline">
                                 <select name="modules" lay-verify="required" lay-search="">
                                     <option value="">全部</option>
@@ -194,31 +195,26 @@
 </div>
 <div class="layui-container">
     <div class="layui-row">
-        <table  class="layui-table" lay-data="{url:'/test/table/demo1.json', id:'test3'}" lay-filter="test3">
+        <table id="test3" class="layui-table" lay-data="{url:'/test/table/demo1.json', id:'test3'}" lay-filter="test3">
             <thead>
             <tr>
                 <th lay-data="{field:'id'}">序号</th>
-                <th lay-data="{field:'username',edit: 'text'}">采购医院</th>
-                <th lay-data="{field:'email', edit: 'text'}">采购单编号</th>
-                <th lay-data="{field:'sex',edit: 'text'}">采购单名称</th>
-                <th lay-data="{field:'experience', edit: 'text'}">开始采购时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">结束采购时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">流水号</th>
-                <th lay-data="{field:'experience', edit: 'text'}">通用名</th>
-                <th lay-data="{field:'experience', edit: 'text'}">商品名</th>
-                <th lay-data="{field:'experience', edit: 'text'}">剂型</th>
+                <th lay-data="{field:'username',edit: 'text'}">流水号</th>
+                <th lay-data="{field:'email', edit: 'text'}">通用名</th>
+                <th lay-data="{field:'sex',edit: 'text'}">商品名</th>
+                <th lay-data="{field:'city', edit: 'text'}">剂型</th>
                 <th lay-data="{field:'experience', edit: 'text'}">规格</th>
                 <th lay-data="{field:'experience', edit: 'text'}">单位</th>
                 <th lay-data="{field:'experience', edit: 'text'}">转换系数</th>
                 <th lay-data="{field:'experience', edit: 'text'}">质量层次</th>
                 <th lay-data="{field:'experience', edit: 'text'}">生产企业</th>
-                <th lay-data="{field:'experience', edit: 'text'}">中标价</th>
-                <th lay-data="{field:'experience', edit: 'text'}">交易价</th>
                 <th lay-data="{field:'experience', edit: 'text'}">采购量</th>
                 <th lay-data="{field:'experience', edit: 'text'}">采购金额</th>
                 <th lay-data="{field:'experience', edit: 'text'}">采购状态</th>
                 <th lay-data="{field:'experience', edit: 'text'}">入库量</th>
                 <th lay-data="{field:'experience', edit: 'text'}">入库金额</th>
+                <th lay-data="{field:'experience', edit: 'text'}">退货量</th>
+                <th lay-data="{field:'experience', edit: 'text'}">退货金额</th>
             </tr>
             </thead>
         </table>
@@ -305,12 +301,7 @@
             ,url:'/demo/table/user/'
             ,cols: [[
                 {field:'id', title: '序号',}
-                ,{field:'id', title: '采购医院',}
-                ,{field:'id', title: '采购单编号',}
-                ,{field:'id', title: '采购单名称',}
-                ,{field:'id', title: '开始采购时间',}
-                ,{field:'id', title: '结束采购时间',}
-                ,{field:'id', title: '流水号',}
+                ，{field:'id', title: '流水号',}
                 ,{field:'username', title: '通用名'}
                 ,{field:'username', title: '商品名'}
                 ,{field:'sex',title: '剂型',}
@@ -319,13 +310,13 @@
                 ,{field:'experience', title: '转换系数',}
                 ,{field:'experience', title: '质量层次',}
                 ,{field:'experience', title: '生产企业',}
-                ,{field:'experience', title: '中标价',}
-                ,{field:'experience', title: '交易价',}
                 ,{field:'experience', title: '采购量',}
                 ,{field:'experience', title: '采购金额',}
                 ,{field:'experience', title: '采购状态',}
                 ,{field:'score', title: '入库量',}
                 ,{field:'classify',title: '入库金额'}
+                ,{field:'wealth', title: '退货量',}
+                ,{field:'classify',  title: '退货金额'}
             ]]
             ,page: true
         });*/
