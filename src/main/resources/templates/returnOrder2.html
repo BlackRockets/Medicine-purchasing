@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>添加结算药品</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../layui/layui.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+
+    <script>
+        layui.use('table', function(){
+            var table = layui.table
+                ,form = layui.form;
+            table.render({
+                elem: '#test'
+                ,url:'/demo/table/user/'
+                ,cellMinWidth: 80
+                ,cols: [[
+                    {type:'numbers' ,title:"序号",width: 45}
+                    ,{type: 'checkbox' ,field:'id'}
+                    ,{field:'id', title:'采购单编号',width: 45}
+                    ,{field:'username', title:'采购单名称', width:150}
+                    ,{field:'city', title:'采购医院' ,width: 45}
+                    ,{field:'wealth', title: '流水号',width: 45 }
+                    ,{field:'sex', title:'通用名',width: 45}
+                    ,{field:'lock', title:'商品名',width: 45}
+                    ,{field:'lock', title:'中标价',width: 45}
+                    ,{field:'lock', title:'采购量',width: 45}
+                    ,{field:'lock', title:'采购金额',width: 45}
+                    ,{field:'lock', title:'入库量',width: 45}
+                    ,{field:'lock', title:'实际交易金额',width: 70}
+                    ,{field:'lock', title:'发票号或入库单号',width: 45}
+                    ,{field:'lock', title:'药品批号',width: 45}
+                    ,{field:'lock', title:'药品有效期',width: 45}
+                    ,{field:'lock', title:'退货量',width: 45}
+                    ,{field:'lock', title:'退货金额',width: 45}
+                    ,{field:'lock', title:'剂型',width: 45}
+                    ,{field:'lock', title:'规格',width: 45}
+                    ,{field:'lock', title:'单位',width: 45}
+                    ,{field:'lock', title:'转换系数',width: 45}
+                    ,{field:'lock', title:'质量层次',width: 45}
+                    ,{field:'lock', title:'生产企业',width: 80}
+                    ,{field:'lock', title:'供货企业',width: 45}
+                    ,{field:'lock', title:'开始采购时间',width: 45}
+                    ,{field:'lock', title:'结束采购时间',width: 45}
+                    ,{field:'lock', title:'采购状态',width: 45}
+                    ,{field:'lock', title:'详细',width: 45}
+
+                ]]
+                ,page: true
+            });
+            //监听性别操作
+            form.on('switch(sexDemo)', function(obj){
+                layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+            });
+            //监听锁定操作
+            form.on('checkbox(lockDemo)', function(obj){
+                layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+            });
+        });
+        //监听头工具栏事件
+        table.on('toolbar(test)', function(obj){
+            var checkStatus = table.checkStatus(obj.config.id)
+                ,data = checkStatus.data; //获取选中的数据
+            switch(obj.event){
+                case 'add':
+                    layer.msg('添加');
+                    break;
+                case 'delete':
+                    if(data.length === 0){
+                        layer.msg('请选择一行');
+                    } else {
+                        layer.msg('删除');
+                    }
+                    break;
+            };
+        });
+
+
+    </script>
+</head>
+<body bgcolor="#ffebcd">
+
+
+    <div align="center"  >
+        <table border="1" bgcolor="aqua">
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购单编号</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购单名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购状态</label>
+                            <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
+                                <option value="0">全部</option>
+                                <option value="1">山西医药</option>
+                            </select>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购医院</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">开始采购时间</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">结束采购时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">药品流水号</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">通用名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">剂型</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">规格</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">单位</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">转换系数</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">生产企业</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">商品名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">质量层次</label>
+                            <div class="layui-input-block">
+                                <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
+                                    <option value="0">全部</option>
+                                    <option value="1">山西医药</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">药品类别</label>
+                            <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
+                                <option value="0">全部</option>
+                                <option value="1">山西医药</option>
+
+                            </select>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">入库时间</label>
+                            <div class="layui-input-inline" style="width: 80px;float:left;">
+                                <input type="text" name="price_min"   autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid">至</div>
+                            <div class="layui-input-inline" style="width: 80px;">
+                                <input type="text" name="price_max"  autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">药品批号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+            <tr>
+                <div class="layui-form-item">
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">发票号或入库单号</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">供货商</label>
+                            <div class="layui-input-block">
+                                <select name="modules" lay-verify="required" style="width:200px"  lay-search="">
+                                    <option value="0">全部</option>
+                                    <option value="1">山西医药</option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </th>
+                </div>
+            </tr>
+        </table>
+    </div>
+    <div class="layui-form-item" align="center">
+        <div class="layui-inline">
+            <div class="layui-input-inline">
+                <button type="tel" class="layui-btn layui-btn-normal" >
+                    查询
+                </button>
+            </div>
+        </div>
+    </div>
+
+<div>
+    <table class="layui-hide" id="test">
+
+        <button type="button" class="layui-btn layui-btn-primary">添加</button>
+
+    </table>
+</div>
+
+
+</body>
+</html>
