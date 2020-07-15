@@ -31,17 +31,17 @@
         <div class="layui-inline">
             <label class="layui-form-label">采购单状态</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date1" autocomplete="off" class="layui-input">
+                <input type="text" name="date" id="dat" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">采购时间</label>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="price_min" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input" id="times01">
             </div>
             <div class="layui-form-mid">-</div>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input" id="times02">
             </div>
         </div>
     </div>
@@ -88,12 +88,13 @@
 </script>
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['jquery', 'table', 'layer', 'form'], function() {
+    layui.use(['jquery', 'table', 'layer', 'form','laydate'], function() {
             // 加载layui模块，使用其推荐的【预先加载】方式，详见官网【模块规范】一节
             var $ = layui.$;
             var table = layui.table;
             var layer = layui.layer;
             var form = layui.form;
+            var laydate = layui.laydate;
 
             // 显示所有用户
             table.render({
@@ -110,6 +111,12 @@
                 // 表格容器id，用于表格重载
                 id: 'user-tbl',
             });
+                laydate.render({
+                    elem:'#times01'
+                })
+                laydate.render({
+                    elem:'#times02'
+                })
     })
 </script>
 </body>

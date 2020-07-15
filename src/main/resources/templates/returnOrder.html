@@ -399,7 +399,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">开始采购时间：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" id="time01">
                             </div>
                         </div>
                     </td>
@@ -407,7 +407,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">结束采购时间：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" id="time02">
                             </div>
                         </div>
                     </td>
@@ -694,6 +694,17 @@
 <script src="../layui/layui.js" charset="utf-8"></script>
 
 <script>
+    function useLayDateMultiple(cls) {
+        layui.use('laydate', function() {
+            var laydate = layui.laydate;
+            lay('#' + cls).each(function() {
+                laydate.render({
+                    elem : this,
+                    trigger : 'click'
+                });
+            });
+        });
+    }
     layui.use(['form', 'layedit', 'laydate'], function(){
         var form = layui.form,
             layer = layui.layer,
@@ -729,6 +740,8 @@
                 area:['100%','100%'],
                 content:$("#addReturnMedicine").html(),
                 success: function(){
+                    useLayDateMultiple('time01');
+                    useLayDateMultiple('time02');
                     form.render()
                 }
             })
