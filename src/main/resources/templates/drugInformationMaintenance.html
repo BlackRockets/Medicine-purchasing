@@ -36,7 +36,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">通用名：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="email" lay-verify="commonName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -166,7 +166,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">流水号：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -178,7 +178,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">剂型：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="phone" lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -332,7 +332,7 @@
             </div>
             <div class="layui-form-item" style="text-align: center">
                 <div class="layui-input-block">
-                    <button type="button" class="layui-btn layui-btn-normal">提交</button>
+                    <button type="button" id="submit" class="layui-btn layui-btn-normal" lay-filter="addSubmit" lay-submit>提交</button>
                     <button type="button" class="layui-btn layui-btn-normal" onclick="close()">关闭</button>
                 </div>
             </div>
@@ -372,13 +372,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">流水号：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="phone"   class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">通用名：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="email" lay-verify="commonName" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -551,6 +551,19 @@
     layui.use(['form', 'layedit', 'laydate'], function() {
         var form = layui.form
         $ = layui.$;
+
+        /*form.verify({
+            commonName: function (value) {
+                if (!value) {
+                    return '通用名不能为空';
+                }
+            }
+        })*/
+       /* form.on('submit(addSubmit)', function (data)
+        {
+
+        }*/
+
 
 
     })
