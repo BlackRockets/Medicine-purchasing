@@ -2,7 +2,19 @@
 spring:
   datasource:
     name: medicine
-    url: jdbc:mysql://localhost:3306/medicine
+    url: jdbc:mysql://localhost:3306/medicine?serverTimezone=GMT&characterEncoding=utf-8
     username: root
     password: 123456
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    view:
+      prefix: /templates/
+      suffix: .html
+  resources:
+    #前端访问的静态文件路径中加了一级static目录，所以这边不能用默认的static目录
+    static-locations: classpath:/
+mybatis:
+  # model的包
+  type-aliases-package: com.example.medicine.bean
+  mapper-locations: classpath:mapper/*.xml
+
