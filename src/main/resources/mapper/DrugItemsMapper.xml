@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.DrugItemsMapper">
+  <resultMap id="BaseResultMap" type="com.example.medicine.bean.DrugItems">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ITEM_NUMBER" jdbcType="VARCHAR" property="itemNumber" />
+    <result column="COMMON_NAME" jdbcType="VARCHAR" property="commonName" />
+    <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
+    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+    <result column="CONVERSION_COEFFICIENT_No" jdbcType="VARCHAR" property="conversionCoefficientNo" />
+    <result column="STATUS" jdbcType="SMALLINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ITEM_NUMBER, COMMON_NAME, DOSAGE_FORM, SPECIFICATIONS, DRUG_CATEGORY, COMPANY,
+    CONVERSION_COEFFICIENT_No, STATUS
+  </sql>
+  <select id="selectDrugItems" resultMap="BaseResultMap" parameterType="com.example.medicine.bean.DrugItems">
+    select
+    <include refid="Base_Column_List" />
+    from drug_items
+    <where>
+      <if test="itemNumber != null and itemNumber != ''">
+        ITEM_NUMBER = #{itemNumber}
+      </if>
+      <if test="commonName != null and commonName != ''">
+        COMMON_NAME = #{commonName}
+      </if>
+      <if test="dosageForm != null and dosageForm != ''">
+        DOSAGE_FORM = #{dosageForm}
+      </if>
+      <if test="specifications != null and specifications != ''">
+        SPECIFICATIONS = #{specifications}
+      </if>
+      <if test="drugCategory != null and drugCategory != ''">
+        DRUG_CATEGORY = #{drugCategory}
+      </if>
+      <if test="company != null and company != ''">
+        COMPANY = #{company}
+      </if>
+      <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+        CONVERSION_COEFFICIENT_No = #{conversionCoefficientNo}
+      </if>
+      <if test="status != null and status != ''">
+        STATUS = #{status}
+      </if>
+    </where>
+    limit #{startrow},#{pageSize}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from drug_items
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from drug_items
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from drug_items
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.medicine.bean.DrugItems">
+    insert into drug_items (ID, ITEM_NUMBER, COMMON_NAME, 
+      DOSAGE_FORM, SPECIFICATIONS, DRUG_CATEGORY, 
+      COMPANY, CONVERSION_COEFFICIENT_No, STATUS
+      )
+    values (#{id,jdbcType=INTEGER}, #{itemNumber,jdbcType=VARCHAR}, #{commonName,jdbcType=VARCHAR}, 
+      #{dosageForm,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, #{drugCategory,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{conversionCoefficientNo,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.medicine.bean.DrugItems">
+    insert into drug_items
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="itemNumber != null">
+        ITEM_NUMBER,
+      </if>
+      <if test="commonName != null">
+        COMMON_NAME,
+      </if>
+      <if test="dosageForm != null">
+        DOSAGE_FORM,
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS,
+      </if>
+      <if test="drugCategory != null">
+        DRUG_CATEGORY,
+      </if>
+      <if test="company != null">
+        COMPANY,
+      </if>
+      <if test="conversionCoefficientNo != null">
+        CONVERSION_COEFFICIENT_No,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="itemNumber != null">
+        #{itemNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="commonName != null">
+        #{commonName,jdbcType=VARCHAR},
+      </if>
+      <if test="dosageForm != null">
+        #{dosageForm,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="drugCategory != null">
+        #{drugCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="conversionCoefficientNo != null">
+        #{conversionCoefficientNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.medicine.bean.DrugItems">
+    update drug_items
+    <set>
+      <if test="itemNumber != null">
+        ITEM_NUMBER = #{itemNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="commonName != null">
+        COMMON_NAME = #{commonName,jdbcType=VARCHAR},
+      </if>
+      <if test="dosageForm != null">
+        DOSAGE_FORM = #{dosageForm,jdbcType=VARCHAR},
+      </if>
+      <if test="specifications != null">
+        SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      </if>
+      <if test="drugCategory != null">
+        DRUG_CATEGORY = #{drugCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="conversionCoefficientNo != null">
+        CONVERSION_COEFFICIENT_No = #{conversionCoefficientNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.medicine.bean.DrugItems">
+    update drug_items
+    set ITEM_NUMBER = #{itemNumber,jdbcType=VARCHAR},
+      COMMON_NAME = #{commonName,jdbcType=VARCHAR},
+      DOSAGE_FORM = #{dosageForm,jdbcType=VARCHAR},
+      SPECIFICATIONS = #{specifications,jdbcType=VARCHAR},
+      DRUG_CATEGORY = #{drugCategory,jdbcType=VARCHAR},
+      COMPANY = #{company,jdbcType=VARCHAR},
+      CONVERSION_COEFFICIENT_No = #{conversionCoefficientNo,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=SMALLINT}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
