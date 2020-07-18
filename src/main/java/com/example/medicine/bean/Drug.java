@@ -57,6 +57,50 @@ public class Drug {
 
     private Integer drugTradeStatus;
 
+    //页码
+    private Integer pageNum;
+
+    //每页条数
+    private Integer pageSize;
+
+    //起始条数
+    private Integer startrow;
+
+    //总套数
+    private Integer total;
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getStartrow() {
+        return startrow;
+    }
+
+    public void setStartrow(Integer startrow) {
+        this.startrow = startrow;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
     public Integer getId() {
         return id;
     }
