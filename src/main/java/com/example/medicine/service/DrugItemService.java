@@ -7,5 +7,8 @@ import java.util.List;
 public interface DrugItemService {
     //起始加载数据
 
-    List<DrugItems> selectAllDrugItems(DrugItems drugItemsdto);
+    List<DrugItems> selectAllDrugItems(DrugItems drugItems);
+
+    //增加
+    int addAllDrugItem(DrugItems drugItems);
 }

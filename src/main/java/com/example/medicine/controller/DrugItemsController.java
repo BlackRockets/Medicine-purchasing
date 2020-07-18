@@ -23,10 +23,22 @@ public class DrugItemsController {
     private DrugItemsMapper drugItemsMapper;
     @ResponseBody
     @RequestMapping(value = "findAllDrugItems",produces = {"application/json;charset=utf-8"})
-    public String findAllDrugItems (@RequestParam Integer page,@RequestParam Integer limit, DrugItems drugItemsdto){
-        drugItemsdto.setPageNum(page);
-        drugItemsdto.setPageSize(limit);
-        List<DrugItems> drugItems = drugItemService.selectAllDrugItems(drugItemsdto);
+    public String findAllDrugItems (@RequestParam(required = false) Integer page,@RequestParam(required = false) Integer limit, @RequestParam(required = false) String drugItemsDTO){
+        DrugItems drugItemsDTO1;
+        if(drugItemsDTO!=null && drugItemsDTO!=""){
+            JSON parse = (JSON) JSON.parse(drugItemsDTO);
+            drugItemsDTO1 = JSON.toJavaObject(parse, DrugItems.class);
+        }else{
+            drugItemsDTO1 = new DrugItems();
+        }
+
+
+        if(page!=null && limit!=null){
+            drugItemsDTO1.setPageNum(page);
+            drugItemsDTO1.setPageSize(limit);
+        }
+
+        List<DrugItems> drugItems = drugItemService.selectAllDrugItems(drugItemsDTO1);
         //查询总条数
         Integer total = drugItemsMapper.selectCount();
 
@@ -45,10 +57,17 @@ public class DrugItemsController {
         return drugItemList;
     }
 
+    @ResponseBody
+    @RequestMapping("addAllDrugItem")
+    public int addAllDrugItem(String drugItems){
+        DrugItems drugItems1 = null;
+        if(drugItems!=null && drugItems!=""){
+            JSON parse = (JSON) JSON.parse(drugItems);
+            drugItems1 = JSON.toJavaObject(parse, DrugItems.class);
+        }
+        int i = drugItemService.addAllDrugItem(drugItems1);
+        return i;
+    }
 
-    /*@RequestMapping(value = "aaa")
-    public String aaa(){
-        return "123";
-    }*/
 
 }

@@ -19,17 +19,27 @@ public class DrugItems {
 
     private Short status;
 
+    private String statu;
+
     //页码
-    private Integer pageNum;
+    private Integer pageNum=1;
 
     //每页条数
-    private Integer pageSize;
+    private Integer pageSize=10;
 
     //起始条数
     private Integer startrow;
 
     //总套数
     private Integer total;
+
+    public String getStatu() {
+        return statu;
+    }
+
+    public void setStatu(String statu) {
+        this.statu = statu;
+    }
 
     public Integer getTotal() {
         return total;

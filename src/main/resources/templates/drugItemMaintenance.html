@@ -26,7 +26,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">品目号：</label>
                             <div class="layui-input-inline">
-                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                <input type="tel" name="itemNumber" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -34,7 +34,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">通用名：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="commonName" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -42,7 +42,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">剂型：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="dosageForm" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -52,7 +52,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">规格：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="specifications" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -60,7 +60,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">单位：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="company" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -68,7 +68,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">转换系数：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                <input type="text" name="conversionCoefficientNo" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -78,8 +78,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品类别：</label>
                             <div class="layui-input-inline">
-                                <select name="modules" lay-verify="required" lay-search="">
-                                    <option value="">全部</option>
+                                <select name="drugCategory" lay-verify="" lay-search="">
+                                    <option value="">请选择</option>
                                     <option value="1">layer</option>
                                     <option value="2">form</option>
                                     <option value="3">layim</option>
@@ -91,7 +91,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">状态：</label>
                             <div class="layui-input-inline">
-                                <select name="modules" lay-verify="required" lay-search="">
+                                <select name="statu" lay-verify="" lay-search="">
                                     <option value="">全部</option>
                                     <option value="1">layer</option>
                                     <option value="2">form</option>
@@ -101,7 +101,7 @@
                         </div>
                     </td>
                     <td align="center">
-                        <button type="button" class="layui-btn layui-btn-sm">查询</button>
+                        <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo" id="find">查询</button>
                         <button type="button" class="layui-btn layui-btn-sm">导出</button>
                     </td>
                 </tr>
@@ -112,7 +112,7 @@
 </div>
 <div class="layui-container">
     <div class="layui-row">
-        <form class="layui-form" action="">
+        <form class="`layui-form`" action="" lay-filter="layuiadmin-app-form-list">
             <table class="layui-hide" lay-size="sm" id="test">
                 <button type="button" class="layui-btn layui-btn-sm" onclick="insert()">添加</button>
                 <button type="button" class="layui-btn layui-btn-sm" onclick="tolead()"> 导入</button>
@@ -123,18 +123,18 @@
 <!--添加-->
 <div class="layui-row" id="insertPage" style="display:none;">
     <div class="layui-col-md11" style="text-align: center">
-        <form class="layui-form" lay-filter="formTestFilter2121" action="">
+        <form class="layui-form" lay-filter="formTestFilter2121" action="" style="margin-top: 50px">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">品目号：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="itemNumber" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">通用名：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="commonName" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -142,13 +142,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">剂型：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="dosageForm" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">规格：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="specifications" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -156,13 +156,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">单位：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="company" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">转换系数：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="conversionCoefficientNo" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -170,8 +170,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">药品类别：</label>
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-search="">
-                            <option value="">全部</option>
+                        <select name="drugCategory" lay-verify="" lay-search="">
+                            <option value="">请选择</option>
                             <option value="1">layer</option>
                             <option value="2">form</option>
                             <option value="3">layim</option>
@@ -181,7 +181,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">状态：</label>
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-search="">
+                        <select name="statu" lay-verify="" lay-search="">
                             <option value="">全部</option>
                             <option value="1">layer</option>
                             <option value="2">form</option>
@@ -190,9 +190,9 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item">
+            <div class="layui-form-item" align="center">
                 <div class="layui-input-block">
-                    <button type="button" class="layui-btn layui-btn-normal">提交</button>
+                    <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="addDrugItem">提交</button>
                     <button type="button" class="layui-btn layui-btn-normal" onclick="close()">关闭</button>
                 </div>
             </div>
@@ -250,7 +250,7 @@
                     <label class="layui-form-label">药品类别：</label>
                     <div class="layui-input-inline">
                         <select name="modules" lay-verify="required" lay-search="">
-                            <option value="">全部</option>
+                            <option value="">请选择</option>
                             <option value="1">layer</option>
                             <option value="2">form</option>
                             <option value="3">layim</option>
@@ -302,18 +302,26 @@
         </div>
     </div>
 </div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
 <!--<script src="../static/layui/http.js" charset="utf-8"></script>-->
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 <script src="../static/layui/jquery-3.4.1.min.js"></script>
 <script>
 
 
-    layui.use('table', function(){
+    layui.use(['table','form'], function(){
         var table = layui.table;
-        table.render({
+        var form = layui.form;
+        var dataTable = table.render({
             elem: '#test'
+            ,id: 'listReload'
             ,url: '/drugItem/findAllDrugItems/'
             ,cols: [[
+                {type: 'checkbox', fixed: 'left'},
                 {field:'itemNumber', title: '药品品目号',}
                 ,{field:'commonName', title: '通用名'}
                 ,{field:'dosageForm',title: '剂型',}
@@ -322,32 +330,88 @@
                 ,{field:'conversionCoefficientNo', title: '转换系数',}
                 ,{field:'drugCategory', title: '药品类别',}
                 ,{field:'status',title: '状态'}
-                ,{field:'wealth', title: '详细',}
-                ,{field:'classify',  title: '修改'}
-                ,{field:'classify',  title: '删除'}
-            ]]
+                ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+            ]],
+            page: true
         });
+
+        form.on('submit(formDemo)', function (data) {
+            var drugItemsDTO = JSON.stringify(data.field);
+            var formData = new FormData;
+            formData.append("drugItemsDTO",drugItemsDTO);
+            $.ajax({
+                url:'/drugItem/findAllDrugItems',
+                type:'post',
+                dataType:"json",
+                data:formData,
+                async: false,
+                processData : false, // 使数据不做处理
+                contentType : false, // 不要设置Content-Type请求头
+                success:function (date) {
+                    var result = date.data;
+                    console.log(result)
+                    table.render({
+                        elem: '#test'
+                        ,data:result
+                        ,cols: [[
+                            {type: 'checkbox', fixed: 'left'},
+                            {field:'itemNumber', title: '药品品目号',}
+                            ,{field:'commonName', title: '通用名'}
+                            ,{field:'dosageForm',title: '剂型',}
+                            ,{field:'specifications',title: '规格'}
+                            ,{field:'company',title: '单位',}
+                            ,{field:'conversionCoefficientNo', title: '转换系数',}
+                            ,{field:'drugCategory', title: '药品类别',}
+                            ,{field:'status',title: '状态'}
+                            ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                        ]],
+                        page: true
+                    });
+                }
+            })
+        });
+
+
     });
-
-
 
 
     //添加
     function insert(){
         var form = layui.form
-        layer.open({
+        var index = layer.open({
             //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
             type:1,
             title:['药品品目添加','font-size:20px;text-align:center;'],
             area: ['70%','70%'],
             content:$("#insertPage").html(),
-            success:function () {
-                form.render();
+        });
+        form.on('submit(addDrugItem)', function (data) {
+            var drugItems = JSON.stringify(data.field);
+            var formData = new FormData;
+            formData.append("drugItems",drugItems);
+            $.ajax({
+                url:'/drugItem/addAllDrugItem',
+                type:'post',
+                dataType:"json",
+                data:formData,
+                async: false,
+                processData : false, // 使数据不做处理
+                contentType : false, // 不要设置Content-Type请求头
+                success:function (date) {
+                    var res = String($.trim(date));
+                    if(res == "1"){
+                        layer.close(index);
+                        layer.msg("添加成功!");
+                        layui.table.reload("listReload");
+                    }else {
 
-
-            }
+                    }
+                }
+            })
         });
     }
+
+
     //导入
     function tolead(){
         layer.open({
@@ -358,6 +422,7 @@
             content:$("#toLead").html()
         });
     }
+
 
 
 </script>
