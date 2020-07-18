@@ -302,7 +302,7 @@
         </div>
     </div>
 </div>
-<script src="../static/layui/http.js" charset="utf-8"></script>
+<!--<script src="../static/layui/http.js" charset="utf-8"></script>-->
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 <script src="../static/layui/jquery-3.4.1.min.js"></script>
 <script>
@@ -312,7 +312,7 @@
         var table = layui.table;
         table.render({
             elem: '#test'
-            ,url: $api+'drugItem/findAllDrugItems/'
+            ,url: '/drugItem/findAllDrugItems/'
             ,cols: [[
                 {field:'itemNumber', title: '药品品目号',}
                 ,{field:'commonName', title: '通用名'}
