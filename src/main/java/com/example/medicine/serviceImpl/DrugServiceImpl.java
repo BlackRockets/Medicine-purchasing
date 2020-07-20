@@ -22,8 +22,8 @@ public class DrugServiceImpl implements DrugService {
     }
 
     @Override
-    public int selectCount() {
-        int count = drugMapper.selectCount();
+    public int selectCount(Drug recond) {
+        int count = drugMapper.selectCount(recond);
         return count;
     }
 
@@ -49,5 +49,11 @@ public class DrugServiceImpl implements DrugService {
     public int deleteByPrimaryKey(Integer id) {
         int i = drugMapper.deleteByPrimaryKey(id);
         return i;
+    }
+
+    @Override
+    public List<Drug> selectAllDrugsNo() {
+        List<Drug> drugs = drugMapper.selectAllDrugsNo();
+        return drugs;
     }
 }

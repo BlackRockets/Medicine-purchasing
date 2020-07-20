@@ -7,7 +7,7 @@ import java.util.List;
 public interface DrugService {
     List<Drug> selectAllDrugs(Drug record);
 
-    int selectCount();
+    int selectCount(Drug record);
 
     int insertSelective(Drug record);
 
@@ -16,4 +16,6 @@ public interface DrugService {
     int updateByPrimaryKeySelective(Drug record);
 
     int deleteByPrimaryKey(Integer id);
+
+    List<Drug> selectAllDrugsNo();
 }

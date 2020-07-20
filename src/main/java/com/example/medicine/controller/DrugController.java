@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,10 +35,9 @@ public class DrugController {
         drug.setPageSize(limit);
         System.out.println(drug);
         List<Drug> drugs = drugService.selectAllDrugs(drug);
-        for (Drug drug1 : drugs) {
-            System.out.println(drug1);
-        }
-        int count = drugService.selectCount();
+        System.out.println(drugs.size());
+        int count = drugService.selectCount(drug);
+        System.out.println(count);
         Map<String,Object> resultMap = new HashMap();
         resultMap.put("data",drugs);
         //状态码，成功0，失败1
@@ -55,14 +55,33 @@ public class DrugController {
     @RequestMapping(value = "addDrug",produces = {"application/json;charset=utf-8"})
     public String addDrug(@RequestBody Drug drug){
         Map<String,Object> resultMap = new HashMap();
-       /* List<DrugItems> drugItems = drugItemService.selectDrugItemsNo();
+        //无品目信息
+        List<DrugItems> drugItems = drugItemService.selectDrugItemsNo();
         for (DrugItems drugItem : drugItems) {
-            if (drug.getDosageForm().equals(drugItem.getDosageForm())){
+            if (!drug.getDosageForm().equals(drugItem.getCommonName())
+                    && !drug.getDosageFormDrug().equals(drugItem.getDosageForm())
+                    && !drug.getSpecifications().equals(drugItem.getSpecifications())
+                    && !drug.getCompany().equals(drugItem.getCompany())
+                    && !drug.getConversionCoefficientNo().equals(drugItem.getConversionCoefficientNo())){
+                resultMap.put("msg",3);
+                return JSON.toJSONString(resultMap);
+            }
+        }
+        //信息重复
+        List<Drug> drugs = drugService.selectAllDrugsNo();
+        for (Drug record : drugs) {
+            if (drug.getDosageForm().equals(record.getDosageForm())
+                    && drug.getDosageFormDrug().equals(record.getDosageFormDrug())
+                    && drug.getSpecifications().equals(record.getSpecifications())
+                    && drug.getCompany().equals(record.getCompany())
+                    && drug.getConversionCoefficientNo().equals(record.getConversionCoefficientNo())
+                    && drug.getNameOfManufacturer().equals(record.getNameOfManufacturer())
+                    && drug.getTradeName().equals(record.getTradeName())){
                 resultMap.put("msg",0);
                 resultMap.put("drug",drug);
                 return JSON.toJSONString(resultMap);
             }
-        }*/
+        }
         int i = drugService.insertSelective(drug);
         if (i == 1){
             resultMap.put("msg",1);
@@ -86,14 +105,20 @@ public class DrugController {
     @RequestMapping(value = "editDrugData",produces = {"application/json;charset=utf-8"})
     public String editDrugData(@RequestBody Drug drug){
         Map<String,Object> resultMap = new HashMap();
-        /*List<DrugItems> drugItems = drugItemService.selectDrugItemsNo();
-        for (DrugItems drugItem : drugItems) {
-            if (drug.getDosageForm().equals(drugItem.getDosageForm())){
+        List<Drug> drugs = drugService.selectAllDrugsNo();
+        for (Drug record : drugs) {
+            if (drug.getDosageForm().equals(record.getDosageForm())
+                    && drug.getDosageFormDrug().equals(record.getDosageFormDrug())
+                    && drug.getSpecifications().equals(record.getSpecifications())
+                    && drug.getCompany().equals(record.getCompany())
+                    && drug.getConversionCoefficientNo().equals(record.getConversionCoefficientNo())
+                    && drug.getNameOfManufacturer().equals(record.getNameOfManufacturer())
+                    && drug.getTradeName().equals(record.getTradeName())){
                 resultMap.put("msg",0);
                 resultMap.put("drug",drug);
                 return JSON.toJSONString(resultMap);
             }
-        }*/
+        }
         int i = drugService.updateByPrimaryKeySelective(drug);
         if (i == 1){
             resultMap.put("msg",1);
@@ -122,6 +147,16 @@ public class DrugController {
         Drug drug = drugService.selectByPrimaryKey(id);
         return JSON.toJSONString(drug);
     }
+
+    @ResponseBody
+    @RequestMapping(value = "importData",produces = {"application/json;charset=utf-8"})
+    public String importData(@RequestParam MultipartFile file){
+
+
+        return "";
+    }
+
+
 
 
 }
