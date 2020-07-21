@@ -46,9 +46,10 @@ public class DrugItemsController {
     }
 
 
-    /*@RequestMapping(value = "aaa")
+@RequestMapping(value = "aaa")
     public String aaa(){
         return "123";
-    }*/
+    }
+
 
 }
