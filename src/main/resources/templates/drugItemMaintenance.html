@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <script src="../static/layui/jquery-3.4.1.min.js"></script>
+   <!-- <script src="../static/layui/jquery-form.js"></script>-->
+    <script src="../static/layui/layui.js" charset="utf-8"></script>
     <!--监督管理  药品品目维护-->
 </head>
 <body>
@@ -102,7 +105,7 @@
                     </td>
                     <td align="center">
                         <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo" id="find">查询</button>
-                        <button type="button" class="layui-btn layui-btn-sm">导出</button>
+                        <button type="button" class="layui-btn layui-btn-sm" id="export">导出</button>
                     </td>
                 </tr>
                 </tbody>
@@ -113,7 +116,7 @@
 <div class="layui-container">
     <div class="layui-row">
         <form class="`layui-form`" action="" lay-filter="layuiadmin-app-form-list">
-            <table class="layui-hide" lay-size="sm" id="test">
+            <table class="layui-hide" lay-size="sm" id="test"  lay-filter="test">
                 <button type="button" class="layui-btn layui-btn-sm" onclick="insert()">添加</button>
                 <button type="button" class="layui-btn layui-btn-sm" onclick="tolead()"> 导入</button>
             </table>
@@ -121,7 +124,7 @@
     </div>
 </div>
 <!--添加-->
-<div class="layui-row" id="insertPage" style="display:none;">
+<div class="layui-row" id="insertPage" style="display:none;" >
     <div class="layui-col-md11" style="text-align: center">
         <form class="layui-form" lay-filter="formTestFilter2121" action="" style="margin-top: 50px">
             <div class="layui-form-item">
@@ -202,18 +205,24 @@
 <!--修改-->
 <div class="layui-row" id="updatePage" style="display:none;">
     <div class="layui-col-md11">
-        <form class="layui-form" lay-filter="formTestFilter2121" action="">
+        <form class="layui-form" lay-filter="formUpload" action="" style="text-align: center">
             <div class="layui-form-item">
+                <div class="layui-inline" style="display: none">
+                    <label class="layui-form-label">id：</label>
+                    <div class="layui-input-inline">
+                        <input type="tel" name="id"  autocomplete="off" class="layui-input">
+                    </div>
+                </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">品目号：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="itemNumber"  autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">通用名：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="commonName" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -221,13 +230,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">剂型：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="dosageForm"  autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">规格：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="specifications"  autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -235,13 +244,13 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">单位：</label>
                     <div class="layui-input-inline">
-                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        <input type="tel" name="company"  autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">转换系数：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <input type="text" name="conversionCoefficientNo" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -249,7 +258,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">药品类别：</label>
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-search="">
+                        <select name="drugCategory" lay-search="">
                             <option value="">请选择</option>
                             <option value="1">layer</option>
                             <option value="2">form</option>
@@ -260,7 +269,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">状态：</label>
                     <div class="layui-input-inline">
-                        <select name="modules" lay-verify="required" lay-search="">
+                        <select name="statu"  lay-search="">
                             <option value="">全部</option>
                             <option value="1">layer</option>
                             <option value="2">form</option>
@@ -270,8 +279,8 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button type="button" class="layui-btn layui-btn-normal">提交</button>
+                <div class="layui-input-block" align="center">
+                    <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="updateDrugItem">提交</button>
                     <button type="button" class="layui-btn layui-btn-normal" onclick="close()">关闭</button>
                 </div>
             </div>
@@ -279,47 +288,55 @@
     </div>
 </div>
 <!--导入-->
-<div class="layui-row" id="toLead" style="display:none;">
+<div class="layui-row" id="tolead" style="display:none;">
+    <form action="/drugItem/doImport" id="addZizhiForm" enctype="multipart/form-data" method="post">
     <div class="layui-col-md11" style="text-align: center">
         <div class="layui-form-item">
             下载导入模板文件
-            <a href="" style="color: red">点击下载药品品目导入模板</a>
+            <a href="#" style="color: #ff0000">点击下载药品品目导入模板</a>
         </div>
         <div class="layui-form-item">
             <p style="color: red">提示：请下载后再模板文件中录入药品品目信息，再下边的“选择文件”中选择要导入的文件，点击“导入”</p>
         </div>
         <div class="layui-form-item">
-            <div class="layui-upload">
-                <input type="file" name="file" id="">
-            </div>
+            <input type="file" name="file" id="file" >
+            <!--accept=".xlsx"-->
         </div>
+
         <div class="layui-form-item">
             <div class="layui-upload">
-                <button type="button" class="layui-btn layui-btn-sm" onclick="">导入</button>
+                <button type="button" class="layui-btn layui-btn-sm" id="uploadFile2" onclick="imPort()">导入</button>
                 <button type="button" class="layui-btn layui-btn-sm" onclick="">查看导入失败结果</button>
                 <button type="button" class="layui-btn layui-btn-sm" onclick="close()">关闭</button>
             </div>
         </div>
     </div>
+    </form>
 </div>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
-<!--<script src="../static/layui/http.js" charset="utf-8"></script>-->
-<script src="../static/layui/layui.js" charset="utf-8"></script>
-<script src="../static/layui/jquery-3.4.1.min.js"></script>
+
+
+
+</body>
 <script>
 
 
-    layui.use(['table','form'], function(){
+    layui.use(['table','form','upload'], function(){
         var table = layui.table;
         var form = layui.form;
-        var dataTable = table.render({
+        var upload = layui.upload;
+
+        //起始加载数据表格
+        var mainTable= table.render({
             elem: '#test'
             ,id: 'listReload'
             ,url: '/drugItem/findAllDrugItems/'
+            ,toolbar: 'default'
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'},
                 {field:'itemNumber', title: '药品品目号',}
@@ -329,13 +346,99 @@
                 ,{field:'company',title: '单位',}
                 ,{field:'conversionCoefficientNo', title: '转换系数',}
                 ,{field:'drugCategory', title: '药品类别',}
-                ,{field:'status',title: '状态'}
+                ,{field:'statu',title: '状态'}
                 ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
             ]],
             page: true
         });
 
+        //监听行工具事件
+        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+
+            if(layEvent === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
+
+                    })
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            }else if(layEvent === 'edit'){
+                var index = layer.open({
+                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                    type:1,
+                    title:['药品品目编辑','font-size:20px;text-align:center;'],
+                    area: ['70%','70%'],
+                    content:$("#updatePage").html(),
+                    success: function () {
+                        form.render();
+                        form.val('formUpload',{
+                            id:data.id,
+                            itemNumber:data.itemNumber,
+                            commonName:data.commonName,
+                            dosageForm:data.dosageForm,
+                            specifications:data.specifications,
+                            drugCategory:data.drugCategory,
+                            company:data.company,
+                            conversionCoefficientNo:data.conversionCoefficientNo,
+                            statu:data.statu,
+                        })
+                    }
+                });
+                form.on('submit(updateDrugItem)', function (dataEdit) {
+                    var drugItems = JSON.stringify(dataEdit.field);
+                    var formData = new FormData;
+                    formData.append("drugItems",drugItems);
+                    $.ajax({
+                        url:'/drugItem/updateDrugItem',
+                        type:'post',
+                        dataType:"json",
+                        data:formData,
+                        async: false,
+                        processData : false, // 使数据不做处理
+                        contentType : false, // 不要设置Content-Type请求头
+                        success:function (date) {
+                            var res = String($.trim(date));
+                            if(res == "1"){
+                                layer.close(index);
+                                layer.msg("修改成功!");
+                                layui.table.reload("listReload");
+                            }else {
+
+                            }
+                        }
+                    })
+                });
+            }
+        });
+
+
+        //模糊查询
         form.on('submit(formDemo)', function (data) {
+            mainTable.reload({
+                url:'/drugItem/findAllDrugItems',
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                },
+                where: {
+                    itemNumber:data.field.itemNumber,
+                    commonName:data.field.commonName,
+                    dosageForm:data.field.dosageForm,
+                    specifications:data.field.specifications,
+                    drugCategory:data.field.drugCategory,
+                    company:data.field.company,
+                    conversionCoefficientNo:data.field.conversionCoefficientNo,
+                    statu:data.field.statu,
+                }
+            })
+
+
+        });
+
+        /*form.on('submit(formDemo)', function (data) {
             var drugItemsDTO = JSON.stringify(data.field);
             var formData = new FormData;
             formData.append("drugItemsDTO",drugItemsDTO);
@@ -349,10 +452,10 @@
                 contentType : false, // 不要设置Content-Type请求头
                 success:function (date) {
                     var result = date.data;
-                    console.log(result)
                     table.render({
                         elem: '#test'
                         ,data:result
+                        ,toolbar: 'default'
                         ,cols: [[
                             {type: 'checkbox', fixed: 'left'},
                             {field:'itemNumber', title: '药品品目号',}
@@ -369,7 +472,7 @@
                     });
                 }
             })
-        });
+        });*/
 
 
     });
@@ -411,20 +514,70 @@
         });
     }
 
-
-    //导入
+    //layui 导入的两种方式 1.通过在弹出层中定义方法提交   2.通过form表单 自定义ajax提交
+    //打开导入模态框
     function tolead(){
-        layer.open({
-            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+        var index =layer.open({
             type:1,
             title:['药品品目导入','font-size:20px;text-align:center;'],
             area: ['70%','70%'],
-            content:$("#toLead").html()
+            content: $('#tolead'),
+            shade:0,  /*因为没有这个属性 ， 获取不到数据*/
+           /* btn: ["确认", "取消"],
+
+            //点击确认执行的方法
+            yes: function (index, layero) {
+                //要提交的ajax
+                var option = {
+                    url : '/drugItem/doImport',
+                    type : 'POST',
+                    dataType : 'json',
+                    //headers : {"ClientCallMode" : "ajax"}, //添加请求头部
+                    success : function(data) {
+                        var msg="";
+                        if(data.states == 1){
+                            msg="上传成功！";
+
+                        }else{
+                            msg="上传失败！";
+                        }
+                        layer.open({
+                            title:'提示'
+                            ,content: msg
+                        });
+                        //清空输入框
+                        $("#level").val("");
+                        $("#type").val("");
+                        $("#file2").val("");
+                        //关闭弹出层
+                        layer.close(index);
+                    }
+                };
+                //提交   这个依赖form-js
+                $("#addZizhiForm").ajaxSubmit(option);
+            }*/
         });
+    }
+    //导入
+    function imPort() {
+        var data = new FormData($("#addZizhiForm")[0]);
+        $.ajax({
+            url:"/drugItem/doImport",
+            type:"post",
+            data:data,
+            dataType:"json",
+            async: false,
+            processData : false, // 使数据不做处理
+            contentType : false, // 不要设置Content-Type请求头
+            success:function (date) {
+                if(data != null && "success"==date){
+                    layer.msg("导入成功!");
+                }
+            }
+        })
     }
 
 
 
 </script>
-</body>
 </html>

@@ -25,31 +25,58 @@
         ITEM_NUMBER = #{itemNumber}
       </if>
       <if test="commonName != null and commonName != ''">
-        COMMON_NAME = #{commonName}
+        and COMMON_NAME like concat('%',#{commonName},'%')
       </if>
       <if test="dosageForm != null and dosageForm != ''">
-        DOSAGE_FORM = #{dosageForm}
+        and DOSAGE_FORM like concat('%',#{dosageForm},'%')
       </if>
       <if test="specifications != null and specifications != ''">
-        SPECIFICATIONS = #{specifications}
+        and SPECIFICATIONS like concat('%',#{specifications},'%')
       </if>
       <if test="drugCategory != null and drugCategory != ''">
-        DRUG_CATEGORY = #{drugCategory}
+        and DRUG_CATEGORY = #{drugCategory}
       </if>
       <if test="company != null and company != ''">
-        COMPANY = #{company}
+        and COMPANY = #{company}
       </if>
       <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
-        CONVERSION_COEFFICIENT_No = #{conversionCoefficientNo}
+        and CONVERSION_COEFFICIENT_No = #{conversionCoefficientNo}
       </if>
       <if test="status != null and status != ''">
-        STATUS = #{status}
+        and STATUS = #{status}
       </if>
     </where>
     limit #{startrow},#{pageSize}
   </select>
-  <select id="selectCount" resultType="java.lang.Integer">
-        select count(*) from drug_items
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.example.medicine.bean.DrugItems">
+    select count(*)
+    from drug_items
+    <where>
+      <if test="itemNumber != null and itemNumber != ''">
+        ITEM_NUMBER = #{itemNumber}
+      </if>
+      <if test="commonName != null and commonName != ''">
+        and COMMON_NAME like concat('%',#{commonName},'%')
+      </if>
+      <if test="dosageForm != null and dosageForm != ''">
+        and DOSAGE_FORM like concat('%',#{dosageForm},'%')
+      </if>
+      <if test="specifications != null and specifications != ''">
+        and SPECIFICATIONS like concat('%',#{specifications},'%')
+      </if>
+      <if test="drugCategory != null and drugCategory != ''">
+        and DRUG_CATEGORY = #{drugCategory}
+      </if>
+      <if test="company != null and company != ''">
+        and COMPANY = #{company}
+      </if>
+      <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+        and CONVERSION_COEFFICIENT_No = #{conversionCoefficientNo}
+      </if>
+      <if test="status != null and status != ''">
+        and STATUS = #{status}
+      </if>
+    </where>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 'true' as QUERYID,
@@ -70,6 +97,19 @@
       #{dosageForm,jdbcType=VARCHAR}, #{specifications,jdbcType=VARCHAR}, #{drugCategory,jdbcType=VARCHAR}, 
       #{company,jdbcType=VARCHAR}, #{conversionCoefficientNo,jdbcType=VARCHAR}, #{status,jdbcType=SMALLINT}
       )
+  </insert>
+  <insert id="doImport" parameterType="java.util.List">
+    insert into drug_items (ID, ITEM_NUMBER, COMMON_NAME,
+      DOSAGE_FORM, SPECIFICATIONS, DRUG_CATEGORY,
+      COMPANY, CONVERSION_COEFFICIENT_No, STATUS
+      )
+    values
+     <foreach collection="list" item="item">
+       (#{item.id,jdbcType=INTEGER}, #{item.itemNumber,jdbcType=VARCHAR}, #{item.commonName,jdbcType=VARCHAR},
+       #{item.dosageForm,jdbcType=VARCHAR}, #{item.specifications,jdbcType=VARCHAR}, #{item.drugCategory,jdbcType=VARCHAR},
+       #{item.company,jdbcType=VARCHAR}, #{item.conversionCoefficientNo,jdbcType=VARCHAR}, #{item.status,jdbcType=SMALLINT}
+       )
+     </foreach>
   </insert>
   <insert id="insertSelective" parameterType="com.example.medicine.bean.DrugItems">
     insert into drug_items

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,24 +24,16 @@ public class DrugItemsController {
     private DrugItemsMapper drugItemsMapper;
     @ResponseBody
     @RequestMapping(value = "findAllDrugItems",produces = {"application/json;charset=utf-8"})
-    public String findAllDrugItems (@RequestParam(required = false) Integer page,@RequestParam(required = false) Integer limit, @RequestParam(required = false) String drugItemsDTO){
-        DrugItems drugItemsDTO1;
-        if(drugItemsDTO!=null && drugItemsDTO!=""){
-            JSON parse = (JSON) JSON.parse(drugItemsDTO);
-            drugItemsDTO1 = JSON.toJavaObject(parse, DrugItems.class);
-        }else{
-            drugItemsDTO1 = new DrugItems();
-        }
-
-
+    public String findAllDrugItems (@RequestParam(required = false) Integer page,@RequestParam(required = false) Integer limit,DrugItems drugItemsDTO){
+        System.out.println(drugItemsDTO);
         if(page!=null && limit!=null){
-            drugItemsDTO1.setPageNum(page);
-            drugItemsDTO1.setPageSize(limit);
+            drugItemsDTO.setPageNum(page);
+            drugItemsDTO.setPageSize(limit);
         }
 
-        List<DrugItems> drugItems = drugItemService.selectAllDrugItems(drugItemsDTO1);
+        List<DrugItems> drugItems = drugItemService.selectAllDrugItems(drugItemsDTO);
         //查询总条数
-        Integer total = drugItemsMapper.selectCount();
+        Integer total = drugItemsMapper.selectCount(drugItemsDTO);
 
         Map<String,Object> resultMap = new HashMap();
 
@@ -58,7 +51,7 @@ public class DrugItemsController {
     }
 
     @ResponseBody
-    @RequestMapping("addAllDrugItem")
+    @RequestMapping(value = "addAllDrugItem",produces = {"application/json;charset=utf-8"})
     public int addAllDrugItem(String drugItems){
         DrugItems drugItems1 = null;
         if(drugItems!=null && drugItems!=""){
@@ -69,5 +62,24 @@ public class DrugItemsController {
         return i;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "updateDrugItem",produces = {"application/json;charset=utf-8"})
+    public int updateDrugItem(String drugItems){
+        DrugItems drugItems2 = null;
+        if(drugItems!=null && drugItems!=""){
+            JSON parse = (JSON) JSON.parse(drugItems);
+            drugItems2 = JSON.toJavaObject(parse, DrugItems.class);
+        }
+        int i = drugItemService.updateDrugItem(drugItems2);
+        return i;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("doImport")
+    public String doImport(@RequestParam("file") MultipartFile file){
+        drugItemService.doImport(file);
+        return "success";
+    }
 
 }
