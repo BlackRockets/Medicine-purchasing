@@ -23,4 +23,15 @@ public interface DrugMapper {
 
     List<Drug> selectAllDrugsNo();
 
+    List<String> selectDrugCategory();
+
+    List<Drug> findAllPurchaseingDrugs(Drug record);
+
+    int selectPurchaseingDrugsCount(Drug record);
+
+
+    List<Drug> selectPurchaseDrugs(List<Integer> list);
+
+    int updatePurchaseDrugs(List<Drug> list);
+
 }

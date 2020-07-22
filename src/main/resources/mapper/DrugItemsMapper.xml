@@ -174,4 +174,8 @@
       STATUS = #{status,jdbcType=SMALLINT}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectDrugItemsNo" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from drug_items;
+  </select>
 </mapper>

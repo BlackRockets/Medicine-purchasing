@@ -24,4 +24,7 @@ public interface DrugItemsMapper {
 
     //查询总条数
     Integer selectCount();
+
+    List<DrugItems> selectDrugItemsNo();
+
 }

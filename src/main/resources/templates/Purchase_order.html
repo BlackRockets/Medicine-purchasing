@@ -36,11 +36,11 @@
         <div class="layui-inline">
             <label class="layui-form-label">采购时间</label>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="orderCreationTime" id="orderCreationTime" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="startTime" id="orderCreationTime" placeholder="" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid">-</div>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input">
+                <input type="text" name="endTime" placeholder="" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -60,25 +60,23 @@
     </div>
 </form>
 <a class="layui-btn layui-btn-sm" id="add-order-btn">添加采购单</a>
-<table class="layui-table" lay-data="{width: 100%, height:330, url:'/demo/table/user/', page:true, id:'idTest'}" lay-filter="demo">
-
-    <thead>
-    <tr>
-        <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-      <!--  <th lay-data="{field:'id', width:120, fixed: true}">ID</th>-->
-        <th lay-data="{field:'username',align:'center', width:120}">医院名称</th>
-        <th lay-data="{field:'sex',align:'center', width:120,}">采购单编号</th>
-        <th lay-data="{field:'city',align:'center', width:200}">采购单名称</th>
-        <th lay-data="{field:'sign', width:120}">开始时间</th>
-        <th lay-data="{field:'experience', width:120}">结束时间</th>
-        <th lay-data="{field:'classify', width:120}">建单时间</th>
-        <th lay-data="{field:'wealth', width:120}">提交时间</th>
-        <th lay-data="{field:'score', width:120, fixed: 'right'}">审核时间</th>
-        <th lay-data="{field:'score', width:120,fixed: 'right'}">采购单状态</th>
-        <th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">操作</th>
-    </tr>
-    </thead>
-</table>
+<!--表格-->
+<div class="layui-container">
+    <div class="layui-row">
+        <form class="layui-form" action="">
+            <table class="layui-hide" lay-size="sm" id="demo" lay-filter="test">
+                <button type="button" class="layui-btn layui-btn-sm" onclick="insert()">添加</button>
+                <button type="button"  class="layui-btn layui-btn-sm" onclick="tolead()">导入</button>
+            </table>
+        </form>
+    </div>
+</div>
+<!--操作-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" >编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 <!--弹出添加界面-->
 <div id="add-order-layer" style="display: none;padding: 20px">
     <form id="add-order-form" class="layui-form ">
@@ -372,37 +370,41 @@
                     </div>
                 </div>
             </form>
-        </div>
+ </div>
 
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-</script>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['jquery', 'table', 'layer', 'form'], function() {
-        // 加载layui模块，使用其推荐的【预先加载】方式，详见官网【模块规范】一节
-        var $ = layui.$;
-        var table = layui.table;
-        var layer = layui.layer;
+    layui.use(['form', 'layedit', 'laydate','table','laypage','element'], function() {
         var form = layui.form;
+        var table = layui.table;//表格
+        var laypage = layui.laypage;//分页
+        var element = layui.element;
+        var laydate=layui.laydate;
+        var upload=layui.upload;
+        $ = layui.$;
 
         // 显示所有用户
-        table.render({
-            elem: '#user-tbl',
-            url: 'user/all',
-            method: 'get',
-            cols: [[
-                {field: 'account', title: '账户'},
-                {field: 'password', title: '密码'},
-                {field: 'name', title: '姓名'},
-                {field: 'info', title: '信息'},
-                {toolbar: '#user-tbl-toolbar', title: '操作'}
+        var tableIns =table.render({
+            elem: '#demo'
+            ,height: 300
+            ,method: 'post'
+            ,url: '/purchaseOrder/findAllPurchaseOrder/' //数据接口
+            ,toolbar: 'true'
+            ,cols: [[ //表头
+                {field:'serialUmber', title: '医院名称', width:90, fixed: 'left'}
+                ,{field:'purchaseOrderNumber', title: '采购单编号', width:80}
+                ,{field:'nameOfPurchaseOrder',title: '采购单名称', width: 90}
+                ,{field:'orderCreationTime',title: '建单时间', width:150}
+                ,{field:'lastModifiedTime',title: '修改时间', width: 80}
+                ,{field:'submissionTime', title: '提交时间',width:100}
+                ,{field:'auditTime', title: '审核时间', width:100}
+                ,{field:'purchaseOrderStatus', title: '采购单状态', width: 100}
+                ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
             ]],
-            // 表格容器id，用于表格重载
-            id: 'user-tbl',
-        });
+            page: true
+            ,limit: 5
+            ,limits: [5,10,15]
+        })
         // 显示添加用户弹出层
         $('#add-order-btn').click(function () {
             // 每次显示前重置表单

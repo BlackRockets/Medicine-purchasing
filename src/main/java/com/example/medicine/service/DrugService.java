@@ -18,4 +18,16 @@ public interface DrugService {
     int deleteByPrimaryKey(Integer id);
 
     List<Drug> selectAllDrugsNo();
+
+    List<String> selectDrugCategory();
+
+    List<Drug> findAllPurchaseingDrugs(Drug record);
+
+    int selectPurchaseingDrugsCount(Drug record);
+
+    int deletePurchaseDrugs(Integer[] integers);
+
+    List<Drug> selectPurchaseDrugs(List<Integer> integers);
+
+    int updatePurchaseDrugs(List<Drug> integers);
 }

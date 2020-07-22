@@ -29,6 +29,11 @@
     <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription" />
     <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
     <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus" />
+    <result column="FLAG" jdbcType="INTEGER" property="flag" />
+    <association property="vendor_information" javaType="com.example.medicine.bean.Vendor_Information">
+      <id column="SUPPLIER_ID" jdbcType="INTEGER" property="supplierId" />
+      <result column="NAME_OF_ENTERPRISE" jdbcType="VARCHAR" property="nameOfEnterprise" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     ID, SERIAL_UMBER, DOSAGE_FORM, DOSAGE_FORM_DRUG, SPECIFICATIONS, CONVERSION_COEFFICIENT_no, 
@@ -446,4 +451,127 @@
     select <include refid="Base_Column_List"/>
     from drug
   </select>
+  <select id="selectDrugCategory">
+    select distinct DRUG_CATEGORY  from drug
+  </select>
+
+
+  <select id="findAllPurchaseingDrugs" resultMap="BaseResultMap">
+    select d.*,b.name_of_enterprise
+    from drug d
+    join supplier_drug s on d.id = s.drug_information_id
+    join vendor_information b on s.enterprise_id = b.supplier_id
+    <where>
+      <if test="serialUmber != null and serialUmber != ''">
+        and SERIAL_UMBER like  CONCAT("%",#{serialUmber},"%")
+      </if>
+      <if test="dosageForm != null and dosageForm != ''">
+        and DOSAGE_FORM like  CONCAT("%",#{dosageForm},"%")
+      </if>
+      <if test="dosageFormDrug != null and dosageFormDrug != ''">
+        and DOSAGE_FORM_DRUG like  CONCAT("%",#{dosageFormDrug},"%")
+      </if>
+      <if test="specifications != null and specifications != ''">
+        and SPECIFICATIONS like  CONCAT("%",#{specifications},"%")
+      </if>
+      <if test="company != null and company != ''">
+        and COMPANY like  CONCAT("%",#{company},"%")
+      </if>
+      <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+        and CONVERSION_COEFFICIENT_no like  CONCAT("%",#{conversionCoefficientNo},"%")
+      </if>
+      <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+        and NAME_OF_MANUFACTURER like  CONCAT("%",#{nameOfManufacturer},"%")
+      </if>
+      <if test="tradeName != null and tradeName != ''">
+        and TRADE_NAME like  CONCAT("%",#{tradeName},"%")
+      </if>
+      <if test="qualityLevel != null and qualityLevel != ''">
+        and QUALITY_LEVEL like  CONCAT("%",#{qualityLevel},"%")
+      </if>
+      <if test="drugCategory != null and drugCategory != ''">
+        and DRUG_CATEGORY like  CONCAT("%",#{drugCategory},"%")
+      </if>
+      <if test="startPrice != null and endPrice != null">
+        and BID_PRICE between #{startPrice} and #{endPrice}
+      </if>
+      and DRUG_TRADE_STATUS = 1
+      and FLAG = 1
+    </where>
+    limit #{pageNum},#{pageSize}
+  </select>
+
+  <select id="selectPurchaseingDrugsCount" resultType="java.lang.Integer">
+    select count(*)
+    from drug d
+    join supplier_drug s on d.id = s.drug_information_id
+    join vendor_information b on s.enterprise_id = b.supplier_id
+    <where>
+      <if test="serialUmber != null and serialUmber != ''">
+        and SERIAL_UMBER like  CONCAT("%",#{serialUmber},"%")
+      </if>
+      <if test="dosageForm != null and dosageForm != ''">
+        and DOSAGE_FORM like  CONCAT("%",#{dosageForm},"%")
+      </if>
+      <if test="dosageFormDrug != null and dosageFormDrug != ''">
+        and DOSAGE_FORM_DRUG like  CONCAT("%",#{dosageFormDrug},"%")
+      </if>
+      <if test="specifications != null and specifications != ''">
+        and SPECIFICATIONS like  CONCAT("%",#{specifications},"%")
+      </if>
+      <if test="company != null and company != ''">
+        and COMPANY like  CONCAT("%",#{company},"%")
+      </if>
+      <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+        and CONVERSION_COEFFICIENT_no like  CONCAT("%",#{conversionCoefficientNo},"%")
+      </if>
+      <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+        and NAME_OF_MANUFACTURER like  CONCAT("%",#{nameOfManufacturer},"%")
+      </if>
+      <if test="tradeName != null and tradeName != ''">
+        and TRADE_NAME like  CONCAT("%",#{tradeName},"%")
+      </if>
+      <if test="qualityLevel != null and qualityLevel != ''">
+        and QUALITY_LEVEL like  CONCAT("%",#{qualityLevel},"%")
+      </if>
+      <if test="drugCategory != null and drugCategory != ''">
+        and DRUG_CATEGORY like  CONCAT("%",#{drugCategory},"%")
+      </if>
+      <if test="startPrice != null and endPrice != null">
+        and BID_PRICE between #{startPrice} and #{endPrice}
+      </if>
+        and DRUG_TRADE_STATUS = 1
+        and FLAG = 1
+    </where>
+  </select>
+
+
+  <select id="selectPurchaseDrugs" resultMap="BaseResultMap">
+    select d.*,b.*
+    from drug d
+    join supplier_drug s on d.id = s.drug_information_id
+    join vendor_information b on s.enterprise_id = b.supplier_id
+    where id in
+    <foreach collection="list" index="index" item="item" open="("
+             separator="," close=")">
+         #{item}
+    </foreach>
+  </select>
+
+  <update id="updatePurchaseDrugs" parameterType="java.util.List">
+    update drug set FLAG = 2
+    where id in
+    <foreach collection="list" open="(" separator="," close=")" item="d">
+      #{d.id}
+    </foreach>
+  </update>
+
+
+
+
+
+
+
+
+
 </mapper>

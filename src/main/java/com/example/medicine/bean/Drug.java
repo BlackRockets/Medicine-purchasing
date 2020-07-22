@@ -57,6 +57,46 @@ public class Drug {
 
     private Integer drugTradeStatus;
 
+    private Double startPrice;
+
+    private Double endPrice;
+
+    private Integer flag;
+
+    public Integer getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Integer flag) {
+        this.flag = flag;
+    }
+
+    private Vendor_Information vendor_information;
+
+    public Vendor_Information getVendor_information() {
+        return vendor_information;
+    }
+
+    public void setVendor_information(Vendor_Information vendor_information) {
+        this.vendor_information = vendor_information;
+    }
+
+    public Double getStartPrice() {
+        return startPrice;
+    }
+
+    public void setStartPrice(Double startPrice) {
+        this.startPrice = startPrice;
+    }
+
+    public Double getEndPrice() {
+        return endPrice;
+    }
+
+    public void setEndPrice(Double endPrice) {
+        this.endPrice = endPrice;
+    }
+
     //页码
     private Integer pageNum;
 
@@ -183,6 +223,47 @@ public class Drug {
 
     public String getCommonNamePinyin() {
         return commonNamePinyin;
+    }
+
+    @Override
+    public String toString() {
+        return "Drug{" +
+                "id=" + id +
+                ", serialUmber='" + serialUmber + '\'' +
+                ", dosageForm='" + dosageForm + '\'' +
+                ", dosageFormDrug='" + dosageFormDrug + '\'' +
+                ", specifications='" + specifications + '\'' +
+                ", conversionCoefficientNo='" + conversionCoefficientNo + '\'' +
+                ", nameOfManufacturer='" + nameOfManufacturer + '\'' +
+                ", tradeName='" + tradeName + '\'' +
+                ", bidPrice='" + bidPrice + '\'' +
+                ", company='" + company + '\'' +
+                ", commonNamePinyin='" + commonNamePinyin + '\'' +
+                ", productPhotos='" + productPhotos + '\'' +
+                ", approvalNumber='" + approvalNumber + '\'' +
+                ", validityPeriodOfApprovalNumber='" + validityPeriodOfApprovalNumber + '\'' +
+                ", importedDrugs=" + importedDrugs +
+                ", packingMaterial='" + packingMaterial + '\'' +
+                ", packagingUnit='" + packagingUnit + '\'' +
+                ", latestRetailPrice=" + latestRetailPrice +
+                ", retailPriceSource='" + retailPriceSource + '\'' +
+                ", qualityLevel='" + qualityLevel + '\'' +
+                ", qualityLevelDescription='" + qualityLevelDescription + '\'' +
+                ", drugInspectionReport=" + drugInspectionReport +
+                ", drugInspectionReportNo='" + drugInspectionReportNo + '\'' +
+                ", validityPeriodOfDrugInspectionReport=" + validityPeriodOfDrugInspectionReport +
+                ", productDescription='" + productDescription + '\'' +
+                ", drugCategory='" + drugCategory + '\'' +
+                ", drugTradeStatus=" + drugTradeStatus +
+                ", startPrice=" + startPrice +
+                ", endPrice=" + endPrice +
+                ", flag=" + flag +
+                ", vendor_information=" + vendor_information +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", startrow=" + startrow +
+                ", total=" + total +
+                '}';
     }
 
     public void setCommonNamePinyin(String commonNamePinyin) {

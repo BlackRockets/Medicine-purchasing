@@ -96,7 +96,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">质量层次：</label>
                             <div class="layui-input-inline">
-                                <select  style="margin-top: 20%" name="qualityLevel"  lay-search="">
+                                <select  style="margin-top: 20%" name="qualityLevel" lay-filter="qualityLevel">
                                     <option value="">全部</option>
                                     <option value="国家一类新药">国家一类新药</option>
                                     <option value="国家科学进步奖">国家科学进步奖</option>
@@ -158,7 +158,7 @@
         <form class="layui-form" action="">
             <table class="layui-hide" lay-size="sm" id="demo" lay-filter="test">
                 <button type="button" class="layui-btn layui-btn-sm" onclick="insert()">添加</button>
-                <button type="button" id="importData" class="layui-btn layui-btn-sm" onclick="tolead()">导入</button>
+                <button type="button"  class="layui-btn layui-btn-sm" onclick="tolead()">导入</button>
             </table>
         </form>
     </div>
@@ -365,12 +365,12 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-upload">
-                <input type="file" name="file" id="">
+                <input type="file" name="file" id="file">
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-upload">
-                <button type="button" class="layui-btn layui-btn-sm" onclick="">导入</button>
+                <button id="importData" class="layui-btn" onclick="importData()">导入</button>
                 <button type="button" class="layui-btn layui-btn-sm" onclick="">查看导入失败结果</button>
                 <button type="button" class="layui-btn layui-btn-sm"  aria-hidden="true" onclick="close2()">关闭</button>
             </div>
@@ -764,7 +764,6 @@
         $ = layui.$;
 
 
-
        //监听Tab切换
         element.on('tab(demo)', function(data){
             layer.tips('切换了 '+ data.index +'：'+ this.innerHTML, this, {
@@ -783,7 +782,8 @@
 
 
         //执行一个 table 实例
-       table.render({
+
+       var tableIns =table.render({
             elem: '#demo'
             ,height: 300
             ,method: 'post'
@@ -801,7 +801,7 @@
                 ,{field: 'bidPrice', title: '中标价', width: 90}
                 ,{field:'qualityLevel', title: '质量层次',width: 150}
                 ,{field:'drugCategory', title: '药品类别',width: 90}
-                ,{field:'drugTradeStatus',title: '状态',width: 90}
+                ,{field:'drugTradeStatus',title: '状态',width: 90,templet: function(d){if(d.drugTradeStatus == 1) return "正常";else if(d.drugTradeStatus == 2) return "取消";}}
                 ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
             ]],
             page: true
@@ -853,85 +853,37 @@
                        content:$("#tishi").html()
                    });
                    layui.layer.close(indexInsert);
+                   window.parent.location.reload();
                }
             });
         })
 
        //条件查询
        form.on('submit(conditionSubmit)', function(data) {
-           console.log(data.field)
-           $.ajax({
-               url: "/drug/findAllDrugs?page=1&&limit=5",
-               type: "post",
-               data: data.field,
-               dataType: "json",
-               success: function (data) {
-                   var result =data.data;
-                   var counts =data.count;
-                   console.log(counts)
-                   table.render({
-                       elem: '#demo'
-                       ,height: 300
-                       ,title: '用户表'
-                       ,data: result
-                       ,cols: [[ //表头
-                           {field:'serialUmber', title: '流水号', width:90, fixed: 'left'}
-                           ,{field:'dosageForm', title: '通用名', width:80}
-                           ,{field:'dosageFormDrug',title: '剂型', width: 90}
-                           ,{field:'specifications',title: '规格', width:150}
-                           ,{field:'company',title: '单位', width: 80}
-                           ,{field:'conversionCoefficientNo', title: '转换系数',width:100}
-                           ,{field:'nameOfManufacturer', title: '生产企业', width:100}
-                           ,{field:'tradeName', title: '商品名称', width: 100}
-                           ,{field: 'bidPrice', title: '中标价', width: 90}
-                           ,{field:'qualityLevel', title: '质量层次',width: 150}
-                           ,{field:'drugCategory', title: '药品类别',width: 90}
-                           ,{field:'drugTradeStatus',title: '状态',width: 90}
-                           ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
-                       ]],
-                       page:true
-                       ,count: counts
-                       ,limit: 5
-                       ,limits: [5,10,15]
-                   })
+           tableIns.reload({
+               url: '/drug/findAllDrugs/'
+               ,page: {
+                   curr: 1 //重新从第 1 页开始
                }
+               ,where:{
+                   serialUmber: data.field.serialUmber
+                   ,dosageForm: data.field.dosageForm
+                   ,dosageFormDrug: data.field.dosageFormDrug
+                   ,specifications: data.field.specifications
+                   ,company: data.field.company
+                   ,conversionCoefficientNo: data.field.conversionCoefficientNo
+                   ,nameOfManufacturer: data.field.nameOfManufacturer
+                   ,tradeName: data.field.tradeName
+                   ,dosageFormDrug: data.field.dosageFormDrug
+                   ,qualityLevel:data.field.qualityLevel
+                   ,drugCategory: data.field.drugCategory
+                   ,drugTradeStatus: data.field.drugTradeStatus
+                   ,startPrice: data.field.startPrice
+                   ,startPricedata: data.field.startPricedata
+               }
+           });
 
-           })
        })
-
-       //导入
-       upload.render({
-           elem: "#importData",//导入id
-           url: "/drug/importData",
-           size: '3072',
-           accept: "file",
-           exts: 'xls|xlsx|xlsm|xlt|xltx|xltm',
-           done: function (result) {
-               if (result.status == 0) {
-                   refreshTable()
-               }
-               if (result.message != null) {
-                   refreshTable();
-                   layer.msg(result.message)
-               }
-           }
-       });
-
-       //模板下载
-       function downloadTemplate() {
-           $.ajax({
-               type: "post", url: "/drug/downloadTemplate", data: {}, success: function (result) {
-                   if (result.status == 0) {
-                       window.open(result.data)
-                   }
-                   if (result.message != null) {
-                       layer.msg(result.message)
-                   }
-               }, error: function (XMLHttpRequest, textStatus, errorThrown) {
-                   layer.msg('{"status":"' + XMLHttpRequest.status + '","readyState":"' + XMLHttpRequest.readyState + '","textStatus":"' + textStatus + '","errorThrown":"' + errorThrown + '"}')
-               }
-           })
-       }
 
        //修改提交
        form.on('submit(editSubmit)', function(data){
@@ -959,6 +911,7 @@
                    });
 
                    layui.layer.close(indexEdit);
+                   window.location.reload();
                }
 
            });
@@ -976,7 +929,7 @@
                    success:function (data) {
                       indexSearch=layer.open({
                            type:1,
-                           title:['药品信息添加','font-size:20px;text-align:center;'],
+                           title:['药品信息查看','font-size:20px;text-align:center;'],
                            area: ['70%','70%'],
                            content:$("#searchPage").html(),
                            success: function(){
@@ -1035,14 +988,10 @@
                });
            } else if(layEvent === 'edit'){
                //编辑
-              $.ajax({
-                   url: "/drug/editDrug?id="+obj.data.id,
-                   type: "get",
-                   success:function (data) {
-                       indexEdit=layer.open({
-                           //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+            indexEdit=layer.open({
+                //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
                            type:1,
-                           title:['药品信息添加','font-size:20px;text-align:center;'],
+                           title:['药品信息编辑','font-size:20px;text-align:center;'],
                            area: ['70%','70%'],
                            content:$("#updatePage").html(),
                            success: function(){
@@ -1075,8 +1024,6 @@
                                })
                            }
                        })
-                   }
-               })
            }
        });
 
@@ -1107,6 +1054,50 @@
             content:$("#toLead").html()
         });
     }
+
+    function importData() {
+       console.log(1)
+        layui.use([ "element", "laypage", "layer", "upload"], function() {
+            var element = layui.element;
+            var laypage = layui.laypage;
+            var layer = layui.layer;
+            var upload = layui.upload;//主要是这个
+            layui.upload.render({
+                elem: "#importData",//导入id
+                url: "/drug/importData",
+                size: '3072',
+                accept: "file",
+                exts: 'xls|xlsx|xlsm|xlt|xltx|xltm',
+                /*done: function (result) {
+                    if (result.status == 0) {
+                        refreshTable()
+                    }
+                    if (result.message != null) {
+                        refreshTable();
+                        layer.msg(result.message)
+                    }
+                }*/
+            });
+
+           refreshTable();
+        });
+    }
+
+   //模板下载
+   function downloadTemplate() {
+       $.ajax({
+           type: "post", url: "/drug/downloadTemplate", data: {}, success: function (result) {
+               if (result.status == 0) {
+                   window.open(result.data)
+               }
+               if (result.message != null) {
+                   layer.msg(result.message)
+               }
+           }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+               layer.msg('{"status":"' + XMLHttpRequest.status + '","readyState":"' + XMLHttpRequest.readyState + '","textStatus":"' + textStatus + '","errorThrown":"' + errorThrown + '"}')
+           }
+       })
+   }
     function close1() {
         layui.layer.close(indexInsert);
     }

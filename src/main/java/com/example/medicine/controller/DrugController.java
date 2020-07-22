@@ -33,11 +33,9 @@ public class DrugController {
     public String findAllDrugs(@RequestParam("page")Integer page,@RequestParam("limit")Integer limit,Drug drug){
         drug.setPageNum(page);
         drug.setPageSize(limit);
-        System.out.println(drug);
         List<Drug> drugs = drugService.selectAllDrugs(drug);
-        System.out.println(drugs.size());
+
         int count = drugService.selectCount(drug);
-        System.out.println(count);
         Map<String,Object> resultMap = new HashMap();
         resultMap.put("data",drugs);
         //状态码，成功0，失败1
@@ -149,13 +147,17 @@ public class DrugController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "importData",produces = {"application/json;charset=utf-8"})
+    @RequestMapping(value = "importData")
     public String importData(@RequestParam MultipartFile file){
-
-
+        System.out.println(file);
         return "";
     }
-
+    @ResponseBody
+    @RequestMapping(value = "drugCategory")
+    public String selectDrugCategory(){
+        List<String> strings = drugService.selectDrugCategory();
+        return JSON.toJSONString(strings);
+    }
 
 
 

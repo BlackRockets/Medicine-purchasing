@@ -358,7 +358,7 @@
         var laypage = layui.laypage;
         var element = layui.element;
         var layedit = layui.layedit;
-        table.render({
+        var tableIns=table.render({
             elem: '#demo'
             ,height: 300
             ,method: 'post'
@@ -376,7 +376,7 @@
                 ,{field: 'bidPrice', title: '中标价', width: 90}
                 ,{field:'qualityLevel', title: '质量层次',width: 150}
                 ,{field:'drugCategory', title: '药品类别',width: 90}
-                ,{field:'drugTradeStatus',title: '状态',width: 90}
+                ,{field:'drugTradeStatus',title: '状态',width: 90,templet: function(d){if(d.drugTradeStatus == 1) return "正常";else if(d.drugTradeStatus == 2) return "取消";}}
                 ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
             ]],
             page: true
@@ -436,44 +436,40 @@
 
         //条件查询
         form.on('submit(conditionSubmit)', function(data) {
-            console.log(data.field)
-            $.ajax({
-                url: "/drug/findAllDrugs?page=1&&limit=5",
-                type: "post",
-                data: data.field,
-                dataType: "json",
-                success: function (data) {
-                    var result =data.data;
-                    var counts =data.count;
-                    console.log(counts)
-                    table.render({
-                        elem: '#demo'
-                        ,height: 300
-                        ,title: '用户表'
-                        ,data: result
-                        ,cols: [[ //表头
-                            {field:'serialUmber', title: '流水号', width:90, fixed: 'left'}
-                            ,{field:'dosageForm', title: '通用名', width:80}
-                            ,{field:'dosageFormDrug',title: '剂型', width: 90}
-                            ,{field:'specifications',title: '规格', width:150}
-                            ,{field:'company',title: '单位', width: 80}
-                            ,{field:'conversionCoefficientNo', title: '转换系数',width:100}
-                            ,{field:'nameOfManufacturer', title: '生产企业', width:100}
-                            ,{field:'tradeName', title: '商品名称', width: 100}
-                            ,{field: 'bidPrice', title: '中标价', width: 90}
-                            ,{field:'qualityLevel', title: '质量层次',width: 150}
-                            ,{field:'drugCategory', title: '药品类别',width: 90}
-                            ,{field:'drugTradeStatus',title: '状态',width: 90}
-                            ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
-                        ]],
-                        page:true
-                        ,count: counts
-                        ,limit: 5
-                        ,limits: [5,10,15]
-                    })
-                }
 
-            })
+            tableIns.reload({
+                url: '/drug/findAllDrugs/',
+                where:{
+                    serialUmber: data.field.serialUmber
+                    ,dosageForm: data.field.dosageForm
+                    ,dosageFormDrug: data.field.dosageFormDrug
+                    ,specifications: data.field.specifications
+                    ,company: data.field.company
+                    ,conversionCoefficientNo: data.field.conversionCoefficientNo
+                    ,nameOfManufacturer: data.field.nameOfManufacturer
+                    ,tradeName: data.field.tradeName
+                    ,dosageFormDrug: data.field.dosageFormDrug
+                    ,qualityLevel:data.field.qualityLevel
+                    ,drugCategory: data.field.drugCategory
+                    ,drugTradeStatus: data.field.drugTradeStatus
+                    ,startPrice: data.field.startPrice
+                    ,endPrice: data.field.endPrice
+                },cols: [[ //表头
+                    {field:'serialUmber', title: '流水号', width:90, fixed: 'left'}
+                    ,{field:'dosageForm', title: '通用名', width:80}
+                    ,{field:'dosageFormDrug',title: '剂型', width: 90}
+                    ,{field:'specifications',title: '规格', width:150}
+                    ,{field:'company',title: '单位', width: 80}
+                    ,{field:'conversionCoefficientNo', title: '转换系数',width:100}
+                    ,{field:'nameOfManufacturer', title: '生产企业', width:100}
+                    ,{field:'tradeName', title: '商品名称', width: 100}
+                    ,{field: 'bidPrice', title: '中标价', width: 90}
+                    ,{field:'qualityLevel', title: '质量层次',width: 150}
+                    ,{field:'drugCategory', title: '药品类别',width: 90}
+                    ,{field:'drugTradeStatus',title: '状态',width: 90}
+                    ,{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}
+                ]]
+            });
         })
 
     });

@@ -26,4 +26,10 @@ public class DrugItemServiceImpl implements DrugItemService {
         List<DrugItems> drugItems = drugItemsMapper.selectDrugItems(drugItemsdto);
         return drugItems;
     }
+
+    @Override
+    public List<DrugItems> selectDrugItemsNo() {
+        List<DrugItems> drugItems = drugItemsMapper.selectDrugItemsNo();
+        return drugItems;
+    }
 }
