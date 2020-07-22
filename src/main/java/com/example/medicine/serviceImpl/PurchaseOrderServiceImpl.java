@@ -28,9 +28,17 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
-    public PageInfo<PurchaseOrder> selectAllPurchaseOrder(Integer pageNum, Integer pageSize, String purchaseOrderNumber, String nameOfPurchaseOrder, Integer hospitalId, Integer purchaseOrderStatus) {
+    public PageInfo<PurchaseOrder> selectAllPurchaseOrder(Integer pageNum, Integer pageSize,PurchaseOrder purchaseOrder) {
         PageHelper.startPage(pageNum, pageSize);
-        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.selectAllPurchaseOrder(purchaseOrderNumber, purchaseOrderNumber, hospitalId, purchaseOrderStatus);
+        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.selectAllPurchaseOrder(purchaseOrder);
+        PageInfo<PurchaseOrder> info = new PageInfo<>(purchaseOrders);
+        return info;
+    }
+
+    @Override
+    public PageInfo<PurchaseOrder> selectAllPurchaseOrderWarehousing(Integer pageNum, Integer pageSize, String purchaseOrderNumber, String nameOfPurchaseOrder, Integer hospitalId, Integer purchaseOrderStatus) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.selectAllPurchaseOrderWarehousing(purchaseOrderNumber, purchaseOrderNumber, hospitalId, purchaseOrderStatus);
         PageInfo<PurchaseOrder> info = new PageInfo<>(purchaseOrders);
         return info;
     }
@@ -45,5 +53,11 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public int update(PurchaseOrder purchaseOrder) {
         int update = purchaseOrderMapper.updateByPrimaryKey(purchaseOrder);
         return update;
+    }
+
+    @Override
+    public int updatePurchaseStatus(Integer purchaseOrderStatus) {
+        int i= purchaseOrderMapper.updateByPrimaryKeySelective(purchaseOrderStatus);
+        return i;
     }
 }

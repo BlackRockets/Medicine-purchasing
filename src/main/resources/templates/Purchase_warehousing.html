@@ -20,19 +20,19 @@
             <div class="layui-inline">
                 <label class="layui-form-label">采购单编号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">采购单名称</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">采购单状态</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -44,7 +44,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">发票号或入库单号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -56,13 +56,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">结束采购时间</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">药品流水号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -80,13 +80,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label">规格</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">单位</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -98,19 +98,19 @@
             <div class="layui-inline">
                 <label class="layui-form-label">生产企业</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">商品名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">药品类别</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -126,16 +126,16 @@
             <div class="layui-inline">
                 <label class="layui-form-label">商品批号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">供应商</label>
                 <div class="layui-input-block">
-                    <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                    <input type="text" name="date"  autocomplete="off" class="layui-input">
                 </div>
             </div>
-            <div class="layui-row">
+            <div class="layui-inline">
                 <div class="layui-col-xs6" style="text-align: right">
                     <button class="layui-btn" lay-submit="" lay-filter="">查询</button>
                 </div>
@@ -150,30 +150,30 @@
 <div class="layui-container">
     <div class="layui-row">
         <table lay-size="sm" class="layui-table"
-               lay-data="{url:'/demo/table/user/', page:true, id:'test'}"
+               lay-data="{url:'/PurchaseWarehousing/findAllPurchaseOrder', page:true, id:'test'}"
                lay-filter="test">
             <thead>
             <tr>
                 <th lay-data="{type:'checkbox',align:'center'}"></th>
-                <th lay-data="{field:'id',align:'center',width:60}">序号</th>
-                <th lay-data="{field:'username',align:'center', }">采购单编号</th>
-                <th lay-data="{field:'sex',align:'center', }">采购单名称</th>
-                <th lay-data="{field:'RserialUmber',align:'center',width:80}">流水号</th>
-                <th lay-data="{field:'dosageForm',align:'center',width:80 }">通用名</th>
-                <th lay-data="{field:'experience',align:'center',width:80}">商品名</th>
-                <th lay-data="{field:'bidPrice',align:'center',width:80}">中标价</th>
-                <th lay-data="{field:'transactionPrice',align:'center',width:80 }">交易价</th>
-                <th lay-data="{field:'purchaseVolume', align:'center',width:80 }">采购量</th>
+                <th lay-data="{field:'id',align:'center'}">序号</th>
+                <th lay-data="{field:'purchaseOrderNumber',align:'center', }">采购单编号</th>
+                <th lay-data="{field:'nameOfPurchaseOrder',align:'center', }">采购单名称</th>
+                <th lay-data="{field:'serialUmber',align:'center'}">流水号</th>
+                <th lay-data="{field:'dosageForm',align:'center'}">通用名</th>
+                <th lay-data="{field:'experience',align:'center'}">商品名</th>
+                <th lay-data="{field:'bidPrice',align:'center'}">中标价</th>
+                <th lay-data="{field:'transactionPrice',align:'center'}">交易价</th>
+                <th lay-data="{field:'purchaseVolume', align:'center'}">采购量</th>
                 <th lay-data="{field:'purchaseAmount',align:'center' }">采购金额</th>
-                <th lay-data="{field:'purchasingStatus', align:'center',width:80 }">入库量</th>
+                <th lay-data="{field:'purchasingStatus', align:'center'}">入库量</th>
                 <th lay-data="{field:'invoiceNumber',align:'center'  }">实际交易金额</th>
                 <th lay-data="{field:'invoiceNumber', align:'center' }">发票号或入库单号</th>
                 <th lay-data="{field:'drugBatchNumber', align:'center' }">药品批号</th>
-                <th lay-data="{field:'ValidityPeriodOfDrug', align:'center' }">药品有效期</th>
-                <th lay-data="{field:'score', align:'center',width:60 }">剂量</th>
-                <th lay-data="{field:'score', align:'center',width:60 }">规格</th>
-                <th lay-data="{field:'score', align:'center',width:60}">单位</th>
-                <th lay-data="{field:'score', align:'center'}">转换系数</th>
+                <th lay-data="{field:'validityPeriodOfDrug', align:'center' }">药品有效期</th>
+                <th lay-data="{field:'dosageFormDrug', align:'center'}">剂量</th>
+                <th lay-data="{field:'specifications', align:'center'}">规格</th>
+                <th lay-data="{field:'company', align:'center'}">单位</th>
+                <th lay-data="{field:'conversionCoefficientNo', align:'center'}">转换系数</th>
             </tr>
             </thead>
         </table>
@@ -190,19 +190,66 @@
 
         // 显示所有用户
         table.render({
-            elem: '#user-tbl',
-            url: 'user/all',
+            elem: '#test',
+            url: '/PurchaseWarehousing/findAllPurchaseOrder/',
             method: 'get',
             cols: [[
-                {field: 'account', title: '账户'},
-                {field: 'password', title: '密码'},
-                {field: 'name', title: '姓名'},
-                {field: 'info', title: '信息'},
-                {toolbar: '#user-tbl-toolbar', title: '操作'}
+                {field: 'purchaseId', title: '采购单id',style:'display: none'},
+                {field: 'purchaseOrderNumber', title: '采购单编号'},
+                {field: 'nameOfPurchaseOrder', title: '采购单名称'},
+                {field: 'serialUmber', title: '流水号'},
+                {field: 'dosageForm', title: '通用名'},
+                {field: 'experience', title: '商品名'},
+                {field: 'bidPrice', title: '中标价'},
+                {field: 'transactionPrice', title: '交易价'},
+                {field: 'purchaseVolume',templet:'<div>{{d.htd.purchaseVolume}}</div>', title: '采购量'},
+                {field: 'purchaseAmount', title: '采购金额'},
+                {field: 'purchasingStatus', title: '入库量'},
+                {field: 'invoiceNumber', title: '实际交易金额'},
+                {field: 'invoiceNumber', title: '发票号或入库单号'},
+                {field: 'drugBatchNumber', title: '药品批号'},
+                {field: 'validityPeriodOfDrug', title: '药品有效期'},
+                {field: 'dosageFormDrug', title: '剂量'},
+                {field: 'specifications', title: '规格'},
+                {field: 'company', title: '单位'},
+                {field: 'conversionCoefficientNo', title: '转换系数'},
+
             ]],
             // 表格容器id，用于表格重载
-            id: 'user-tbl',
+            id: 'test',
+            page:true,
         });
+/*        table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+
+            if(layEvent === 'del'){
+                layer.confirm('确认入库吗', function(index){
+                    $.ajax({
+                        type:'post',
+                        dataType:"json",
+                        url:'/PurchaseWarehousing/updateAllPurchaseOrder/'
+                        data:{purchaseId:data.purchaseId},
+                        async: false,
+                        processData : false, // 使数据不做处理
+                        contentType : false, // 不要设置Content-Type请求头
+                        success:function (date) {
+                            var res = String($.trim(date));
+                            if(res == "1"){
+                                layer.close(index);
+                                layer.msg("入库成功!");
+                                layui.table.reload("test");
+                            }else {
+
+                            }
+                        }
+                    })
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            }
+        });*/
     })
 </script>
 </body>

@@ -16,7 +16,7 @@
         <result property="reviewer" column="reviewer" jdbcType="VARCHAR"/>
         <result property="auditOpinion" column="audit_opinion" jdbcType="VARCHAR"/>
         <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
-        <association property="hospital_transaction_details" javaType="com.example.medicine.bean.Hospital_Transaction_Details">
+        <association property="htd" javaType="com.example.medicine.bean.Hospital_Transaction_Details">
             <result property="hospitalTransactionDetailsId" column="hospital_transaction_details_id" jdbcType="INTEGER"/>
             <result property="purchaseOrderId" column="purchase_order_id" jdbcType="INTEGER"/>
             <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
@@ -63,7 +63,7 @@
          select
         purchase_id,purchase_order_number,name_of_purchase_order,hospital_id,contacts,contact_number,
         order_creation_time,last_modified_time,submission_time,remarks,purchase_order_status,reviewer,
-        audit_opinion,audit_time from purchase_order
+        audit_opinion,audit_time from purchase_order where purchase_order_status=1
          <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
              and  purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
          </if>
@@ -77,6 +77,32 @@
              and  hospital_id =#{hospitalId}
          </if>
      </select>
+    <select id="selectAllPurchaseOrderWarehousing" resultMap="PurchaseOrderMap">
+        select
+        p.purchase_id,p.purchase_order_number,p.name_of_purchase_order,p.hospital_id,p.contacts,p.contact_number,
+        p.order_creation_time,p.last_modified_time,p.submission_time,p.remarks,p.purchase_order_status,p.reviewer,
+        p.audit_opinion,p.audit_time,h.hospital_transaction_details_id, h.purchase_order_id,
+        h.drug_information_id, h.supplier_id, h.bid_price,
+        h.transaction_price, h.purchase_volume, h.purchasing_status,
+        h.storage_volume, h.purchase_amount, h.return_order_id,
+        h.return_order_number, h.return_goods, h.warehousing_amount,
+        h.invoice_number, h.drug_batch_number, h.Validity_period_of_drug,
+        h.warehousing, h.reason_for_return, h.return_status,
+        h.statement_of_account_id, h.settlement_volume,
+        h.settlement_amount, h.settlement_status from purchase_order p,hospital_transaction_details h where p.purchase_id=h.purchase_order_id and p.purchase_order_status=3
+        <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+            and  purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+            and  name_of_purchase_order like CONCAT("%",#{nameOfPurchaseOrder,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="purchaseOrderStatus != null and purchaseOrderStatus != ''">
+            and  purchase_order_status =#{purchaseOrderStatus}
+        </if>
+        <if test="hospitalId != null and hospitalId != ''">
+            and  hospital_id =#{hospitalId}
+        </if>
+    </select>
     <!--通过实体作为筛选条件查询-->
     <select id="queryAllPurchaseOrder" resultMap="PurchaseOrderMap">
         select
@@ -142,7 +168,6 @@
         insert into medicine.purchase_order(purchase_order_number, name_of_purchase_order, hospital_id, contacts, contact_number, order_creation_time, last_modified_time, submission_time, remarks, purchase_order_status, reviewer, audit_opinion, audit_time)
         values (#{purchaseOrderNumber}, #{nameOfPurchaseOrder}, #{hospitalId}, #{contacts}, #{contactNumber}, #{orderCreationTime}, #{lastModifiedTime}, #{submissionTime}, #{remarks}, #{purchaseOrderStatus}, #{reviewer}, #{auditOpinion}, #{auditTime})
     </insert>
-
     <!--通过主键修改数据-->
     <update id="updateByPrimaryKey" parameterType="com.example.medicine.bean.PurchaseOrder">
         update medicine.purchase_order

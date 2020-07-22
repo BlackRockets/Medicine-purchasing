@@ -194,13 +194,6 @@ public class PurchaseOrder {
 
     private String reviewer;
 
-    public Hospital_Transaction_Details getHospital_transaction_details() {
-        return hospital_transaction_details;
-    }
-
-    public void setHospital_transaction_details(Hospital_Transaction_Details hospital_transaction_details) {
-        this.hospital_transaction_details = hospital_transaction_details;
-    }
 
     private String auditOpinion;
 
@@ -214,10 +207,18 @@ public class PurchaseOrder {
 
     private Date auditTime;
 
-    private Hospital_Transaction_Details hospital_transaction_details;
+    private Hospital_Transaction_Details htd;
 
     private Integer recoreds;
 
+    public Hospital_Transaction_Details getHtd() {
+        return htd;
+    }
+
+
+    public void setHtd(Hospital_Transaction_Details htd) {
+        this.htd = htd;
+    }
 
 
 }
