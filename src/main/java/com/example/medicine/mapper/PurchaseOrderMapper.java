@@ -12,12 +12,17 @@ import java.util.Map;
 @Component
 public interface PurchaseOrderMapper {
 
-    List<PurchaseOrder> selectAllPurchaseOrder(
+    List<PurchaseOrder> queryAllPurchaseOrder(
             @Param("purchaseOrderNumber") String purchaseOrderNumber,
             @Param("nameOfPurchaseOrder") String nameOfPurchaseOrder,
             @Param("nameOfHospital") String nameOfHospital,
             @Param("purchaseOrderStatus") Integer purchaseOrderStatus,
             @Param("supplierId") Integer supplierId);
+    List<PurchaseOrder> selectAllPurchaseOrder(
+            @Param("purchaseOrderNumber") String purchaseOrderNumber,
+            @Param("nameOfPurchaseOrder") String nameOfPurchaseOrder,
+            @Param("hospitalId") Integer hospitalId,
+            @Param("purchaseOrderStatus") Integer purchaseOrderStatus);
 
     int countAll();
 

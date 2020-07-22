@@ -59,9 +59,26 @@
         from medicine.purchase_order
         limit #{offset}, #{limit}
     </select>
-
+     <select id="selectAllPurchaseOrder" resultMap="PurchaseOrderMap">
+         select
+        purchase_id,purchase_order_number,name_of_purchase_order,hospital_id,contacts,contact_number,
+        order_creation_time,last_modified_time,submission_time,remarks,purchase_order_status,reviewer,
+        audit_opinion,audit_time from purchase_order
+         <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+             and  purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
+         </if>
+         <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+             and  name_of_purchase_order like CONCAT("%",#{nameOfPurchaseOrder,jdbcType=VARCHAR},"%")
+         </if>
+         <if test="purchaseOrderStatus != null and purchaseOrderStatus != ''">
+             and  purchase_order_status =#{purchaseOrderStatus}
+         </if>
+         <if test="hospitalId != null and hospitalId != ''">
+             and  hospital_id =#{hospitalId}
+         </if>
+     </select>
     <!--通过实体作为筛选条件查询-->
-    <select id="selectAllPurchaseOrder" resultMap="PurchaseOrderMap">
+    <select id="queryAllPurchaseOrder" resultMap="PurchaseOrderMap">
         select
         p.purchase_id, p.purchase_order_number, p.name_of_purchase_order, p.hospital_id, p.contacts, p.contact_number,
         p.order_creation_time, p.last_modified_time, p.submission_time, p.remarks, p.purchase_order_status, p.reviewer,
@@ -127,7 +144,7 @@
     </insert>
 
     <!--通过主键修改数据-->
-    <update id="update">
+    <update id="updateByPrimaryKey" parameterType="com.example.medicine.bean.PurchaseOrder">
         update medicine.purchase_order
         <set>
             <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">

@@ -11,7 +11,7 @@ import java.util.Map;
 public interface PurchaseOrderService {
 
 
-     PageInfo<PurchaseOrder> selectAllPurchaseOrder(
+     PageInfo<PurchaseOrder> queryAllPurchaseOrder(
                                                     Integer pageNum,
                                                     Integer pageSize,
                                                     String purchaseOrderNumber,
@@ -19,5 +19,14 @@ public interface PurchaseOrderService {
                                                     String nameOfHospital,
                                                     Integer purchaseOrderStatus,
                                                     Integer supplierId);
+     PageInfo<PurchaseOrder> selectAllPurchaseOrder(
+             Integer pageNum,
+             Integer pageSize,
+             String purchaseOrderNumber,
+             String nameOfPurchaseOrder,
+             Integer hospitalId,
+             Integer purchaseOrderStatus);
 
+     int insert(PurchaseOrder purchaseOrder);
+     int update(PurchaseOrder purchaseOrder);
 }

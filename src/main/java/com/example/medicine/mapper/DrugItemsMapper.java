@@ -2,10 +2,11 @@ package com.example.medicine.mapper;
 
 import com.example.medicine.bean.DrugItems;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
 public interface DrugItemsMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -23,5 +24,8 @@ public interface DrugItemsMapper {
     List<DrugItems> selectDrugItems(DrugItems drugItemsdto);
 
     //查询总条数
-    Integer selectCount();
+    Integer selectCount(DrugItems drugItems);
+
+    //导入
+    int doImport(List<DrugItems> drugItemsList);
 }

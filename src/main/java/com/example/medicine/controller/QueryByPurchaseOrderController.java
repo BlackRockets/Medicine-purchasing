@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-@RequestMapping("purchaseOrder")
+@RequestMapping("queryPurchaseOrder")
 public class QueryByPurchaseOrderController {
    @Autowired
     private PurchaseOrderService purchaseOrderService;
@@ -24,7 +24,7 @@ public class QueryByPurchaseOrderController {
     public String findAllPurchaseOrder(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
                                        String purchaseOrderNumber,String nameOfPurchaseOrder,
                                        String nameOfHospital,Integer purchaseOrderStatus,Integer supplierId){
-        PageInfo<PurchaseOrder> pageInfo=purchaseOrderService.selectAllPurchaseOrder(pageNum,5,purchaseOrderNumber, nameOfPurchaseOrder, nameOfHospital, purchaseOrderStatus, supplierId);
+        PageInfo<PurchaseOrder> pageInfo=purchaseOrderService.queryAllPurchaseOrder(pageNum,5,purchaseOrderNumber, nameOfPurchaseOrder, nameOfHospital, purchaseOrderStatus, supplierId);
         JSONObject obj = new JSONObject();
         obj.put("code",0);
         obj.put("msg","");

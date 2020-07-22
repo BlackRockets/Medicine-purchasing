@@ -2,8 +2,8 @@
 spring:
   datasource:
     name: medicine
-    url: jdbc:mysql://localhost:3306/medicine?serverTimezone=GMT&characterEncoding=utf-8
-    username: root
+    url: jdbc:mysql://192.168.0.188:3306/medicine?serverTimezone=GMT&characterEncoding=utf-8
+    username: yan
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
