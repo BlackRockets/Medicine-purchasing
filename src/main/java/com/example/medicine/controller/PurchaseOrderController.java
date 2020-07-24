@@ -24,6 +24,7 @@ public class PurchaseOrderController {
     @RequestMapping(value = "findAllPurchaseOrder",produces = {"application/json;charset=utf-8"})
     public String findAllPurchaseOrder(@RequestParam(value = "pageNum", defaultValue = "1", required = false) Integer pageNum,
                                        PurchaseOrder purchaseOrder){
+        System.out.println(purchaseOrder.getPurchaseOrderNumber());
         PageInfo<PurchaseOrder> pageInfo=purchaseOrderService.selectAllPurchaseOrder(pageNum,5, purchaseOrder);
         JSONObject obj = new JSONObject();
         obj.put("code",0);

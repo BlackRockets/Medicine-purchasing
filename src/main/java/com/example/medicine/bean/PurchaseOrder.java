@@ -7,81 +7,47 @@ public class PurchaseOrder {
 
     private int purchaseId;
 
-    public Date getOrderCreationTime() {
-        return orderCreationTime;
-    }
-
-    public void setOrderCreationTime(Date orderCreationTime) {
-        this.orderCreationTime = orderCreationTime;
-    }
-
-    public String getPurchaseOrderNumber() {
-        return purchaseOrderNumber;
-    }
-
-    public void setPurchaseOrderNumber(String purchaseOrderNumber) {
-        this.purchaseOrderNumber = purchaseOrderNumber;
-    }
-
     private String purchaseOrderNumber;
 
     private Date orderCreationTime;
 
     private String nameOfPurchaseOrder;
 
-    public Integer getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getBeginNum() {
-        return beginNum;
-    }
-
-    public void setBeginNum(Integer beginNum) {
-        this.beginNum = beginNum;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    private  int hospitalId;
+    private int hospitalId;
 
     private String contacts;
 
     private String contactNumber;
 
+    private Date orderModifiedTime;
 
-    private Integer pageNum;
+    private Date lastModifiedTime;
 
-    public String getContactNumber() {
-        return contactNumber;
-    }
+    private Date submissionTime;
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
+    private String remarks;
 
-    private Integer pageSize;
+    private String purchaseOrderStatus;
 
-    private Integer beginNum;
+    private String reviewer;
 
+    private String auditOpinion;
+
+    private Date auditTime;
+
+    private Hospital_Transaction_Details htd;
+
+    private Integer recoreds;
+
+    private Integer pageNum = 1;
+
+    //每页条数
+    private Integer pageSize = 10;
+
+    //起始条数
+    private Integer startrow;
+
+    //总套数
     private Integer total;
 
     public int getPurchaseId() {
@@ -92,6 +58,21 @@ public class PurchaseOrder {
         this.purchaseId = purchaseId;
     }
 
+    public String getPurchaseOrderNumber() {
+        return purchaseOrderNumber;
+    }
+
+    public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+        this.purchaseOrderNumber = purchaseOrderNumber;
+    }
+
+    public Date getOrderCreationTime() {
+        return orderCreationTime;
+    }
+
+    public void setOrderCreationTime(Date orderCreationTime) {
+        this.orderCreationTime = orderCreationTime;
+    }
 
     public String getNameOfPurchaseOrder() {
         return nameOfPurchaseOrder;
@@ -117,6 +98,13 @@ public class PurchaseOrder {
         this.contacts = contacts;
     }
 
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
     public Date getOrderModifiedTime() {
         return orderModifiedTime;
@@ -182,20 +170,13 @@ public class PurchaseOrder {
         this.auditTime = auditTime;
     }
 
-    private Date orderModifiedTime;
+    public Hospital_Transaction_Details getHtd() {
+        return htd;
+    }
 
-    private Date lastModifiedTime;
-
-    private Date submissionTime;
-
-    private String remarks;
-
-    private String purchaseOrderStatus;
-
-    private String reviewer;
-
-
-    private String auditOpinion;
+    public void setHtd(Hospital_Transaction_Details htd) {
+        this.htd = htd;
+    }
 
     public Integer getRecoreds() {
         return recoreds;
@@ -205,20 +186,35 @@ public class PurchaseOrder {
         this.recoreds = recoreds;
     }
 
-    private Date auditTime;
-
-    private Hospital_Transaction_Details htd;
-
-    private Integer recoreds;
-
-    public Hospital_Transaction_Details getHtd() {
-        return htd;
+    public Integer getPageNum() {
+        return pageNum;
     }
 
-
-    public void setHtd(Hospital_Transaction_Details htd) {
-        this.htd = htd;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
     }
 
+    public Integer getPageSize() {
+        return pageSize;
+    }
 
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getStartrow() {
+        return startrow;
+    }
+
+    public void setStartrow(Integer startrow) {
+        this.startrow = startrow;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 }

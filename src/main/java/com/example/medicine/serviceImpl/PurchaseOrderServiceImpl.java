@@ -28,7 +28,19 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     }
 
     @Override
-    public PageInfo<PurchaseOrder> selectAllPurchaseOrder(Integer pageNum, Integer pageSize,PurchaseOrder purchaseOrder) {
+    public List<PurchaseOrder> queryAllPurchaseOrder(PurchaseOrder purchaseOrder) {
+        Integer pageNum = purchaseOrder.getPageNum();
+        Integer pageSize = purchaseOrder.getPageSize();
+        if (pageNum != null && pageSize != null) {
+            Integer startrow = (pageNum - 1) * pageSize;
+            purchaseOrder.setStartrow(startrow);
+        }
+        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.queryAllPurchaseOrder(purchaseOrder);
+        return purchaseOrders;
+    }
+
+    @Override
+    public PageInfo<PurchaseOrder> selectAllPurchaseOrder(Integer pageNum, Integer pageSize, PurchaseOrder purchaseOrder) {
         PageHelper.startPage(pageNum, pageSize);
         List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.selectAllPurchaseOrder(purchaseOrder);
         PageInfo<PurchaseOrder> info = new PageInfo<>(purchaseOrders);
@@ -57,7 +69,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Override
     public int updatePurchaseStatus(Integer purchaseOrderStatus) {
-        int i= purchaseOrderMapper.updateByPrimaryKeySelective(purchaseOrderStatus);
+        int i = purchaseOrderMapper.updateByPrimaryKeySelective(purchaseOrderStatus);
         return i;
     }
 }
