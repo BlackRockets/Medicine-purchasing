@@ -92,16 +92,6 @@ public class DrugServiceImpl implements DrugService {
 
     @Override
     public int updatePurchaseDrugs(List<Drug> drugs) {
-        for (Drug drug : drugs) {
-            if (drug.getFlag() == 1){
-                drug.setFlag(2);
-            }else if (drug.getFlag() == 2){
-                drug.setFlag(1);
-            }
-        }
-        for (Drug drug : drugs) {
-            System.out.println(drug.getFlag());
-        }
 
         int i = drugMapper.updatePurchaseDrugs(drugs);
         return i;

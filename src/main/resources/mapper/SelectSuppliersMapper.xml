@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.SelectSuppliersMapper">
+  <resultMap id="BaseResultMap" type="com.example.medicine.bean.Drug">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber" />
+    <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm" />
+    <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="CONVERSION_COEFFICIENT_no" jdbcType="VARCHAR" property="conversionCoefficientNo" />
+    <result column="NAME_OF_MANUFACTURER" jdbcType="VARCHAR" property="nameOfManufacturer" />
+    <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName" />
+    <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice" />
+    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+    <result column="COMMON_NAME_PINYIN" jdbcType="VARCHAR" property="commonNamePinyin" />
+    <result column="PRODUCT_PHOTOS" jdbcType="VARCHAR" property="productPhotos" />
+    <result column="APPROVAL_NUMBER" jdbcType="VARCHAR" property="approvalNumber" />
+    <result column="VALIDITY_PERIOD_OF_APPROVAL_NUMBER" jdbcType="VARCHAR" property="validityPeriodOfApprovalNumber" />
+    <result column="IMPORTED_DRUGS" jdbcType="INTEGER" property="importedDrugs" />
+    <result column="PACKING_MATERIAL" jdbcType="VARCHAR" property="packingMaterial" />
+    <result column="PACKAGING_UNIT" jdbcType="VARCHAR" property="packagingUnit" />
+    <result column="LATEST_RETAIL_PRICE" jdbcType="DOUBLE" property="latestRetailPrice" />
+    <result column="RETAIL_PRICE_SOURCE" jdbcType="VARCHAR" property="retailPriceSource" />
+    <result column="QUALITY_LEVEL" jdbcType="VARCHAR" property="qualityLevel" />
+    <result column="QUALITY_LEVEL_DESCRIPTION" jdbcType="VARCHAR" property="qualityLevelDescription" />
+    <result column="DRUG_INSPECTION_REPORT" jdbcType="INTEGER" property="drugInspectionReport" />
+    <result column="DRUG_INSPECTION_REPORT_NO" jdbcType="VARCHAR" property="drugInspectionReportNo" />
+    <result column="VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT" jdbcType="TIMESTAMP" property="validityPeriodOfDrugInspectionReport" />
+    <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription" />
+    <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
+    <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus" />
+    <result column="FLAG" jdbcType="INTEGER" property="flag" />
+    <result column="SUPPLIER_FLAG" jdbcType="INTEGER" property="supplierFlag" />
+    <association property="vendor_information" javaType="com.example.medicine.bean.Vendor_Information">
+      <id column="SUPPLIER_ID" jdbcType="INTEGER" property="supplierId" />
+      <result column="NAME_OF_ENTERPRISE" jdbcType="VARCHAR" property="nameOfEnterprise" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SERIAL_UMBER, DOSAGE_FORM, DOSAGE_FORM_DRUG, SPECIFICATIONS, CONVERSION_COEFFICIENT_no, 
+    NAME_OF_MANUFACTURER, TRADE_NAME, BID_PRICE, COMPANY, COMMON_NAME_PINYIN, PRODUCT_PHOTOS, 
+    APPROVAL_NUMBER, VALIDITY_PERIOD_OF_APPROVAL_NUMBER, IMPORTED_DRUGS, PACKING_MATERIAL, 
+    PACKAGING_UNIT, LATEST_RETAIL_PRICE, RETAIL_PRICE_SOURCE, QUALITY_LEVEL, QUALITY_LEVEL_DESCRIPTION, 
+    DRUG_INSPECTION_REPORT, DRUG_INSPECTION_REPORT_NO, VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT, 
+    PRODUCT_DESCRIPTION, DRUG_CATEGORY, DRUG_TRADE_STATUS, FLAG, SUPPLIER_FLAG
+  </sql>
+  <select id="selectAllDrugs" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from drug
+    <where>
+      <if test="serialUmber != null and serialUmber != ''">
+        and SERIAL_UMBER like  CONCAT("%",#{serialUmber},"%")
+      </if>
+      <if test="dosageForm != null and dosageForm != ''">
+        and DOSAGE_FORM like  CONCAT("%",#{dosageForm},"%")
+      </if>
+      <if test="dosageFormDrug != null and dosageFormDrug != ''">
+        and DOSAGE_FORM_DRUG like  CONCAT("%",#{dosageFormDrug},"%")
+      </if>
+      <if test="specifications != null and specifications != ''">
+        and SPECIFICATIONS like  CONCAT("%",#{specifications},"%")
+      </if>
+      <if test="company != null and company != ''">
+        and COMPANY like  CONCAT("%",#{company},"%")
+      </if>
+      <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+        and CONVERSION_COEFFICIENT_no like  CONCAT("%",#{conversionCoefficientNo},"%")
+      </if>
+      <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+        and NAME_OF_MANUFACTURER like  CONCAT("%",#{nameOfManufacturer},"%")
+      </if>
+      <if test="tradeName != null and tradeName != ''">
+        and TRADE_NAME like  CONCAT("%",#{tradeName},"%")
+      </if>
+      <if test="qualityLevel != null and qualityLevel != ''">
+        and QUALITY_LEVEL like  CONCAT("%",#{qualityLevel},"%")
+      </if>
+      <if test="drugCategory != null and drugCategory != ''">
+        and DRUG_CATEGORY like  CONCAT("%",#{drugCategory},"%")
+      </if>
+      <if test="drugTradeStatus != null and drugTradeStatus != ''">
+        and DRUG_TRADE_STATUS like  CONCAT("%",#{drugTradeStatus},"%")
+      </if>
+      <if test="startPrice != null and endPrice != null">
+        and BID_PRICE between #{startPrice} and #{endPrice}
+      </if>
+      and SUPPLIER_FLAG = 1
+    </where>
+    limit #{pageNum},#{pageSize}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*)
+    from drug
+    <where>
+      <if test="serialUmber != null and serialUmber != ''">
+        and SERIAL_UMBER like  CONCAT("%",#{serialUmber},"%")
+      </if>
+      <if test="dosageForm != null and dosageForm != ''">
+        and DOSAGE_FORM like  CONCAT("%",#{dosageForm},"%")
+      </if>
+      <if test="dosageFormDrug != null and dosageFormDrug != ''">
+        and DOSAGE_FORM_DRUG like  CONCAT("%",#{dosageFormDrug},"%")
+      </if>
+      <if test="specifications != null and specifications != ''">
+        and SPECIFICATIONS like  CONCAT("%",#{specifications},"%")
+      </if>
+      <if test="company != null and company != ''">
+        and COMPANY like  CONCAT("%",#{company},"%")
+      </if>
+      <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+        and CONVERSION_COEFFICIENT_no like  CONCAT("%",#{conversionCoefficientNo},"%")
+      </if>
+      <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+        and NAME_OF_MANUFACTURER like  CONCAT("%",#{nameOfManufacturer},"%")
+      </if>
+      <if test="tradeName != null and tradeName != ''">
+        and TRADE_NAME like  CONCAT("%",#{tradeName},"%")
+      </if>
+      <if test="qualityLevel != null and qualityLevel != ''">
+        and QUALITY_LEVEL like  CONCAT("%",#{qualityLevel},"%")
+      </if>
+      <if test="drugCategory != null and drugCategory != ''">
+        and DRUG_CATEGORY like  CONCAT("%",#{drugCategory},"%")
+      </if>
+      <if test="drugTradeStatus != null and drugTradeStatus != ''">
+        and DRUG_TRADE_STATUS like  CONCAT("%",#{drugTradeStatus},"%")
+      </if>
+      <if test="startPrice != null and endPrice != null">
+        and BID_PRICE between #{startPrice} and #{endPrice}
+      </if>
+      and SUPPLIER_FLAG = 1
+    </where>
+  </select>
+
+  <update id="updateBatch" parameterType="java.util.List">
+    update drug set SUPPLIER_FLAG = 2
+    where id in
+    <foreach collection="list" open="(" separator="," close=")" item="d">
+      #{d.id}
+    </foreach>
+  </update>
+
+  <select id="selectBatch" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from drug
+    where id in
+    <foreach collection="list" index="index" item="item" open="("
+             separator="," close=")">
+      #{item}
+    </foreach>
+  </select>
+
+  <select id="selectById" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List"/>
+    from  drug
+    where id = #{id}
+  </select>
+
+</mapper>

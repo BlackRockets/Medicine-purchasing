@@ -784,7 +784,8 @@
         //执行一个 table 实例
 
        var tableIns =table.render({
-            elem: '#demo'
+             id: 'demo'
+            ,elem: '#demo'
             ,height: 300
             ,method: 'post'
             ,url: '/drug/findAllDrugs/' //数据接口
@@ -853,7 +854,7 @@
                        content:$("#tishi").html()
                    });
                    layui.layer.close(indexInsert);
-                   window.parent.location.reload();
+                   table.reload("tabledemo");
                }
             });
         })
@@ -882,7 +883,6 @@
                    ,startPricedata: data.field.startPricedata
                }
            });
-
        })
 
        //修改提交
@@ -909,9 +909,8 @@
                        area: ['60%','60%'],
                        content:$("#tishi").html()
                    });
-
                    layui.layer.close(indexEdit);
-                   window.location.reload();
+                   table.reload("tabledemo");
                }
 
            });

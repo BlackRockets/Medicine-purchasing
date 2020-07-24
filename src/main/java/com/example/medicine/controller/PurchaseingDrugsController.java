@@ -29,8 +29,6 @@ public class PurchaseingDrugsController {
     @ResponseBody
     @RequestMapping(value = "findAllPurchaseingDrugs",produces = {"application/json;charset=utf-8"})
     public String findAllPurchaseingDrugs(@RequestParam("page")Integer page, @RequestParam("limit")Integer limit, Drug drug){
-
-
         drug.setPageNum(page);
         drug.setPageSize(limit);
         List<Drug> drugs = drugService.findAllPurchaseingDrugs(drug);
@@ -56,7 +54,7 @@ public class PurchaseingDrugsController {
         List<Drug> selectDrugs = drugService.selectPurchaseDrugs(integers);
         //先批量修改
         int update = drugService.updatePurchaseDrugs(selectDrugs);
-        //先批量天极爱按
+        //先批量天
         int insert = hospitalProcurementOfDrugsService.insertBatch(selectDrugs);
 
         Map<String,Object> resultMap = new HashMap();

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.SupplierDrugListControlMapper">
+    <resultMap id="BaseResultMap" type="com.example.medicine.bean.SupplierDrugListControl">
+        <id column="SUPPLIER_DRUG_LIST_CONTROL_ID" jdbcType="INTEGER" property="supplierDrugListControlId" />
+        <result column="OPINIONS_OF_SUPERVISION_ORGANIZATION" jdbcType="VARCHAR" property="opinionsOfSupervisionOrganization" />
+        <result column="DRUG_INFORMATION_ID" jdbcType="VARCHAR" property="drugInformationId" />
+        <result column="SUPERVISION_ORGANIZATION_CONTROL_STATUS" jdbcType="VARCHAR" property="supervisionOrganizationControlStatus" />
+        <association property="drug" javaType="com.example.medicine.bean.Drug">
+            <id column="ID" jdbcType="INTEGER" property="id" />
+            <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber" />
+            <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm" />
+            <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug" />
+            <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+            <result column="CONVERSION_COEFFICIENT_no" jdbcType="VARCHAR" property="conversionCoefficientNo" />
+            <result column="NAME_OF_MANUFACTURER" jdbcType="VARCHAR" property="nameOfManufacturer" />
+            <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName" />
+            <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice" />
+            <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+            <result column="COMMON_NAME_PINYIN" jdbcType="VARCHAR" property="commonNamePinyin" />
+            <result column="PRODUCT_PHOTOS" jdbcType="VARCHAR" property="productPhotos" />
+            <result column="APPROVAL_NUMBER" jdbcType="VARCHAR" property="approvalNumber" />
+            <result column="VALIDITY_PERIOD_OF_APPROVAL_NUMBER" jdbcType="VARCHAR" property="validityPeriodOfApprovalNumber" />
+            <result column="IMPORTED_DRUGS" jdbcType="INTEGER" property="importedDrugs" />
+            <result column="PACKING_MATERIAL" jdbcType="VARCHAR" property="packingMaterial" />
+            <result column="PACKAGING_UNIT" jdbcType="VARCHAR" property="packagingUnit" />
+            <result column="LATEST_RETAIL_PRICE" jdbcType="DOUBLE" property="latestRetailPrice" />
+            <result column="RETAIL_PRICE_SOURCE" jdbcType="VARCHAR" property="retailPriceSource" />
+            <result column="QUALITY_LEVEL" jdbcType="VARCHAR" property="qualityLevel" />
+            <result column="QUALITY_LEVEL_DESCRIPTION" jdbcType="VARCHAR" property="qualityLevelDescription" />
+            <result column="DRUG_INSPECTION_REPORT" jdbcType="INTEGER" property="drugInspectionReport" />
+            <result column="DRUG_INSPECTION_REPORT_NO" jdbcType="VARCHAR" property="drugInspectionReportNo" />
+            <result column="VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT" jdbcType="TIMESTAMP" property="validityPeriodOfDrugInspectionReport" />
+            <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription" />
+            <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
+            <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus" />
+            <result column="FLAG" jdbcType="INTEGER" property="flag" />
+            <result column="SUPPLIER_FLAG" jdbcType="INTEGER" property="supplierFlag" />
+        </association>
+        <association property="vendor_information" javaType="com.example.medicine.bean.Vendor_Information">
+            <id column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+            <result column="name_of_enterprise" jdbcType="VARCHAR" property="nameOfEnterprise" />
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+      SUPPLIER_DRUG_LIST_CONTROL_ID, OPINIONS_OF_SUPERVISION_ORGANIZATION, DRUG_INFORMATION_ID, SUPERVISION_ORGANIZATION_CONTROL_STATUS
+    </sql>
+
+
+    <select id="selectAllDrugs" resultMap="BaseResultMap">
+        select *
+        from drug d
+        join supplier_drug_list_control s on d.id = s.drug_information_id
+        join vendor_information v on s.enterprise_id = v.supplier_id
+        <where>
+          <if test="drug.serialUmber != null and drug.serialUmber != ''">
+            and SERIAL_UMBER like  CONCAT("%",#{drug.serialUmber},"%")
+          </if>
+          <if test="drug.dosageForm != null and drug.dosageForm != ''">
+            and DOSAGE_FORM like  CONCAT("%",#{drug.dosageForm},"%")
+          </if>
+          <if test="drug.dosageFormDrug != null and drug.dosageFormDrug != ''">
+            and DOSAGE_FORM_DRUG like  CONCAT("%",#{drug.dosageFormDrug},"%")
+          </if>
+          <if test="drug.specifications != null and drug.specifications != ''">
+            and SPECIFICATIONS like  CONCAT("%",#{drug.specifications},"%")
+          </if>
+          <if test="drug.company != null and drug.company != ''">
+            and COMPANY like  CONCAT("%",#{drug.company},"%")
+          </if>
+          <if test="drug.conversionCoefficientNo != null and drug.conversionCoefficientNo != ''">
+            and CONVERSION_COEFFICIENT_no like  CONCAT("%",#{drug.conversionCoefficientNo},"%")
+          </if>
+          <if test="drug.nameOfManufacturer != null and drug.nameOfManufacturer != ''">
+            and NAME_OF_MANUFACTURER like  CONCAT("%",#{drug.nameOfManufacturer},"%")
+          </if>
+          <if test="drug.tradeName != null and drug.tradeName != ''">
+            and TRADE_NAME like  CONCAT("%",#{drug.tradeName},"%")
+          </if>
+          <if test="drug.qualityLevel != null and drug.qualityLevel != ''">
+            and QUALITY_LEVEL like  CONCAT("%",#{drug.qualityLevel},"%")
+          </if>
+          <if test="drug.drugCategory != null and drug.drugCategory != ''">
+            and DRUG_CATEGORY like  CONCAT("%",#{drug.drugCategory},"%")
+          </if>
+          <if test="drug.drugTradeStatus != null and drug.drugTradeStatus != ''">
+            and DRUG_TRADE_STATUS like  CONCAT("%",#{drug.drugTradeStatus},"%")
+          </if>
+          <if test="drug.startPrice != null and drug.endPrice != null">
+            and BID_PRICE between #{drug.startPrice} and #{drug.endPrice}
+          </if>
+          <if test="vendor_information.nameOfEnterprise != null and vendor_information.nameOfEnterprise != null">
+            and DRUG_TRADE_STATUS like  CONCAT("%",#{vendor_information.nameOfEnterprise},"%")
+          </if>
+          <if test="supervisionOrganizationControlStatus != null and supervisionOrganizationControlStatus != null">
+            and SUPERVISION_ORGANIZATION_CONTROL_STATUS like  CONCAT("%",#{supervisionOrganizationControlStatus},"%")
+          </if>
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+      select count(*)
+      from drug d
+      join supplier_drug_list_control s on d.id = s.drug_information_id
+      join vendor_information v on s.enterprise_id = v.supplier_id
+      <where>
+        <if test="drug.serialUmber != null and drug.serialUmber != ''">
+          and SERIAL_UMBER like  CONCAT("%",#{drug.serialUmber},"%")
+        </if>
+        <if test="drug.dosageForm != null and drug.dosageForm != ''">
+          and DOSAGE_FORM like  CONCAT("%",#{drug.dosageForm},"%")
+        </if>
+        <if test="drug.dosageFormDrug != null and drug.dosageFormDrug != ''">
+          and DOSAGE_FORM_DRUG like  CONCAT("%",#{drug.dosageFormDrug},"%")
+        </if>
+        <if test="drug.specifications != null and drug.specifications != ''">
+          and SPECIFICATIONS like  CONCAT("%",#{drug.specifications},"%")
+        </if>
+        <if test="drug.company != null and drug.company != ''">
+          and COMPANY like  CONCAT("%",#{drug.company},"%")
+        </if>
+        <if test="drug.conversionCoefficientNo != null and drug.conversionCoefficientNo != ''">
+          and CONVERSION_COEFFICIENT_no like  CONCAT("%",#{drug.conversionCoefficientNo},"%")
+        </if>
+        <if test="drug.nameOfManufacturer != null and drug.nameOfManufacturer != ''">
+          and NAME_OF_MANUFACTURER like  CONCAT("%",#{drug.nameOfManufacturer},"%")
+        </if>
+        <if test="drug.tradeName != null and drug.tradeName != ''">
+          and TRADE_NAME like  CONCAT("%",#{drug.tradeName},"%")
+        </if>
+        <if test="drug.qualityLevel != null and drug.qualityLevel != ''">
+          and QUALITY_LEVEL like  CONCAT("%",#{drug.qualityLevel},"%")
+        </if>
+        <if test="drug.drugCategory != null and drug.drugCategory != ''">
+          and DRUG_CATEGORY like  CONCAT("%",#{drug.drugCategory},"%")
+        </if>
+        <if test="drug.drugTradeStatus != null and drug.drugTradeStatus != ''">
+          and DRUG_TRADE_STATUS like  CONCAT("%",#{drug.drugTradeStatus},"%")
+        </if>
+        <if test="drug.startPrice != null and drug.endPrice != null">
+          and BID_PRICE between #{drug.startPrice} and #{drug.endPrice}
+        </if>
+        <if test="vendor_information.nameOfEnterprise != null and vendor_information.nameOfEnterprise != null">
+          and DRUG_TRADE_STATUS like  CONCAT("%",#{vendor_information.nameOfEnterprise},"%")
+        </if>
+        <if test="supervisionOrganizationControlStatus != null and supervisionOrganizationControlStatus != null">
+          and SUPERVISION_ORGANIZATION_CONTROL_STATUS like  CONCAT("%",#{supervisionOrganizationControlStatus},"%")
+        </if>
+      </where>
+    </select>
+
+    <select id="selectSupplierDrugListControl" resultMap="BaseResultMap">
+         select *
+        from drug d
+        join supplier_drug_list_control s on d.id = s.drug_information_id
+        join vendor_information v on s.enterprise_id = v.supplier_id
+        where SUPPLIER_DRUG_LIST_CONTROL_ID = #{id}
+    </select>
+</mapper>

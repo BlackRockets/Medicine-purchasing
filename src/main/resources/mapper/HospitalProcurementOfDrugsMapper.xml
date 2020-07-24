@@ -156,7 +156,7 @@
     delete from hospital_procurement_of_drugs
     where procurement_of_drugs_id in
     <foreach collection="list" open="(" separator="," close=")" item="d">
-      #{d.id}
+      #{d}
     </foreach>
   </delete>
 </mapper>

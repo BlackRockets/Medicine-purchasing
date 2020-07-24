@@ -309,8 +309,8 @@
     <div class="layui-row">
         <form class="layui-form" action="">
             <table class="layui-hide" lay-size="sm" id="demo" lay-filter="test">
-                <!--<input type="radio" name="box" value="全选" title="全选">
-                <input type="radio" name="box" value="反选" title="反选">-->
+                <!--<input type="radio" name="box" value="全选" title="全选">-->
+                <button type="button" id="returnOk" class="layui-btn layui-btn-sm" lay-filter="returnOk" lay-submit>返选</button>
                <button type="button" id="" class="layui-btn layui-btn-sm" lay-filter="okBox" lay-submit>确认选择</button>
             </table>
         </form>
@@ -320,12 +320,9 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 </script>
-<div class="layui-row" id="tishi" style="display:none;">
+<div class="layui-row" id="tishi1" style="display:none;">
     <div class="layui-col-md11">
         <p id="error" style="color: red;text-align: center"></p>
-        <div  style="color: red;text-align: center">
-            <p id="error2"></p>
-        </div>
     </div>
 </div>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
@@ -344,6 +341,7 @@
 
         var tableIns =table.render({
             elem: '#demo'
+            ,id: 'demo'
             ,height: 300
             ,method: 'post'
             ,url: '/purchaseingDrugs/findAllPurchaseingDrugs/' //数据接口
@@ -362,7 +360,7 @@
                 ,{field: 'bidPrice', title: '中标价', width: 90}
                 ,{field:'drugCategory', title: '药品类别',width: 90}
                 ,{field:'drugTradeStatus',title: '药品交易状态',width: 90,templet: function(d){if(d.drugTradeStatus == 1) return "正常";else if(d.drugTradeStatus == 2) return "取消";}}
-                ,{field:'nameOfEnterprise',title: '供货商',width: 90,templet: '<div>{{d.businessIncomeOfLastYear.nameOfEnterprise}}</div>'}
+               /* ,{field:'nameOfEnterprise',title: '供货商',width: 90,templet: '<div>{{d.businessIncomeOfLastYear.nameOfEnterprise}}</div>'}*/
                 ,{field:'drugTradeStatus',title: '供货状态',width: 90,templet: function(d){if(d.drugTradeStatus == 1) return "正常";else if(d.drugTradeStatus == 2) return "取消";}}
                 ,{fixed: 'right', width:80, align:'center', toolbar: '#barDemo'}
             ]],
@@ -443,8 +441,6 @@
                     }
                 })
             }
-
-
         })
 
             form.on('submit(okBox)', function(obj) {
@@ -462,17 +458,18 @@
                     url: "/purchaseingDrugs/delPurchaseingDrugs?drugs="+drugs,
                     type: "get",
                     success:function (data) {
+                        console.log(data)
                         $("#error").html("提交"+data.counts+"条，成功"+data.successCount+"条，失败"+data.errorCount+"条");
-                        layui.layer.open({
+                        layer.open({
                             title:['信息提示','font-size:20px;text-align:center;'],
-                            area: ['50%','50%'],
-                            content:$("#tishi").html()
-                        });
-                        window.location.reload();
+                            area: ['60%','60%'],
+                            content:$("#tishi1").html()
+                        })
+                        table.reload("demo");
                     }
                 })
-
         })
+
 
     })
     function close4() {

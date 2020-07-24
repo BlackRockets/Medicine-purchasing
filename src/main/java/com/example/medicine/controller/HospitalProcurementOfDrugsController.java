@@ -65,12 +65,12 @@ public class HospitalProcurementOfDrugsController {
 
         int i1 = hospitalProcurementOfDrugsService.deleteBatch(integers);
 
-       /* Map<String,Object> resultMap = new HashMap();
+        Map<String,Object> resultMap = new HashMap();
         resultMap.put("counts",drugs.length);
-        resultMap.put("successCount",update);
-        resultMap.put("errorCount",(drugs.length-update));*/
+        resultMap.put("successCount",i1);
+        resultMap.put("errorCount",(drugs.length-i1));
 
-        return "";
+        return JSON.toJSONString(resultMap);
 
     }
 
