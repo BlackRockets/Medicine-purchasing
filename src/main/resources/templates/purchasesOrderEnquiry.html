@@ -25,7 +25,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">采购单编号：</label>
                                 <div class="layui-input-inline">
-                                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                    <input type="tel" name="purchaseOrderNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -33,7 +33,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">采购单名称：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="nameOfPurchaseOrder" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -41,7 +41,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">采购医院：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="nameOfHospital" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -51,11 +51,13 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">采购状态：</label>
                                 <div class="layui-input-inline">
-                                    <select name="modules" lay-verify="required" lay-search="">
+                                    <select name="purchaseOrderStatus" lay-verify="required" lay-search="">
                                         <option value="">全部</option>
-                                        <option value="1">layer</option>
-                                        <option value="2">form</option>
-                                        <option value="3">layim</option>
+                                        <option value="1">未确认送货</option>
+                                        <option value="2">已发货</option>
+                                        <option value="4">已入库</option>
+                                        <option value="5">无法供货</option>
+                                        <option value="6">到期未送货</option>
                                     </select>
                                 </div>
                             </div>
@@ -64,7 +66,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">供货商：</label>
                                 <div class="layui-input-inline">
-                                    <select name="modules" lay-verify="required" lay-search="">
+                                    <select name="supplierId" lay-verify="required" lay-search="">
                                         <option value="">全部</option>
                                         <option value="1">layer</option>
                                         <option value="2">form</option>
@@ -89,7 +91,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">药品流水号：</label>
                                 <div class="layui-input-inline">
-                                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                    <input type="tel" name="serialUmber" lay-verify="required|phone" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -97,7 +99,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">通用名：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="dosageForm" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -105,7 +107,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">剂型：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="dosageFormDrug" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -115,7 +117,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">规格：</label>
                                 <div class="layui-input-inline">
-                                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                    <input type="tel" name="specifications" lay-verify="required|phone" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -123,7 +125,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">单位：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="company" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -131,7 +133,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">转换系数：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="conversionCoefficientNo" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -141,7 +143,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">生产企业：</label>
                                 <div class="layui-input-inline">
-                                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                                    <input type="tel" name="nameOfManufacturer" lay-verify="required|phone" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -149,7 +151,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">商品名：</label>
                                 <div class="layui-input-inline">
-                                    <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                                    <input type="text" name="tradeName" lay-verify="email" autocomplete="off" class="layui-input">
                                 </div>
                             </div>
                         </td>
@@ -157,11 +159,15 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">质量层次：</label>
                                 <div class="layui-input-inline">
-                                    <select name="modules" lay-verify="required" lay-search="">
+                                    <select name="qualityLevel" lay-verify="required" lay-search="">
                                         <option value="">全部</option>
-                                        <option value="1">layer</option>
-                                        <option value="2">form</option>
-                                        <option value="3">layim</option>
+                                        <option value="1">国家一类新药</option>
+                                        <option value="2">国家科学进步奖</option>
+                                        <option value="3">专利</option>
+                                        <option value="3">原研</option>
+                                        <option value="3">单独定价</option>
+                                        <option value="3">优质优价</option>
+                                        <option value="3">GMP</option>
                                     </select>
                                 </div>
                             </div>
@@ -169,13 +175,13 @@
                     </tr>
                     <tr>
                         <td align="center">
-                            <button type="button" class="layui-btn layui-btn-sm">查询</button>
+                            <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="formDemo" id="find">搜索</button>
                         </td>
                         <td>
                             <div class="layui-inline">
-                                <label class="layui-form-label">质量层次：</label>
+                                <label class="layui-form-label">药品类别：</label>
                                 <div class="layui-input-inline">
-                                    <select name="modules" lay-verify="required" lay-search="">
+                                    <select name="drupCategory" lay-verify="required" lay-search="">
                                         <option value="">全部</option>
                                         <option value="1">layer</option>
                                         <option value="2">form</option>
@@ -194,24 +200,24 @@
 </div>
 <div class="layui-container">
     <div class="layui-row">
-        <table lay-size="sm" class="layui-table" lay-data="{url:'/test/table/demo1.json', id:'test3'}" lay-filter="test3">
+        <table lay-size="sm" class="layui-table" lay-data="{url:'/purchaseOrder/findAllPurchaseOrder', id:'test'}" lay-filter="test">
             <thead>
             <tr>
                 <th lay-data="{field:'id'}">序号</th>
-                <th lay-data="{field:'username',edit: 'text'}">采购医院</th>
-                <th lay-data="{field:'email', edit: 'text'}">采购单编号</th>
-                <th lay-data="{field:'sex',edit: 'text'}">采购单名称</th>
-                <th lay-data="{field:'city', edit: 'text'}">采购状态</th>
-                <th lay-data="{field:'experience', edit: 'text'}">开始采购时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">结束采购时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">建单时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">提交时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">审核时间</th>
-                <th lay-data="{field:'experience', edit: 'text'}">采购量</th>
-                <th lay-data="{field:'experience', edit: 'text'}">采购金额</th>
-                <th lay-data="{field:'experience', edit: 'text'}">入库量</th>
-                <th lay-data="{field:'experience', edit: 'text'}">入库金额</th>
-                <th lay-data="{field:'experience', edit: 'text'}">退货量</th>
+                <th lay-data="{field:'nameOfHospital',edit: 'text'}">采购医院</th>
+                <th lay-data="{field:'purchaseOrderNumber', edit: 'text'}">采购单编号</th>
+                <th lay-data="{field:'nameOfPurchaseOrder',edit: 'text'}">采购单名称</th>
+                <th lay-data="{field:'purchaseOrderStatus', edit: 'text'}">采购状态</th>
+                <!-- <th lay-data="{field:'experience', edit: 'text'}">开始采购时间</th>
+                 <th lay-data="{field:'experience', edit: 'text'}">结束采购时间</th>-->
+                <th lay-data="{field:'orderCreationTime', edit: 'text'}">建单时间</th>
+                <th lay-data="{field:'submissionTime', edit: 'text'}">提交时间</th>
+                <th lay-data="{field:'auditTime', edit: 'text'}">审核时间</th>
+                <th lay-data="{field:'purchaseVolume', edit: 'text'}">采购量</th>
+                <th lay-data="{field:'purchaseAmount', edit: 'text'}">采购金额</th>
+                <th lay-data="{field:'storageVolume', edit: 'text'}">入库量</th>
+                <th lay-data="{field:'warehousingAmount', edit: 'text'}">入库金额</th>
+                <th lay-data="{field:'returnOrderNumber', edit: 'text'}">退货量</th>
             </tr>
             </thead>
         </table>
@@ -219,101 +225,39 @@
 </div>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form
-            ,layer = layui.layer
-            ,layedit = layui.layedit
-            ,laydate = layui.laydate;
-
-        //日期
-        laydate.render({
-            elem: '#time01'
-        });
-        laydate.render({
-            elem: '#time02'
-        });
-
-       /* //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function(value){
-                if(value.length < 5){
-                    return '标题至少得5个字符啊';
-                }
-            }
-            ,pass: [
-                /^[\S]{6,12}$/
-                ,'密码必须6到12位，且不能出现空格'
-            ]
-            ,content: function(value){
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-
-        //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function(){
-            form.val('example', {
-                "username": "贤心" // "name": "value"
-                ,"password": "123456"
-                ,"interest": 1
-                ,"like[write]": true //复选框选中状态
-                ,"close": true //开关状态
-                ,"sex": "女"
-                ,"desc": "我爱 layui"
-            });
-        });
-
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function(){
-            var data = form.val('example');
-            alert(JSON.stringify(data));
-        });*/
-
-    });
-
-    layui.use('table', function(){
+    layui.use(['table',[form]], function() {
         var table = layui.table;
-/*
-        table.render({
+        var mainTable = table.render({
             elem: '#test'
-            ,url:'/demo/table/user/'
-            ,cols: [[
-                {field:'id', title: '序号',}
-                ,{field:'username', title: '通用名'}
-                ,{field:'sex',title: '剂型',}
-                ,{field:'city',title: '规格'}
-                ,{field:'sign',title: '单位',}
-                ,{field:'experience', title: '转换系数',}
-                ,{field:'experience', title: '生产企业',}
-                ,{field:'experience', title: '商品名称',}
-                ,{field:'experience', title: '中标价',}
-                ,{field:'experience', title: '质量层次',}
-                ,{field:'score', title: '药品类别',}
-                ,{field:'classify',title: '状态'}
-                ,{field:'wealth', title: '详细',}
-                ,{field:'classify',  title: '修改'}
-                ,{field:'classify',  title: '删除'}
+            ,url: '/queryPurchaseOrder/findAllPurchaseOrder'
+            ,parseData: function (res) {
+                return {
+                    "code": 0,
+                    "msg": "res.messsage",
+                    "count": res.count,
+                    "data": res.data.content
+                };
+            }
+            , cols: [[
+                {field: 'id', title: '序号',}
+                , {field: 'nameOfHospital', title: '采购医院'}
+                , {field: 'purchaseOrderNumber', title: '采购单编号',}
+                , {field: 'nameOfPurchaseOrder', title: '采购单名称'}
+                , {field: 'purchaseOrderStatus', title: '采购状态',}
+                /*,{field:'experience', title: '开始采购时间',}
+                    ,{field:'experience', title: '结束采购时间',}*/
+                , {field: 'orderCreationTime', title: '建单时间',}
+                , {field: 'submissionTime', title: '提交时间',}
+                , {field: 'auditTime', title: '审核时间',}
+                , {field: 'purchaseVolume', templet: '<div>{{d.hospital_transaction_details.purchaseVolume}}</div>', title: '采购量',}
+                , {field: 'purchaseAmount', templet: '<div>{{d.hospital_transaction_details.purchaseAmount}}</div>',title: '采购金额'}
+                , {field: 'storageVolume',templet: '<div>{{d.hospital_transaction_details.storageVolume}}</div>', title: '入库量',}
+                , {field: 'warehousingAmount',templet: '<div>{{d.hospital_transaction_details.warehousingAmount}}</div>', title: '入库金额'}
+                , {field: 'returnOrderNumber',templet: '<div>{{d.hospital_transaction_details.returnOrderNumber}}</div>', title: '退货量'}
             ]]
-            ,page: true
-        });*/
+            , page: true
+        });
+
     });
 </script>
 </body>

@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
-    <!--监督管理  药品品目维护-->
+    <script src="../static/layui/jquery-3.4.1.min.js"></script>
+    <script src="../static/layui/layui.js" charset="utf-8"></script>
 
 </head>
 <body>
@@ -22,7 +23,7 @@
                 <tr>
                     <td>
                         <div class="layui-inline">
-                            <label class="layui-form-label">采购单编号：</label>
+                            <label class="layui-form-label">退货单编号：</label>
                             <div class="layui-input-inline">
                                 <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
                             </div>
@@ -30,7 +31,7 @@
                     </td>
                     <td>
                         <div class="layui-inline">
-                            <label class="layui-form-label">采购单名称：</label>
+                            <label class="layui-form-label">退货单名称：</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
                             </div>
@@ -88,17 +89,475 @@
         </form>
     </div>
 </div>
-<div class="layui-container" id="addReturnMedicine" style="display: none">
+<div class="layui-row">
+    <form class="layui-form" action="">
+        <table class="layui-hide" lay-size="sm" id="main" lay-filter="main">
+            <button type="button" class="layui-btn layui-btn-sm" id="create">添加</button>
+            <button type="button" class="layui-btn layui-btn-sm">删除</button>
+        </table>
+    </form>
+</div>
+<!--创建退货单-->
+<div class="layui-row" id="createReturnOrder" style="display: none">
+    <div class="layui-col-md11" style="text-align: center">
+        <form class="layui-form" lay-filter="formTestFilter2121" action="" style="margin-top: 50px">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">医院编号：</label>
+                    <div class="layui-input-inline">
+                        <input type="tel" name="hospitalId" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">医院名称：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">退货单编号：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="returnOrderNo" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">退货单名称：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="returnOrderName" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">退货时间：</label>
+                    <div class="layui-input-inline" >
+                        <input type="text"  lay-verify="" autocomplete="off" class="layui-input" id="returnTime1">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">建单时间：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="orderCreationTime" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系人：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="contacts" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系电话：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="contactNumber" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">退货单状态：</label>
+                    <div class="layui-input-block">
+                        <select name="returnOrderStatus" lay-verify="" lay-search="">
+                            <option value="0">请选择</option>
+                            <option value="1">layer</option>
+                            <option value="2">form</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">提交时间：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="submissionTime" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item" >
+                <div class="layui-inline">
+                    <label class="layui-form-label">备注：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="remarks" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label"></label>
+                    <div class="layui-input-inline">
+
+                    </div>
+                </div>
+            </div>
+            <div align="center">
+                <button type="button" class="layui-btn layui-btn-normal" id="LAY-component-form-setval"  lay-submit lay-filter="saveReturnOrder">保存退货单</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!--退货单详情-->
+<div class="layui-container"  style="display: none" id="returnOrderDetail">
     <div class="layui-row">
-        <form class="layui-form" action="">
+        <form class="layui-form" action=""  lay-filter="returnOrderForm">
             <table class="layui-table" lay-size="sm">
-                <thead>
-                <tr class="layui-row">
-                    <td><h2 align="center" style="font-weight: bold;">退货药品查询</h2></td>
-                </tr>
-                </thead>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>退货单</legend>
+                </fieldset>
                 <tbody>
                 <tr>
+                    <td style="display: none">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">id：</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" id="returnOrderId" name="returnOrderId" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">医院编号：</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="hospitalId" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">医院名称：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">退货单编号：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="returnOrderNo" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">退货单名称：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="returnOrderName" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">退货时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" id="returnTime2">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">建单时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="orderCreationTime" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">联系人：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="contacts" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">联系电话：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="contactNumber" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">退货单状态：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="returnOrderStatus" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">提交时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="submissionTime" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">备注：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="remarks" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <div align="center" id="settlement">
+                <button  type="button" class="layui-btn layui-btn-normal" >保存退货单</button>
+                <button  type="button" class="layui-btn layui-btn-normal" >提交退货单</button>
+            </div>
+
+        </form>
+        <form class="layui-form" action="">
+            <table class="layui-table" lay-size="sm">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>退货药品查询</legend>
+                </fieldset>
+                <tbody>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购单编号：</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购单名称：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">退货状态：</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">全部</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">采购医院：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">开始采购时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">结束采购时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">药品流水号：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">通用名：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">剂型：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">规格：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">单位：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">转换系数：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">生产企业：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">商品名：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">质量层次：</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">全部</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">药品类别：</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">全部</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">入库时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">药品批号：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">发票号或入库单号：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">供货商：</label>
+                            <div class="layui-input-inline">
+                                <select name="modules" lay-verify="required" lay-search="">
+                                    <option value="">全部</option>
+                                    <option value="1">layer</option>
+                                    <option value="2">form</option>
+                                    <option value="3">layim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div align="center">
+                <button  type="button" class="layui-btn layui-btn-normal" >查询</button>
+                <button  type="button" class="layui-btn layui-btn-normal" >导出</button>
+            </div>
+
+        </form>
+    </div>
+    <table class="layui-table" lay-size="sm" id="medicineTable" lay-filter="medicineTable">
+        <button class="layui-btn layui-btn-sm" lay-submit lay-filter="add">添加</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">保存退货量</button>
+    </table>
+</div>
+<!--添加药品-->
+<div class="layui-container" id="addReturnMedicine" style="display: none">
+    <div class="layui-row">
+        <form class="layui-form" action="" id="findAddMedicine" lay-filter="findAddMedicine">
+            <table class="layui-table" lay-size="sm">
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                    <legend>退货药品查询</legend>
+                </fieldset>
+                <tbody>
+                <tr>
+                    <td style="display: none">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">id：</label>
+                            <div class="layui-input-inline">
+                                <input type="tel" id="returnOrderId1" name="returnOrderId" lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <div class="layui-inline">
                             <label class="layui-form-label">采购单编号：</label>
@@ -142,7 +601,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">开始采购时间：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" id="time01">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -150,7 +609,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">结束采购时间：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input" id="time02">
+                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -293,152 +752,69 @@
             </div>
         </form>
     </div>
-    <div class="layui-container">
-        <div class="layui-row">
-            <form class="layui-form" action="">
-                <table class="layui-hide" lay-size="lg" id="addmedicine">
-                    <button type="button" class="layui-btn layui-btn-sm">添加</button>
-                </table>
-            </form>
-        </div>
+    <table class="layui-table"  lay-size="sm" id="addMedicineTable" lay-filter="addMedicineTable">
+        <button class="layui-btn layui-btn-sm" lay-submit lay-filter="addMedicine">添加</button>
+    </table>
+</div>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm"  lay-event="getCheckData">添加到退货单</button>
     </div>
-</div>
-<div class="layui-container" id="createReturnOrder" style="display: none">
-    <div class="layui-row">
-        <form class="layui-form" action="">
-            <table class="layui-table" lay-size="sm">
-                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-                    <legend>退货单</legend>
-                </fieldset>
-                <tbody>
-                <tr>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">医院编号：</label>
-                            <div class="layui-input-inline">
-                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">医院名称：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">退货单编号：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">退货单名称：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">退货时间：</label>
-                            <div class="layui-input-inline" >
-                                <input type="text"  lay-verify="email" autocomplete="off" class="layui-input" id="returnTime1">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">建单时间：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">联系人：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">联系电话：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">退货单状态：</label>
-                            <div class="layui-input-inline"></div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
-    </div>
-</div>
-<div class="layui-row">
-    <form class="layui-form" action="">
-        <table class="layui-hide" lay-size="sm" id="main">
-            <button type="button" class="layui-btn layui-btn-sm" id="add">添加</button>
-            <button type="button" class="layui-btn layui-btn-sm">删除</button>
-        </table>
-    </form>
-</div>
+</script>
 
 
-<script src="../static/layui/jquery-3.4.1.min.js"></script>
-<script src="../static/layui/layui.js" charset="utf-8"></script>
 
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+</body>
 <script>
-    function useLayDateMultiple(cls) {
-        layui.use('laydate', function() {
-            var laydate = layui.laydate;
-            lay('#' + cls).each(function() {
-                laydate.render({
-                    elem : this,
-                    trigger : 'click'
-                });
-            });
-        });
-    }
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form,
-            layer = layui.layer,
-            layedit = layui.layedit,
-            laydate = layui.laydate;
 
+    layui.use(['form', 'layer', 'laydate','table'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var laydate = layui.laydate;
+        var table = layui.table;
+
+        table.render({
+            elem: '#main',
+            url:'/returnOrder/findAllReturnOrder',
+            toolbar: 'default',
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field:'returnOrderNo', title: '退货单编号',},
+                {field:'returnOrderName', title: '退货单名称'},
+                {field:'hospitalId',title: '医院编号',},
+                {field:'contacts',title: '联系人'},
+                {field:'contactNumber',title: '联系电话',},
+                {field:'builder', title: '建单人',},
+                {field:'orderCreationTime', title: '建单时间',},
+                {field:'submissionTime',title: '提交时间'},
+                {field:'remarks', title: '备注',},
+                {field:'returnOrderStatus',  title: '退货单状态'},
+                {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+            ]],
+            page: true
+        });
 
         laydate.render({
             elem: '#returnTime2',
         });
 
+        //创建退货单
         $("#create").click(function(){
-            layer.open({
+            var index = layer.open({
                 type:1,
-                title:'退货单',
-                area:['80%','80%'],
+                scrollbar: false,
+                title:['创建退货单','font-size:20px;text-align:center;'],
+                area:['100%','100%'],
                 content:$("#createReturnOrder").html(),
                 success: function(){
+                    form.render();
                     laydate.render({
                         elem: '#returnTime1',
                         trigger: 'click'
@@ -447,139 +823,155 @@
             })
         });
 
+        //保存退货单
+        form.on('submit(saveReturnOrder)', function (data) {
+            var returnOrderData = JSON.stringify(data.field);
+            var formData = new FormData;
+            formData.append("returnOrder",returnOrderData);
+            $.ajax({
+                url:'/returnOrder/saveReturnOrder',
+                type:'post',
+                dataType:"json",
+                data:formData,
+                async: false,
+                processData : false, // 使数据不做处理
+                contentType : false, // 不要设置Content-Type请求头
+                success:function (date) {
+                    var id = String($.trim(date));
+                    layer.closeAll();
+                    layer.open({
+                        scrollbar: false,
+                        type:1,
+                        title:['退货单详情','font-size:20px;text-align:center;'],
+                        area:['100%','100%'],
+                        content:$("#returnOrderDetail").html(),
+                        success: function(){
+                            form.render();
+                            form.val('returnOrderForm',{
+                                returnOrderId:id,
+                                returnOrderNo:data.field.returnOrderNo,
+                                returnOrderName:data.field.returnOrderName,
+                                contacts:data.field.contacts,
+                                contactNumber:data.field.contactNumber,
+                                builder:data.field.builder,
+                                orderCreationTime:data.field.orderCreationTime,
+                                submissionTime:data.field.submissionTime,
+                                remarks:data.field.remarks,
+                            })
 
+                        }
+                    })
+                }
+            })
+        });
 
-        $("#add").click(function(){
-            layui.layer.open({
+        //跳转添加退货药品
+        var addMedic = null;
+        form.on('submit(add)', function (data) {
+            var returnOrderId = $("#returnOrderId").val();
+            addMedic = layer.open({
                 type:1,
-                title:'添加退货药品',
+                title:['添加退货药品','font-size:20px;text-align:center;'],
                 area:['100%','100%'],
-                content:$("#addReturnMedicine").html(),
+                scrollbar: false,
+                content:$("#addReturnMedicine"),
                 success: function(){
-                    useLayDateMultiple('time01');
-                    useLayDateMultiple('time02');
-                    form.render()
+                    form.render();
+                    form.val('findAddMedicine',{
+                        returnOrderId:returnOrderId,
+                    });
+                    table.render({
+                        elem: '#addMedicineTable',
+                        url:'/returnOrder/findDrugByReturnOrderId/?returnOrderId='+returnOrderId+'',
+                        id:'addMedicineTableMark',
+                        cols: [[
+                            {type: 'checkbox', fixed: 'left'},
+                            {field:'id', title: '采购单编号',},
+                            {field:'approvalNumber', title: '采购单名称'},
+                            {field:'commonNamePinyin',title: '采购医院',},
+                            {field:'serialUmber',title: '流水号'},
+                            {field:'dosageForm',title: '通用名',},
+                            {field:'tradeName', title: '商品名',},
+                            {field:'bidPrice', title: '中标价',},
+                            {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                        ]],
+                        page: true
+                    });
                 }
             })
         });
 
+        //添加药品
+        form.on('submit(addMedicine)', function (data) {
+            var checkStatus = table.checkStatus("addMedicineTableMark");
+            var data1 = checkStatus.data;
+            var returnOrderId = $("#returnOrderId").val();
+            $.ajax({
+                url:'',
 
-
-        //创建一个编辑器
-        var editIndex = layedit.build('LAY_demo_editor');
-
-        //自定义验证规则
-        form.verify({
-            title: function(value){
-                if(value.length < 5){
-                    return '标题至少得5个字符啊';
-                }
-            }
-            ,pass: [
-                /^[\S]{6,12}$/
-                ,'密码必须6到12位，且不能出现空格'
-            ]
-            ,content: function(value){
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-        form.on('submit(demo1)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
             })
-            return false;
+            layer.close(addMedic);
+            layer.msg("添加成功!");
         });
 
-        //表单赋值
-        layui.$('#LAY-component-form-setval').on('click', function(){
-            form.val('example', {
-                "username": "贤心" // "name": "value"
-                ,"password": "123456"
-                ,"interest": 1
-                ,"like[write]": true //复选框选中状态
-                ,"close": true //开关状态
-                ,"sex": "女"
-                ,"desc": "我爱 layui"
-            });
-        });
 
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function(){
-            var data = form.val('example');
-            alert(JSON.stringify(data));
-        });
+        //监听行工具事件
+        table.on('tool(main)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            var returnOrderId = parseInt(data.returnOrderId);
+            if(layEvent === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    $.ajax({
 
-    });
-
-    layui.use('table', function(){
-        var table = layui.table;
-
-        table.render({
-            elem: '#main',
-            url:'/demo/table/user/',
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field:'id', title: '采购单编号',},
-                {field:'username', title: '采购单名称'},
-                {field:'sex',title: '采购医院',},
-                {field:'city',title: '流水号'},
-                {field:'sign',title: '通用名',},
-                {field:'experience', title: '商品名',},
-                {field:'score', title: '中标价',},
-                {field:'classify',title: '交易价'},
-                {field:'wealth', title: '采购量',},
-                {field:'classify',  title: '采购金额'},
-                {field:'classify',  title: '入库量'},
-                {field:'classify',  title: '药品批号'},
-                {field:'classify',  title: '药品有效期'},
-                {field:'classify',  title: '开始采购时间'},
-                {field:'classify',  title: '结束采购时间'},
-                {field:'classify',  title: '采购状态'},
-                {field:'classify',  title: '详细'},
-            ]],
-            page: true
-        });
-
-        table.render({
-            elem: '#addmedicine',
-            url:'/demo/table/user/',
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field:'id', title: '采购单编号',},
-                {field:'username', title: '采购单名称'},
-                {field:'sex',title: '采购医院',},
-                {field:'city',title: '流水号'},
-                {field:'sign',title: '通用名',},
-                {field:'experience', title: '商品名',},
-                {field:'score', title: '中标价',},
-                {field:'classify',title: '交易价'},
-                {field:'wealth', title: '采购量',},
-                {field:'classify',  title: '采购金额'},
-                {field:'classify',  title: '入库量'},
-                {field:'classify',  title: '药品批号'},
-                {field:'classify',  title: '药品有效期'},
-                {field:'classify',  title: '开始采购时间'},
-                {field:'classify',  title: '结束采购时间'},
-                {field:'classify',  title: '采购状态'},
-                {field:'classify',  title: '详细'},
-            ]],
-            page: true
+                    })
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            }else if(layEvent === 'detail'){
+               layer.open({
+                    type:1,
+                    title:['退货单药品列表','font-size:20px;text-align:center;'],
+                    area:['100%','100%'],
+                    scrollbar: false,
+                    content:$('#returnOrderDetail'),
+                   /* content: '<div><table id="templateTable" lay-filter="templateTable"></table></div>',*/
+                    success: function () {
+                        form.render();
+                        form.val('returnOrderForm',{
+                            returnOrderId:data.returnOrderId,
+                            returnOrderNo:data.returnOrderNo,
+                            returnOrderName:data.returnOrderName,
+                            contacts:data.contacts,
+                            contactNumber:data.contactNumber,
+                            builder:data.builder,
+                            orderCreationTime:data.orderCreationTime,
+                            submissionTime:data.submissionTime,
+                            remarks:data.remarks,
+                        });
+                        table.render({
+                            elem: '#medicineTable',
+                            url:'/returnOrder/findDrugByReturnOrderId/?returnOrderId='+returnOrderId+'',
+                            cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field:'id', title: '采购单编号',},
+                                {field:'approvalNumber', title: '采购单名称'},
+                                {field:'commonNamePinyin',title: '采购医院',},
+                                {field:'serialUmber',title: '流水号'},
+                                {field:'dosageForm',title: '通用名',},
+                                {field:'tradeName', title: '商品名',},
+                                {field:'bidPrice', title: '中标价',},
+                                {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                            ]],
+                            page: true
+                        });
+                    }
+                });
+            }
         });
 
 
     });
-
-
 </script>
-</body>
 </html>

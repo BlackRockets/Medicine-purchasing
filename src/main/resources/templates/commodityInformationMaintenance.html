@@ -355,18 +355,7 @@
                     </div>
                 </div>
             </div>
-            <div class="layui-form-item">
-                <div class="layui-inline">
-                    <label class="layui-form-label">药品交易状态：</label>
-                    <div class="layui-input-inline">
-                        <select name="drugTradeStatus"  lay-search="">
-                            <option value="1">正常</option>
-                            <option value="2">取消</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            \<input type="hidden" name="id"  autocomplete="off" class="layui-input">
+            <input type="hidden" name="id"  autocomplete="off" class="layui-input">
             <div class="layui-form-item" style="text-align: center">
                 <div class="layui-input-block">
                     <button type="button" id="editSubmit" class="layui-btn layui-btn-normal" lay-filter="editSubmit" lay-submit>提交</button>
@@ -559,6 +548,14 @@
         </form>
     </div>
 </div>
+<div class="layui-row" id="tishi" style="display:none;">
+    <div class="layui-col-md11">
+        <p id="error" style="color: red;text-align: center"></p>
+        <div  style="color: red;text-align: center">
+            <p id="error2"></p>
+        </div>
+    </div>
+</div>
 <script src="../static/layui/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 <script>
@@ -673,45 +670,88 @@
                     }
                 })
             } else if(layEvent === 'edit'){
-                //编辑
-                indexEdit=layer.open({
-                    //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
-                    type:1,
-                    title:['药品信息编辑','font-size:20px;text-align:center;'],
-                    area: ['70%','70%'],
-                    content:$("#updatePage").html(),
-                    success: function(){
-                        form.render();
-                        form.val('formTestFilter', {
-                            "serialUmber": data.drug.serialUmber
-                            ,"dosageForm": data.dosageForm
-                            ,"dosageFormDrug": data.dosageFormDrug
-                            ,"specifications": data.specifications
-                            ,"company": data.company
-                            ,"conversionCoefficientNo": data.conversionCoefficientNo
-                            ,"nameOfManufacturer": data.nameOfManufacturer
-                            ,"tradeName": data.tradeName
-                            ,"bidPrice": data.bidPrice
-                            ,"approvalNumber": data.approvalNumber
-                            ,"validityPeriodOfApprovalNumber": data.validityPeriodOfApprovalNumber
-                            ,"importedDrugs": data.importedDrugs
-                            ,"packingMaterial": data.packingMaterial
-                            ,"packagingUnit": data.packagingUnit
-                            ,"latestRetailPrice": data.latestRetailPrice
-                            ,"retailPriceSource": data.retailPriceSource
-                            ,"qualityLevel": data.qualityLevel
-                            ,"qualityLevelDescription": data.qualityLevelDescription
-                            ,"drugInspectionReport": data.drugInspectionReport
-                            ,"drugInspectionReportNo": data.drugInspectionReportNo
-                            ,"productDescription": data.productDescription
-                            ,"drugTradeStatus": data.drugTradeStatus
-                            ,"validityPeriodOfDrugInspectionReport": data.validityPeriodOfDrugInspectionReport
-                            ,"id": data.id
+                $.ajax({
+                    url: "/supplierDrugListControl/selectSupplierDrugListControl?id="+obj.data.supplierDrugListControlId,
+                    type: "get",
+                    success:function (data) {
+                        //编辑
+                        indexEdit=layer.open({
+                            //layer提供了5种层类型。可传入的值有：0（信息框，默认）1（页面层）2（iframe层）3（加载层）4（tips层）
+                            type:1,
+                            title:['药品信息编辑','font-size:20px;text-align:center;'],
+                            area: ['70%','70%'],
+                            content:$("#updatePage").html(),
+                            success: function(){
+                                form.render();
+                                form.val('formTestFilter', {
+                                    "serialUmber": data.drug.serialUmber
+                                    ,"dosageForm": data.drug.dosageForm
+                                    ,"dosageFormDrug": data.drug.dosageFormDrug
+                                    ,"specifications": data.drug.specifications
+                                    ,"company": data.drug.company
+                                    ,"conversionCoefficientNo": data.drug.conversionCoefficientNo
+                                    ,"nameOfManufacturer": data.drug.nameOfManufacturer
+                                    ,"tradeName": data.drug.tradeName
+                                    ,"bidPrice": data.drug.bidPrice
+                                    ,"approvalNumber": data.drug.approvalNumber
+                                    ,"validityPeriodOfApprovalNumber": data.drug.validityPeriodOfApprovalNumber
+                                    ,"importedDrugs": data.drug.importedDrugs
+                                    ,"packingMaterial": data.drug.packingMaterial
+                                    ,"packagingUnit": data.drug.packagingUnit
+                                    ,"latestRetailPrice": data.drug.latestRetailPrice
+                                    ,"retailPriceSource": data.drug.retailPriceSource
+                                    ,"qualityLevel": data.drug.qualityLevel
+                                    ,"qualityLevelDescription": data.drug.qualityLevelDescription
+                                    ,"drugInspectionReport": data.drug.drugInspectionReport
+                                    ,"drugInspectionReportNo": data.drug.drugInspectionReportNo
+                                    ,"productDescription": data.drug.productDescription
+                                    ,"drugTradeStatus": data.drug.drugTradeStatus
+                                    ,"validityPeriodOfDrugInspectionReport": data.drug.validityPeriodOfDrugInspectionReport
+                                    ,"id": data.drug.id
+                                })
+                            }
                         })
                     }
                 })
+
             }
         });
+
+
+
+
+        //修改提交
+        form.on('submit(editSubmit)', function(data){
+            $.ajax({
+                url: "/drug/editDrugData/",
+                type: "post",
+                data: JSON.stringify(data.field),
+                dataType: "json",
+                contentType: "application/json",
+                success:function (data) {
+                    console.log(data)
+                    console.log(data.msg)
+                    if (data.msg == 0){
+                        $("#error").html("您的操作失败，请尝试刷新页面重新操作");
+                        $("#error2").html("药品信息已存在。通用名："+data.drug.dosageForm+"，剂型："+data.drug.dosageFormDrug+"，规格："+data.drug.specifications+"，单位："+data.drug.company+"，转换系数："+data.drug.conversionCoefficientNo+"，生产企业名称："+data.drug.nameOfManufacturer+"，商品名："+data.drug.tradeName);
+                    }
+                    if (data.msg == 1){
+                        $("#error").html("编辑成功");
+                    }
+                    if (data.msg == 2){
+                        $("#error").html("编辑失败");
+                    }
+                    layer.open({
+                        title:['信息提示','font-size:20px;text-align:center;'],
+                        area: ['60%','60%'],
+                        content:$("#tishi").html()
+                    });
+                    layui.layer.close(indexEdit);
+                    table.reload("demo");
+                }
+
+            });
+        })
 
     });
 

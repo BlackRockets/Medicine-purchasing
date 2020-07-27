@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.PurchaseOrderMapper">
+    <resultMap type="com.example.medicine.bean.PurchaseOrder" id="PurchaseOrderMap">
+        <result property="purchaseId" column="purchase_id" jdbcType="INTEGER"/>
+        <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+        <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
+        <result property="hospitalId" column="hospital_id" jdbcType="INTEGER"/>
+        <result property="contacts" column="contacts" jdbcType="VARCHAR"/>
+        <result property="contactNumber" column="contact_number" jdbcType="VARCHAR"/>
+        <result property="orderCreationTime" column="order_creation_time" jdbcType="TIMESTAMP"/>
+        <result property="lastModifiedTime" column="last_modified_time" jdbcType="TIMESTAMP"/>
+        <result property="submissionTime" column="submission_time" jdbcType="TIMESTAMP"/>
+        <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+        <result property="purchaseOrderStatus" column="purchase_order_status" jdbcType="VARCHAR"/>
+        <result property="reviewer" column="reviewer" jdbcType="VARCHAR"/>
+        <result property="auditOpinion" column="audit_opinion" jdbcType="VARCHAR"/>
+        <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+        <association property="hospital_transaction_details" javaType="com.example.medicine.bean.Hospital_Transaction_Details">
+            <result property="hospitalTransactionDetailsId" column="hospital_transaction_details_id" jdbcType="INTEGER"/>
+            <result property="purchaseOrderId" column="purchase_order_id" jdbcType="INTEGER"/>
+            <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+            <result property="supplierId" column="supplier_id" jdbcType="INTEGER"/>
+            <result property="bidPrice" column="bid_price" jdbcType="OTHER"/>
+            <result property="transactionPrice" column="transaction_price" jdbcType="OTHER"/>
+            <result property="purchaseVolume" column="purchase_volume" jdbcType="VARCHAR"/>
+            <result property="purchasingStatus" column="purchasing_status" jdbcType="VARCHAR"/>
+            <result property="storageVolume" column="storage_volume" jdbcType="VARCHAR"/>
+            <result property="purchaseAmount" column="purchase_amount" jdbcType="VARCHAR"/>
+            <result property="returnOrderId" column="return_order_id" jdbcType="INTEGER"/>
+            <result property="returnOrderNumber" column="return_order_number" jdbcType="VARCHAR"/>
+            <result property="returnGoods" column="return_goods" jdbcType="VARCHAR"/>
+            <result property="warehousingAmount" column="warehousing_amount" jdbcType="VARCHAR"/>
+            <result property="invoiceNumber" column="invoice_number" jdbcType="VARCHAR"/>
+            <result property="drugBatchNumber" column="drug_batch_number" jdbcType="VARCHAR"/>
+            <result property="validityPeriodOfDrug" column="Validity_period_of_drug" jdbcType="TIMESTAMP"/>
+            <result property="warehousing" column="warehousing" jdbcType="TIMESTAMP"/>
+            <result property="reasonForReturn" column="reason_for_return" jdbcType="VARCHAR"/>
+            <result property="returnStatus" column="return_status" jdbcType="VARCHAR"/>
+            <result property="statementOfAccountId" column="statement_of_account_id" jdbcType="INTEGER"/>
+            <result property="settlementVolume" column="settlement_volume" jdbcType="VARCHAR"/>
+            <result property="settlementAmount" column="settlement_amount" jdbcType="VARCHAR"/>
+            <result property="settlementStatus" column="settlement_status" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PurchaseOrderMap">
+        select
+          purchase_id, purchase_order_number, name_of_purchase_order, hospital_id, contacts, contact_number, order_creation_time, last_modified_time, submission_time, remarks, purchase_order_status, reviewer, audit_opinion, audit_time
+        from medicine.purchase_order
+        where purchase_id = #{purchaseId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PurchaseOrderMap">
+        select
+          purchase_id, purchase_order_number, name_of_purchase_order, hospital_id, contacts, contact_number, order_creation_time, last_modified_time, submission_time, remarks, purchase_order_status, reviewer, audit_opinion, audit_time
+        from medicine.purchase_order
+        limit #{offset}, #{limit}
+    </select>
+     <select id="selectAllPurchaseOrder" resultMap="PurchaseOrderMap">
+         select
+        purchase_id,purchase_order_number,name_of_purchase_order,hospital_id,contacts,contact_number,
+        order_creation_time,last_modified_time,submission_time,remarks,purchase_order_status,reviewer,
+        audit_opinion,audit_time from purchase_order
+         <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+             and  purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
+         </if>
+         <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+             and  name_of_purchase_order like CONCAT("%",#{nameOfPurchaseOrder,jdbcType=VARCHAR},"%")
+         </if>
+         <if test="purchaseOrderStatus != null and purchaseOrderStatus != ''">
+             and  purchase_order_status =#{purchaseOrderStatus}
+         </if>
+         <if test="hospitalId != null and hospitalId != ''">
+             and  hospital_id =#{hospitalId}
+         </if>
+     </select>
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAllPurchaseOrder" resultMap="PurchaseOrderMap">
+        select
+        p.purchase_id, p.purchase_order_number, p.name_of_purchase_order, p.hospital_id, p.contacts, p.contact_number,
+        p.order_creation_time, p.last_modified_time, p.submission_time, p.remarks, p.purchase_order_status, p.reviewer,
+        p.audit_opinion, p.audit_time,h.hospital_transaction_details_id, h.purchase_order_id, h.drug_information_id, h.supplier_id, h.bid_price,
+        h.transaction_price, h.purchase_volume, h.purchasing_status, h.storage_volume, h.purchase_amount, h.return_order_id,
+        h.return_order_number, h.return_goods, h.warehousing_amount, h.invoice_number, h.drug_batch_number,
+        h.Validity_period_of_drug, h.warehousing, h.reason_for_return, h.return_status, h.statement_of_account_id,
+        h.settlement_volume, h.settlement_amount, h.settlement_status
+        from purchase_order p,hospital_transaction_details h where p.purchase_id=h.purchase_order_id
+        <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+            and  p.purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+            and  p.name_of_purchase_order like CONCAT("%",#{nameOfPurchaseOrder,jdbcType=VARCHAR},"%")
+        </if>
+         <if test="purchaseOrderStatus != null and purchaseOrderStatus != ''">
+            and  p.purchase_order_status =#{purchaseOrderStatus}
+        </if>
+        <if test="supplierId != null and supplierId != ''">
+            and  h.supplier_id =#{supplierId}
+        </if>
+       <!-- <if test="serialUmber != null and serialUmber != ''">
+            and  serial_umber like CONCAT("%",#{serialUmber,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="dosageForm != null and dosageForm != ''">
+            and  dosage_form like CONCAT("%",#{dosageForm,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="dosageFormDrug != null and dosageFormDrug != ''">
+            and  dosage_form_drug like CONCAT("%",#{dosageFormDrug,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="specifications != null and specifications != ''">
+            and  specifications like CONCAT("%",#{specifications,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="company != null and company != ''">
+            and  company like CONCAT("%",#{company,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+            and  conversion_coefficient_no like CONCAT("%",#{conversionCoefficientNo,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+            and  name_of_manufacturer like CONCAT("%",#{nameOfManufacturer,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="tradeName != null and tradeName != ''">
+            and  trade_name like CONCAT("%",#{tradeName,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+            and  conversion_coefficient_no like CONCAT("%",#{conversionCoefficientNo,jdbcType=VARCHAR},"%")
+        </if>
+        <if test="qualityLevel != null and qualityLevel != ''">
+            and  quality_level like CONCAT("%",#{qualityLevel,jdbcType=INTEGER},"%")
+        </if>
+        <if test="drupCategory != null and drupCategory != ''">
+            and  drup_category like CONCAT("%",#{drupCategory,jdbcType=VARCHAR},"%")
+        </if>-->
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from purchase_order
+  </select>
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="purchaseId" useGeneratedKeys="true">
+        insert into medicine.purchase_order(purchase_order_number, name_of_purchase_order, hospital_id, contacts, contact_number, order_creation_time, last_modified_time, submission_time, remarks, purchase_order_status, reviewer, audit_opinion, audit_time)
+        values (#{purchaseOrderNumber}, #{nameOfPurchaseOrder}, #{hospitalId}, #{contacts}, #{contactNumber}, #{orderCreationTime}, #{lastModifiedTime}, #{submissionTime}, #{remarks}, #{purchaseOrderStatus}, #{reviewer}, #{auditOpinion}, #{auditTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="updateByPrimaryKey" parameterType="com.example.medicine.bean.PurchaseOrder">
+        update medicine.purchase_order
+        <set>
+            <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+                purchase_order_number = #{purchaseOrderNumber},
+            </if>
+            <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+                name_of_purchase_order = #{nameOfPurchaseOrder},
+            </if>
+            <if test="hospitalId != null">
+                hospital_id = #{hospitalId},
+            </if>
+            <if test="contacts != null and contacts != ''">
+                contacts = #{contacts},
+            </if>
+            <if test="contactNumber != null and contactNumber != ''">
+                contact_number = #{contactNumber},
+            </if>
+            <if test="orderCreationTime != null">
+                order_creation_time = #{orderCreationTime},
+            </if>
+            <if test="lastModifiedTime != null">
+                last_modified_time = #{lastModifiedTime},
+            </if>
+            <if test="submissionTime != null">
+                submission_time = #{submissionTime},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                remarks = #{remarks},
+            </if>
+            <if test="purchaseOrderStatus != null and purchaseOrderStatus != ''">
+                purchase_order_status = #{purchaseOrderStatus},
+            </if>
+            <if test="reviewer != null and reviewer != ''">
+                reviewer = #{reviewer},
+            </if>
+            <if test="auditOpinion != null and auditOpinion != ''">
+                audit_opinion = #{auditOpinion},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+        </set>
+        where purchase_id = #{purchaseId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from medicine.purchase_order where purchase_id = #{purchaseId}
+    </delete>
+
+</mapper>
