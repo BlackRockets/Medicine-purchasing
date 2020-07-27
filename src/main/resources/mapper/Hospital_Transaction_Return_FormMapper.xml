@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.Hospital_Transaction_Return_FormMapper">
+  <resultMap id="BaseResultMap" type="com.example.medicine.bean.Hospital_Transaction_Return_Form">
+    <result column="return_order_id" jdbcType="INTEGER" property="returnOrderId" />
+    <result column="return_order_no" jdbcType="VARCHAR" property="returnOrderNo" />
+    <result column="return_order_name" jdbcType="VARCHAR" property="returnOrderName" />
+    <result column="hospital_id" jdbcType="INTEGER" property="hospitalId" />
+    <result column="contacts" jdbcType="VARCHAR" property="contacts" />
+    <result column="contact_number" jdbcType="VARCHAR" property="contactNumber" />
+    <result column="builder" jdbcType="VARCHAR" property="builder" />
+    <result column="order_creation_time" jdbcType="TIMESTAMP" property="orderCreationTime" />
+    <result column="submission_time" jdbcType="TIMESTAMP" property="submissionTime" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="return_order_status" jdbcType="INTEGER" property="returnOrderStatus" />
+  </resultMap>
+  <select id="selectAllReturnOrder" resultMap="BaseResultMap" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
+    select return_order_id, return_order_no, return_order_name,
+      hospital_id, contacts, contact_number,
+      builder, order_creation_time, submission_time,
+      remarks, return_order_status from  hospital_transaction_return_form
+    <where>
+      <if test="returnOrderId != null and returnOrderId != ''">
+        return_order_id = #{returnOrderId}
+      </if>
+      <if test="returnOrderNo != null and returnOrderNo != ''">
+        and return_order_no like concat('%',#{returnOrderNo},'%')
+      </if>
+      <if test="returnOrderName != null and returnOrderName != ''">
+        and return_order_name like concat('%',#{returnOrderName},'%')
+      </if>
+      <if test="hospitalId != null and hospitalId != ''">
+        and hospital_id like concat('%',#{hospitalId},'%')
+      </if>
+      <if test="contacts != null and contacts != ''">
+        and contacts = #{contacts}
+      </if>
+      <if test="contactNumber != null and contactNumber != ''">
+        and contact_number = #{contactNumber}
+      </if>
+      <if test="builder != null and builder != ''">
+        and builder = #{builder}
+      </if>
+      <if test="orderCreationTime != null and orderCreationTime != ''">
+        and order_creation_time = #{orderCreationTime}
+      </if>
+      <if test="submissionTime != null and submissionTime != ''">
+        and submission_time = #{submissionTime}
+      </if>
+      <if test="remarks != null and remarks != ''">
+        and remarks = #{remarks}
+      </if>
+      <if test="returnOrderStatus != null and returnOrderStatus != ''">
+        and return_order_status = #{returnOrderStatus}
+      </if>
+    </where>
+    limit #{startRow},#{pageSize}
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
+    select count(*) from hospital_transaction_return_form
+    <where>
+      <if test="returnOrderId != null and returnOrderId != ''">
+        return_order_id = #{returnOrderId}
+      </if>
+      <if test="returnOrderNo != null and returnOrderNo != ''">
+        and return_order_no like concat('%',#{returnOrderNo},'%')
+      </if>
+      <if test="returnOrderName != null and returnOrderName != ''">
+        and return_order_name like concat('%',#{returnOrderName},'%')
+      </if>
+      <if test="hospitalId != null and hospitalId != ''">
+        and hospital_id like concat('%',#{hospitalId},'%')
+      </if>
+      <if test="contacts != null and contacts != ''">
+        and contacts = #{contacts}
+      </if>
+      <if test="contactNumber != null and contactNumber != ''">
+        and contact_number = #{contactNumber}
+      </if>
+      <if test="builder != null and builder != ''">
+        and builder = #{builder}
+      </if>
+      <if test="orderCreationTime != null and orderCreationTime != ''">
+        and order_creation_time = #{orderCreationTime}
+      </if>
+      <if test="submissionTime != null and submissionTime != ''">
+        and submission_time = #{submissionTime}
+      </if>
+      <if test="remarks != null and remarks != ''">
+        and remarks = #{remarks}
+      </if>
+      <if test="returnOrderStatus != null and returnOrderStatus != ''">
+        and return_order_status = #{returnOrderStatus}
+      </if>
+    </where>
+  </select>
+  <insert id="insert" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
+    insert into hospital_transaction_return_form (return_order_id, return_order_no, return_order_name, 
+      hospital_id, contacts, contact_number, 
+      builder, order_creation_time, submission_time, 
+      remarks, return_order_status)
+    values (#{returnOrderId,jdbcType=INTEGER}, #{returnOrderNo,jdbcType=VARCHAR}, #{returnOrderName,jdbcType=VARCHAR}, 
+      #{hospitalId,jdbcType=INTEGER}, #{contacts,jdbcType=VARCHAR}, #{contactNumber,jdbcType=INTEGER}, 
+      #{builder,jdbcType=VARCHAR}, #{orderCreationTime,jdbcType=TIMESTAMP}, #{submissionTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{returnOrderStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" useGeneratedKeys="true" keyProperty="returnOrderId">
+    insert into hospital_transaction_return_form
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="returnOrderId != null">
+        return_order_id,
+      </if>
+      <if test="returnOrderNo != null">
+        return_order_no,
+      </if>
+      <if test="returnOrderName != null">
+        return_order_name,
+      </if>
+      <if test="hospitalId != null">
+        hospital_id,
+      </if>
+      <if test="contacts != null">
+        contacts,
+      </if>
+      <if test="contactNumber != null">
+        contact_number,
+      </if>
+      <if test="builder != null">
+        builder,
+      </if>
+      <if test="orderCreationTime != null">
+        order_creation_time,
+      </if>
+      <if test="submissionTime != null">
+        submission_time,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="returnOrderStatus != null">
+        return_order_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="returnOrderId != null">
+        #{returnOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="returnOrderNo != null">
+        #{returnOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="returnOrderName != null">
+        #{returnOrderName,jdbcType=VARCHAR},
+      </if>
+      <if test="hospitalId != null">
+        #{hospitalId,jdbcType=INTEGER},
+      </if>
+      <if test="contacts != null">
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null">
+        #{contactNumber,jdbcType=INTEGER},
+      </if>
+      <if test="builder != null">
+        #{builder,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCreationTime != null">
+        #{orderCreationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="submissionTime != null">
+        #{submissionTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="returnOrderStatus != null">
+        #{returnOrderStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

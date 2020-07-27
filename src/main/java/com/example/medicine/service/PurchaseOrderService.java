@@ -1,5 +1,7 @@
 package com.example.medicine.service;
 
+import com.example.medicine.bean.Drug;
+import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.bean.PurchaseOrder;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -44,4 +46,6 @@ public interface PurchaseOrderService {
 
     //采购单入库
     int updatePurchaseStatus(Integer purchaseOrderStatus);
+    //查询每个采购单的药品
+    List<Drug> findByPurchaseOrderId(PurchaseOrder purchaseOrder);
 }

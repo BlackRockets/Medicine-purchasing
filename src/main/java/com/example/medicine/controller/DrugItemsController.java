@@ -2,6 +2,7 @@ package com.example.medicine.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.medicine.bean.DrugItems;
+import com.example.medicine.common.ReturnUtil;
 import com.example.medicine.mapper.DrugItemsMapper;
 import com.example.medicine.service.DrugItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,6 @@ public class DrugItemsController {
     @ResponseBody
     @RequestMapping(value = "findAllDrugItems",produces = {"application/json;charset=utf-8"})
     public String findAllDrugItems (@RequestParam(required = false) Integer page,@RequestParam(required = false) Integer limit,DrugItems drugItemsDTO){
-        System.out.println(drugItemsDTO);
         if(page!=null && limit!=null){
             drugItemsDTO.setPageNum(page);
             drugItemsDTO.setPageSize(limit);
@@ -35,19 +35,10 @@ public class DrugItemsController {
         //查询总条数
         Integer total = drugItemsMapper.selectCount(drugItemsDTO);
 
-        Map<String,Object> resultMap = new HashMap();
+        ReturnUtil returnUtil = new ReturnUtil();
+        String data = returnUtil.getData(drugItems, total);
 
-        //状态码，成功0，失败1
-        resultMap.put("code","0");
-        //提示消息
-        resultMap.put("msg","");
-        //数据（表格填充数据）
-        resultMap.put("data",drugItems);
-        //分页总条数
-        resultMap.put("count",total);
-
-        String drugItemList = JSON.toJSONString(resultMap);
-        return drugItemList;
+        return data;
     }
 
     @ResponseBody

@@ -1,6 +1,9 @@
 package com.example.medicine.serviceImpl;
 
+import com.example.medicine.bean.Drug;
+import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.bean.PurchaseOrder;
+import com.example.medicine.mapper.DrugMapper;
 import com.example.medicine.mapper.PurchaseOrderMapper;
 import com.example.medicine.service.PurchaseOrderService;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +19,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Autowired
     private PurchaseOrderMapper purchaseOrderMapper;
+    @Autowired
+    private DrugMapper drugMapper;
 
 
     @Override
@@ -71,5 +76,16 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public int updatePurchaseStatus(Integer purchaseOrderStatus) {
         int i = purchaseOrderMapper.updateByPrimaryKeySelective(purchaseOrderStatus);
         return i;
+    }
+
+    @Override
+    public List<Drug> findByPurchaseOrderId(PurchaseOrder purchaseOrder) {
+        Integer pageNum = purchaseOrder.getPageNum();
+        Integer pageSize = purchaseOrder.getPageSize();
+        if (pageNum != null && pageSize != null) {
+            Integer startrow = (pageNum - 1) * pageSize;
+            purchaseOrder.setStartrow(startrow);
+        }
+        return drugMapper.selectByReturnOrderId(purchaseOrder);
     }
 }

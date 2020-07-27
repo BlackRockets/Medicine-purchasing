@@ -43,6 +43,35 @@
             <result property="settlementAmount" column="settlement_amount" jdbcType="VARCHAR"/>
             <result property="settlementStatus" column="settlement_status" jdbcType="VARCHAR"/>
         </association>
+        <association property="drug" javaType="com.example.medicine.bean.Drug">
+            <id column="ID" jdbcType="INTEGER" property="id" />
+            <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber" />
+            <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm" />
+            <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug" />
+            <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+            <result column="CONVERSION_COEFFICIENT_no" jdbcType="VARCHAR" property="conversionCoefficientNo" />
+            <result column="NAME_OF_MANUFACTURER" jdbcType="VARCHAR" property="nameOfManufacturer" />
+            <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName" />
+            <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice" />
+            <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+            <result column="COMMON_NAME_PINYIN" jdbcType="VARCHAR" property="commonNamePinyin" />
+            <result column="PRODUCT_PHOTOS" jdbcType="VARCHAR" property="productPhotos" />
+            <result column="APPROVAL_NUMBER" jdbcType="VARCHAR" property="approvalNumber" />
+            <result column="VALIDITY_PERIOD_OF_APPROVAL_NUMBER" jdbcType="VARCHAR" property="validityPeriodOfApprovalNumber" />
+            <result column="IMPORTED_DRUGS" jdbcType="INTEGER" property="importedDrugs" />
+            <result column="PACKING_MATERIAL" jdbcType="VARCHAR" property="packingMaterial" />
+            <result column="PACKAGING_UNIT" jdbcType="VARCHAR" property="packagingUnit" />
+            <result column="LATEST_RETAIL_PRICE" jdbcType="DOUBLE" property="latestRetailPrice" />
+            <result column="RETAIL_PRICE_SOURCE" jdbcType="VARCHAR" property="retailPriceSource" />
+            <result column="QUALITY_LEVEL" jdbcType="VARCHAR" property="qualityLevel" />
+            <result column="QUALITY_LEVEL_DESCRIPTION" jdbcType="VARCHAR" property="qualityLevelDescription" />
+            <result column="DRUG_INSPECTION_REPORT" jdbcType="INTEGER" property="drugInspectionReport" />
+            <result column="DRUG_INSPECTION_REPORT_NO" jdbcType="VARCHAR" property="drugInspectionReportNo" />
+            <result column="VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT" jdbcType="TIMESTAMP" property="validityPeriodOfDrugInspectionReport" />
+            <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription" />
+            <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
+            <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus" />
+        </association>
     </resultMap>
 
     <!--查询单个-->
@@ -90,7 +119,7 @@
         h.invoice_number, h.drug_batch_number, h.Validity_period_of_drug,
         h.warehousing, h.reason_for_return, h.return_status,
         h.statement_of_account_id, h.settlement_volume,
-        h.settlement_amount, h.settlement_status from purchase_order p,hospital_transaction_details h where
+        h.settlement_amount, h.settlement_status from purchase_order p,hospital_transaction_details h  where
         p.purchase_id=h.purchase_order_id and p.purchase_order_status=3
         <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
             and purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
@@ -126,43 +155,46 @@
         </if>
         <if test="purchaseOrderStatus != null and purchaseOrderStatus != ''">
             and p.purchase_order_status =#{purchaseOrderStatus}
-        </if>
-        <!--<if test="supplierId != null and supplierId != ''">
-            and  h.supplier_id =#{supplierId}
+        </if><!-- <if test="supplierId != null and supplierId != ''">
+            and h.supplier_id =#{supplierId}
         </if>-->
-        <!-- <if test="serialUmber != null and serialUmber != ''">
-             and  serial_umber like CONCAT("%",#{serialUmber,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="dosageForm != null and dosageForm != ''">
-             and  dosage_form like CONCAT("%",#{dosageForm,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="dosageFormDrug != null and dosageFormDrug != ''">
-             and  dosage_form_drug like CONCAT("%",#{dosageFormDrug,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="specifications != null and specifications != ''">
-             and  specifications like CONCAT("%",#{specifications,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="company != null and company != ''">
-             and  company like CONCAT("%",#{company,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
-             and  conversion_coefficient_no like CONCAT("%",#{conversionCoefficientNo,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
-             and  name_of_manufacturer like CONCAT("%",#{nameOfManufacturer,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="tradeName != null and tradeName != ''">
-             and  trade_name like CONCAT("%",#{tradeName,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
-             and  conversion_coefficient_no like CONCAT("%",#{conversionCoefficientNo,jdbcType=VARCHAR},"%")
-         </if>
-         <if test="qualityLevel != null and qualityLevel != ''">
-             and  quality_level like CONCAT("%",#{qualityLevel,jdbcType=INTEGER},"%")
-         </if>
-         <if test="drupCategory != null and drupCategory != ''">
-             and  drup_category like CONCAT("%",#{drupCategory,jdbcType=VARCHAR},"%")
-         </if>-->
+
+          <!--  <if test="serialUmber != null and serialUmber != ''">
+                and serial_umber like CONCAT("%",#{serialUmber,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="dosageForm != null and dosageForm != ''">
+                and dosage_form like CONCAT("%",#{dosageForm,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="dosageFormDrug != null and dosageFormDrug != ''">
+                and dosage_form_drug like CONCAT("%",#{dosageFormDrug,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="specifications != null and specifications != ''">
+                and specifications like CONCAT("%",#{specifications,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="company != null and company != ''">
+                and company like CONCAT("%",#{company,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+                and conversion_coefficient_no like CONCAT("%",#{conversionCoefficientNo,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+                and name_of_manufacturer like CONCAT("%",#{nameOfManufacturer,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="tradeName != null and tradeName != ''">
+                and trade_name like CONCAT("%",#{tradeName,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="conversionCoefficientNo != null and conversionCoefficientNo != ''">
+                and conversion_coefficient_no like CONCAT("%",#{conversionCoefficientNo,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="nameOfManufacturer != null and nameOfManufacturer != ''">
+                and quality_level like CONCAT("%",#{nameOfManufacturer,jdbcType=INTEGER},"%")
+            </if>
+            <if test="qualityLevel != null and qualityLevel != ''">
+                and drup_category like CONCAT("%",#{qualityLevel,jdbcType=VARCHAR},"%")
+            </if>
+            <if test="drupCategory != null and drupCategory != ''">
+                and h.drup_category like CONCAT("%",#{drupCategory,jdbcType=VARCHAR},"%")
+            </if>-->
     </select>
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*) from purchase_order

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.Hospital_Return_Order_DetailMapper">
+  <resultMap id="BaseResultMap" type="com.example.medicine.bean.Hospital_Return_Order_Detail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="purchase_order_id" jdbcType="INTEGER" property="purchaseOrderId" />
+    <result column="drug_information_id" jdbcType="INTEGER" property="drugInformationId" />
+    <result column="return_order_id" jdbcType="INTEGER" property="returnOrderId" />
+    <result column="return_quantity" jdbcType="INTEGER" property="returnQuantity" />
+    <result column="return_money" jdbcType="INTEGER" property="returnMoney" />
+    <result column="return_status" jdbcType="INTEGER" property="returnStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, purchase_order_id, drug_information_id, return_order_id, return_quantity, return_money, 
+    return_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from hospital_return_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from hospital_return_order_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.medicine.bean.Hospital_Return_Order_Detail">
+    insert into hospital_return_order_detail (id, purchase_order_id, drug_information_id, 
+      return_order_id, return_quantity, return_money, 
+      return_status)
+    values (#{id,jdbcType=INTEGER}, #{purchaseOrderId,jdbcType=INTEGER}, #{drugInformationId,jdbcType=INTEGER}, 
+      #{returnOrderId,jdbcType=INTEGER}, #{returnQuantity,jdbcType=INTEGER}, #{returnMoney,jdbcType=INTEGER}, 
+      #{returnStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.medicine.bean.Hospital_Return_Order_Detail">
+    insert into hospital_return_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="purchaseOrderId != null">
+        purchase_order_id,
+      </if>
+      <if test="drugInformationId != null">
+        drug_information_id,
+      </if>
+      <if test="returnOrderId != null">
+        return_order_id,
+      </if>
+      <if test="returnQuantity != null">
+        return_quantity,
+      </if>
+      <if test="returnMoney != null">
+        return_money,
+      </if>
+      <if test="returnStatus != null">
+        return_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseOrderId != null">
+        #{purchaseOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="drugInformationId != null">
+        #{drugInformationId,jdbcType=INTEGER},
+      </if>
+      <if test="returnOrderId != null">
+        #{returnOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="returnQuantity != null">
+        #{returnQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="returnMoney != null">
+        #{returnMoney,jdbcType=INTEGER},
+      </if>
+      <if test="returnStatus != null">
+        #{returnStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.medicine.bean.Hospital_Return_Order_Detail">
+    update hospital_return_order_detail
+    <set>
+      <if test="purchaseOrderId != null">
+        purchase_order_id = #{purchaseOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="drugInformationId != null">
+        drug_information_id = #{drugInformationId,jdbcType=INTEGER},
+      </if>
+      <if test="returnOrderId != null">
+        return_order_id = #{returnOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="returnQuantity != null">
+        return_quantity = #{returnQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="returnMoney != null">
+        return_money = #{returnMoney,jdbcType=INTEGER},
+      </if>
+      <if test="returnStatus != null">
+        return_status = #{returnStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.medicine.bean.Hospital_Return_Order_Detail">
+    update hospital_return_order_detail
+    set purchase_order_id = #{purchaseOrderId,jdbcType=INTEGER},
+      drug_information_id = #{drugInformationId,jdbcType=INTEGER},
+      return_order_id = #{returnOrderId,jdbcType=INTEGER},
+      return_quantity = #{returnQuantity,jdbcType=INTEGER},
+      return_money = #{returnMoney,jdbcType=INTEGER},
+      return_status = #{returnStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

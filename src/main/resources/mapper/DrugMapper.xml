@@ -38,6 +38,13 @@
     DRUG_INSPECTION_REPORT, DRUG_INSPECTION_REPORT_NO, VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT, 
     PRODUCT_DESCRIPTION, DRUG_CATEGORY, DRUG_TRADE_STATUS
   </sql>
+  <select id="selectByReturnOrderId" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    from drug WHERE id in(
+    select b.drug_information_id from hospital_transaction_return_form a,hospital_return_order_detail b
+    WHERE a.return_order_id = b.return_order_id and a.return_order_id=#{returnOrderId})
+    limit #{startRow},#{pageSize}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />

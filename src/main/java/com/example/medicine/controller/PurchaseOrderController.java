@@ -3,8 +3,11 @@ package com.example.medicine.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.medicine.bean.Drug;
 import com.example.medicine.bean.DrugItems;
+import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.bean.PurchaseOrder;
+import com.example.medicine.common.ReturnUtil;
 import com.example.medicine.service.PurchaseOrderService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("PurchaseOrder")
@@ -54,6 +59,15 @@ public class PurchaseOrderController {
         }
         int i = purchaseOrderService.update(purchaseOrder);
         return i;
+    }
+    //获取每个采购单中的药品
+    @ResponseBody
+    @RequestMapping(value = "findDrugByPurchaseOrderId",produces = {"application/json;charset=utf-8"})
+    public String findDrugByReturnOrderId(PurchaseOrder purchaseOrder){
+        List<Drug> drugList = purchaseOrderService.findByPurchaseOrderId(purchaseOrder);
+        ReturnUtil returnUtil = new ReturnUtil();
+        String data = returnUtil.getData(drugList, 100);
+        return data;
     }
 
 }

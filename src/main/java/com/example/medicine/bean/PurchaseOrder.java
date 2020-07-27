@@ -37,6 +37,8 @@ public class PurchaseOrder {
 
     private Hospital_Transaction_Details htd;
 
+    private Drug drug;
+
     private Integer recoreds;
 
     private Integer pageNum = 1;
@@ -216,5 +218,13 @@ public class PurchaseOrder {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
     }
 }
