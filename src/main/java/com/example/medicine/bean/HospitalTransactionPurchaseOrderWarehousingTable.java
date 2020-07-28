@@ -49,6 +49,19 @@ public class HospitalTransactionPurchaseOrderWarehousingTable implements Seriali
     private Date storageTime;
 
 
+    private Integer pageNum = 1;
+
+    //每页条数
+    private Integer pageSize = 10;
+
+    //起始条数
+    private Integer startRow;
+
+    //总套数
+    private Integer total;
+
+
+
     public Integer getPurchaseOrderStockInTableId() {
         return purchaseOrderStockInTableId;
     }
@@ -121,4 +134,39 @@ public class HospitalTransactionPurchaseOrderWarehousingTable implements Seriali
         this.storageTime = storageTime;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 }

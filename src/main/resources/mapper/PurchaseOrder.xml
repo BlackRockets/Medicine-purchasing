@@ -16,6 +16,22 @@
         <result property="reviewer" column="reviewer" jdbcType="VARCHAR"/>
         <result property="auditOpinion" column="audit_opinion" jdbcType="VARCHAR"/>
         <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+        <association property="pod" javaType="com.example.medicine.bean.PurchaseOrderDetails">
+            <result property="id" column="id" jdbcType="INTEGER"/>
+            <result property="purchaseOrderId" column="purchase_order_id" jdbcType="VARCHAR"/>
+            <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+            <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
+            <result property="orderCreationTime" column="order_creation_time" jdbcType="TIMESTAMP"/>
+            <result property="submissionTime" column="submission_time" jdbcType="TIMESTAMP"/>
+            <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+            <result property="purchaseVolume" column="purchase_volume" jdbcType="INTEGER"/>
+            <result property="purchaseAmount" column="purchase_amount" jdbcType="INTEGER"/>
+            <result property="purchasingStatus" column="purchasing_status" jdbcType="INTEGER"/>
+            <result property="storageVolume" column="storage_volume" jdbcType="INTEGER"/>
+            <result property="warehousingAmount" column="warehousing_amount" jdbcType="INTEGER"/>
+            <result property="returnQuantity" column="return_quantity" jdbcType="INTEGER"/>
+            <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+        </association>
         <association property="htd" javaType="com.example.medicine.bean.Hospital_Transaction_Details">
             <result property="hospitalTransactionDetailsId" column="hospital_transaction_details_id"
                     jdbcType="INTEGER"/>
@@ -109,9 +125,9 @@
             and hospital_id =#{hospitalId}
         </if>
     </select>
-    <!--<select id="selectAllPurchaseOrderWarehousing" resultMap="PurchaseOrderMap">
-        select
-        p.purchase_id,p.purchase_order_number,p.name_of_purchase_order,p.hospital_id,p.contacts,p.contact_number,
+    <select id="selectAllPurchaseOrderWarehousing" resultMap="PurchaseOrderMap">
+
+       /* p.purchase_id,p.purchase_order_number,p.name_of_purchase_order,p.hospital_id,p.contacts,p.contact_number,
         p.order_creation_time,p.last_modified_time,p.submission_time,p.remarks,p.purchase_order_status,p.reviewer,
         p.audit_opinion,p.audit_time,d.ID, d.SERIAL_UMBER, d.DOSAGE_FORM,
         d.DOSAGE_FORM_DRUG, d.SPECIFICATIONS, d.CONVERSION_COEFFICIENT_no,
@@ -122,8 +138,11 @@
         d.LATEST_RETAIL_PRICE, d.RETAIL_PRICE_SOURCE, d.QUALITY_LEVEL,
         d.QUALITY_LEVEL_DESCRIPTION, d.DRUG_INSPECTION_REPORT,
         d.DRUG_INSPECTION_REPORT_NO, d.VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT,
-        d.PRODUCT_DESCRIPTION, d.DRUG_CATEGORY, d.DRUG_TRADE_STATUS from purchase_order p,drug d where
-        p.purchase_id=h.purchase_order_id and p.purchase_order_status=3
+        d.PRODUCT_DESCRIPTION, d.DRUG_CATEGORY, d.DRUG_TRADE_STATUS*/
+        select * from purchase_order p,drug d,purchase_order_details o,
+        hospital_procurement_of_drugs h,hospital_information_maintenance_form  hf where
+        p.purchase_id=o.purchase_order_id and o.drug_information_id=d.ID and d.ID=h.information_on_drugs_id
+         and h.maintenance_table_id=hf.maintenance_table_id and  p.purchase_order_status=3
         <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
             and purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
         </if>
@@ -137,7 +156,7 @@
             and hospital_id =#{hospitalId}
         </if>
     </select>
-    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;-->
+    <!--通过实体作为筛选条件查询-->
     <select id="queryAllPurchaseOrder" resultMap="PurchaseOrderMap">
         select
         p.purchase_id, p.purchase_order_number, p.name_of_purchase_order, p.hospital_id, p.contacts, p.contact_number,

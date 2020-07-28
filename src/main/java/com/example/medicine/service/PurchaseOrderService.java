@@ -18,9 +18,6 @@ public interface PurchaseOrderService {
     //采购单维护查询
 
     List<PurchaseOrder> selectAllPurchaseOrder(PurchaseOrder purchaseOrder);
-    //采购单入库前查询
-
-    List<PurchaseOrder> selectAllPurchaseOrderWarehousing(PurchaseOrder purchaseOrder);
 
     //添加采购单
     int insert(PurchaseOrder purchaseOrder);

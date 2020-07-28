@@ -22,35 +22,15 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     @Autowired
     private DrugMapper drugMapper;
 
-    //按采购单查询
+
     @Override
     public List<PurchaseOrder> queryAllPurchaseOrder(PurchaseOrder purchaseOrder) {
-        Integer pageNum = purchaseOrder.getPageNum();
-        Integer pageSize = purchaseOrder.getPageSize();
-        if (pageNum != null && pageSize != null) {
-            Integer startrow = (pageNum - 1) * pageSize;
-            purchaseOrder.setStartRow(startrow);
-        }
-        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.queryAllPurchaseOrder(purchaseOrder);
-        return purchaseOrders;
+        return null;
     }
 
     @Override
     public List<PurchaseOrder> selectAllPurchaseOrder(PurchaseOrder purchaseOrder) {
         return null;
-    }
-
-     //入库前采购单查询
-    @Override
-    public List<PurchaseOrder> selectAllPurchaseOrderWarehousing(PurchaseOrder purchaseOrder) {
-        Integer pageNum = purchaseOrder.getPageNum();
-        Integer pageSize = purchaseOrder.getPageSize();
-        if (pageNum != null && pageSize != null) {
-            Integer startrow = (pageNum - 1) * pageSize;
-            purchaseOrder.setStartRow(startrow);
-        }
-        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.selectAllPurchaseOrderWarehousing(purchaseOrder);
-        return purchaseOrders;
     }
 
 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.PurchaseOrderDetailsMapper">
+
+    <resultMap type="com.example.medicine.bean.PurchaseOrderDetails" id="PurchaseOrderDetailsMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="purchaseOrderId" column="purchase_order_id" jdbcType="VARCHAR"/>
+        <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+        <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
+        <result property="orderCreationTime" column="order_creation_time" jdbcType="TIMESTAMP"/>
+        <result property="submissionTime" column="submission_time" jdbcType="TIMESTAMP"/>
+        <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
+        <result property="purchaseVolume" column="purchase_volume" jdbcType="INTEGER"/>
+        <result property="purchaseAmount" column="purchase_amount" jdbcType="INTEGER"/>
+        <result property="purchasingStatus" column="purchasing_status" jdbcType="INTEGER"/>
+        <result property="storageVolume" column="storage_volume" jdbcType="INTEGER"/>
+        <result property="warehousingAmount" column="warehousing_amount" jdbcType="INTEGER"/>
+        <result property="returnQuantity" column="return_quantity" jdbcType="INTEGER"/>
+        <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PurchaseOrderDetailsMap">
+        select
+          id, purchase_order_id, purchase_order_number, name_of_purchase_order, order_creation_time, submission_time, audit_time, purchase_volume, 
+          purchase_amount, purchasing_status, storage_volume, warehousing_amount, return_quantity, drug_information_id
+        from medicine.purchase_order_details
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PurchaseOrderDetailsMap">
+        select
+          id, purchase_order_id, purchase_order_number, name_of_purchase_order, order_creation_time, submission_time, audit_time, purchase_volume, 
+        purchase_amount, purchasing_status, storage_volume, warehousing_amount, return_quantity, drug_information_id
+        from medicine.purchase_order_details
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PurchaseOrderDetailsMap">
+        select
+        id, purchase_order_id, purchase_order_number, name_of_purchase_order, order_creation_time, submission_time,
+        audit_time, purchase_volume,
+        purchase_amount, purchasing_status, storage_volume, warehousing_amount, return_quantity, drug_information_id
+        from medicine.purchase_order_details
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                and purchase_order_id = #{purchaseOrderId}
+            </if>
+            <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+                and purchase_order_number = #{purchaseOrderNumber}
+            </if>
+            <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+                and name_of_purchase_order = #{nameOfPurchaseOrder}
+            </if>
+            <if test="orderCreationTime != null">
+                and order_creation_time = #{orderCreationTime}
+            </if>
+            <if test="submissionTime != null">
+                and submission_time = #{submissionTime}
+            </if>
+            <if test="auditTime != null">
+                and audit_time = #{auditTime}
+            </if>
+            <if test="purchaseVolume != null">
+                and purchase_volume = #{purchaseVolume}
+            </if>
+            <if test="purchaseAmount != null">
+                and purchase_amount = #{purchaseAmount}
+            </if>
+            <if test="purchasingStatus != null">
+                and purchasing_status = #{purchasingStatus}
+            </if>
+            <if test="storageVolume != null">
+                and storage_volume = #{storageVolume}
+            </if>
+            <if test="warehousingAmount != null">
+                and warehousing_amount = #{warehousingAmount}
+            </if>
+            <if test="returnQuantity != null">
+                and return_quantity = #{returnQuantity}
+            </if>
+            <if test="drugInformationId != null">
+                and drug_information_id = #{drugInformationId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into medicine.purchase_order_details(purchase_order_id, purchase_order_number, name_of_purchase_order, order_creation_time, submission_time, audit_time, purchase_volume, 
+         purchase_amount, purchasing_status, storage_volume, warehousing_amount, return_quantity, drug_information_id)
+        values (#{purchaseOrderId}, #{purchaseOrderNumber}, #{nameOfPurchaseOrder}, #{orderCreationTime}, #{submissionTime}, #{auditTime}, #{purchaseVolume},
+     #{purchaseAmount}, #{purchasingStatus}, #{storageVolume}, #{warehousingAmount}, #{returnQuantity}, #{drugInformationId})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update medicine.purchase_order_details
+        <set>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                purchase_order_id = #{purchaseOrderId},
+            </if>
+            <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+                purchase_order_number = #{purchaseOrderNumber},
+            </if>
+            <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+                name_of_purchase_order = #{nameOfPurchaseOrder},
+            </if>
+            <if test="orderCreationTime != null">
+                order_creation_time = #{orderCreationTime},
+            </if>
+            <if test="submissionTime != null">
+                submission_time = #{submissionTime},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+            <if test="purchaseVolume != null">
+                purchase_volume = #{purchaseVolume},
+            </if>
+            <if test="purchaseAmount != null">
+                purchase_amount = #{purchaseAmount},
+            </if>
+            <if test="purchasingStatus != null">
+                purchasing_status = #{purchasingStatus},
+            </if>
+            <if test="storageVolume != null">
+                storage_volume = #{storageVolume},
+            </if>
+            <if test="warehousingAmount != null">
+                warehousing_amount = #{warehousingAmount},
+            </if>
+            <if test="returnQuantity != null">
+                return_quantity = #{returnQuantity},
+            </if>
+            <if test="drugInformationId != null">
+                drug_information_id = #{drugInformationId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from medicine.purchase_order_details where id = #{id}
+    </delete>
+
+</mapper>

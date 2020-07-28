@@ -45,6 +45,16 @@
     WHERE a.return_order_id = b.return_order_id and a.return_order_id=#{returnOrderId})
     limit #{startRow},#{pageSize}
   </select>
+  <select id="selectByPurchaseOrderId"  resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List" />
+    from drug WHERE id in(
+    select b.drug_information_id from purchase_order a,purchase_order_details b
+    WHERE a.purchase_id = b.purchase_order_id and a.purchase_id=#{purchaseId})
+    limit #{startRow},#{pageSize}
+  </select>
+  <select id="selectAllDrug"  resultMap="BaseResultMap">
+   SELECT * from drug
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 'true' as QUERYID,
     <include refid="Base_Column_List" />
@@ -362,4 +372,7 @@
       DRUG_TRADE_STATUS = #{drugTradeStatus,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from drug
+  </select>
 </mapper>
