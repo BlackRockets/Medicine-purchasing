@@ -47,7 +47,7 @@ public class PurchaseOrder {
     private Integer pageSize = 10;
 
     //起始条数
-    private Integer startrow;
+    private Integer startRow;
 
     //总套数
     private Integer total;
@@ -204,12 +204,12 @@ public class PurchaseOrder {
         this.pageSize = pageSize;
     }
 
-    public Integer getStartrow() {
-        return startrow;
+    public Integer getStartRow() {
+        return startRow;
     }
 
-    public void setStartrow(Integer startrow) {
-        this.startrow = startrow;
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
     }
 
     public Integer getTotal() {

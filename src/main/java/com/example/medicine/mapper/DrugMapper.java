@@ -7,11 +7,17 @@ import com.example.medicine.bean.PurchaseOrder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 @Repository
 public interface DrugMapper {
+    List<Drug> selectAllDrug(
+            Drug drug);
+
     int deleteByPrimaryKey(Integer id);
 
     int insert(Drug record);
+
+    int selectCount(Drug drug);
 
     int insertSelective(Drug record);
 
@@ -22,5 +28,6 @@ public interface DrugMapper {
     int updateByPrimaryKey(Drug record);
 
     List<Drug> selectByReturnOrderId(Hospital_Transaction_Return_Form returnOrder);
-    List<Drug> selectByReturnOrderId(PurchaseOrder purchaseOrder);
+
+    List<Drug> selectByPurchaseOrderId(PurchaseOrder purchaseOrder);
 }

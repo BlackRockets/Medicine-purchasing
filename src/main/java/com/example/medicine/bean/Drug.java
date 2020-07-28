@@ -57,6 +57,19 @@ public class Drug {
 
     private Integer drugTradeStatus;
 
+    private Integer recoreds;
+
+    private Integer pageNum = 1;
+
+    //每页条数
+    private Integer pageSize = 10;
+
+    //起始条数
+    private Integer startrow;
+
+    //总条数
+    private Integer total;
+
     public Integer getId() {
         return id;
     }
@@ -271,5 +284,45 @@ public class Drug {
 
     public void setDrugTradeStatus(Integer drugTradeStatus) {
         this.drugTradeStatus = drugTradeStatus;
+    }
+
+    public Integer getRecoreds() {
+        return recoreds;
+    }
+
+    public void setRecoreds(Integer recoreds) {
+        this.recoreds = recoreds;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getStartrow() {
+        return startrow;
+    }
+
+    public void setStartrow(Integer startrow) {
+        this.startrow = startrow;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 }
