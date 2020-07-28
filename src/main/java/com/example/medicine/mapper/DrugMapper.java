@@ -30,4 +30,6 @@ public interface DrugMapper {
     List<Drug> selectByReturnOrderId(Hospital_Transaction_Return_Form returnOrder);
 
     List<Drug> selectByPurchaseOrderId(PurchaseOrder purchaseOrder);
+
+    int selectCountByReturnOrderId(Hospital_Transaction_Return_Form returnOrder);
 }

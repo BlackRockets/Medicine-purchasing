@@ -56,6 +56,13 @@
     </where>
     limit #{startRow},#{pageSize}
   </select>
+  <delete id="deleteReturnOrder">
+    delete from  hospital_transaction_return_form
+    where return_order_id in
+    <foreach collection="array" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </delete>
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
     select count(*) from hospital_transaction_return_form
     <where>

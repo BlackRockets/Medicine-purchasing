@@ -3,18 +3,20 @@ package com.example.medicine.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.medicine.bean.Drug;
+import com.example.medicine.bean.Hospital_Return_Order_Detail;
 import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.common.ReturnUtil;
 import com.example.medicine.service.ReturnOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 @Controller
 @RequestMapping("returnOrder")
@@ -51,9 +53,31 @@ public class ReturnOrderController {
     @ResponseBody
     @RequestMapping(value = "findDrugByReturnOrderId",produces = {"application/json;charset=utf-8"})
     public String findDrugByReturnOrderId(Hospital_Transaction_Return_Form returnOrder){
-        List<Drug> drugList = returnOrderService.findByReturnOrderId(returnOrder);
-        ReturnUtil returnUtil = new ReturnUtil();
-        String data = returnUtil.getData(drugList, 100);
+        String data = returnOrderService.findByReturnOrderId(returnOrder);
         return data;
+    }
+
+    //删除退货单
+    @ResponseBody
+    @RequestMapping(value = "deleteReturnOrder",produces = {"application/json;charset=utf-8"})
+    public int deleteReturnOrder(String[] ids){
+        return returnOrderService.deleteReturnOrder(ids);
+    }
+
+    //删除退货单药品
+    @ResponseBody
+    @RequestMapping(value = "deleteReturnMedicine",produces = {"application/json;charset=utf-8"})
+    public int deleteReturnMedicine(String[] ids){
+        return returnOrderService.deleteMedicine(ids);
+    }
+
+    //保存退货量
+    @ResponseBody
+    @RequestMapping(value = "saveReturnCount",produces = {"application/json;charset=utf-8"})
+    public void saveReturnCount(@RequestBody Hospital_Return_Order_Detail[] returnOrderDetail){
+        /*JSON parse = (JSON) JSON.parse(returnOrderDetail);*/
+        System.out.println(returnOrderDetail);
+      /*  List<Hospital_Return_Order_Detail> returnOrderDetail1=null;
+        returnOrderService.saveReturnCount(returnOrderDetail1);*/
     }
 }

@@ -16,4 +16,7 @@ public interface Hospital_Return_Order_DetailMapper {
     int updateByPrimaryKeySelective(Hospital_Return_Order_Detail record);
 
     int updateByPrimaryKey(Hospital_Return_Order_Detail record);
+
+    int deleteById(String[] ids);
+
 }

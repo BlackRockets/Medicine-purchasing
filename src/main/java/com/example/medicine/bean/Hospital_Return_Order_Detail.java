@@ -15,6 +15,26 @@ public class Hospital_Return_Order_Detail {
 
     private Integer returnStatus;
 
+    private Integer returnCount;
+
+    private Integer returnReason;
+
+    public Integer getReturnCount() {
+        return returnCount;
+    }
+
+    public void setReturnCount(Integer returnCount) {
+        this.returnCount = returnCount;
+    }
+
+    public Integer getReturnReason() {
+        return returnReason;
+    }
+
+    public void setReturnReason(Integer returnReason) {
+        this.returnReason = returnReason;
+    }
+
     public Integer getId() {
         return id;
     }
