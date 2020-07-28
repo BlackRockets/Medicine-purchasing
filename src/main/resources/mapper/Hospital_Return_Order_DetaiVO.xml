@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.Hospital_Return_Order_VOMapper">
+  <resultMap id="BaseResultMap" type="com.example.medicine.bean.DrugVO">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="purchase_order_id" jdbcType="INTEGER" property="purchaseOrderId" />
+    <result column="name_of_purchase_order" jdbcType="VARCHAR" property="nameOfPurchaseOrder" />
+
+  </resultMap>
+</mapper>
