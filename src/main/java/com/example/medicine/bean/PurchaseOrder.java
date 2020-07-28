@@ -35,6 +35,8 @@ public class PurchaseOrder {
 
     private Date auditTime;
 
+    private PurchaseOrderDetails pod;
+
     private Hospital_Transaction_Details htd;
 
     private Drug drug;
@@ -226,5 +228,13 @@ public class PurchaseOrder {
 
     public void setDrug(Drug drug) {
         this.drug = drug;
+    }
+
+    public PurchaseOrderDetails getPod() {
+        return pod;
+    }
+
+    public void setPod(PurchaseOrderDetails pod) {
+        this.pod = pod;
     }
 }
