@@ -1,6 +1,9 @@
 package com.example.medicine.serviceImpl;
 
+import com.example.medicine.bean.Drug;
+import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.bean.PurchaseOrder;
+import com.example.medicine.mapper.DrugMapper;
 import com.example.medicine.mapper.PurchaseOrderMapper;
 import com.example.medicine.service.PurchaseOrderService;
 import com.github.pagehelper.PageHelper;
@@ -16,24 +19,20 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 
     @Autowired
     private PurchaseOrderMapper purchaseOrderMapper;
+    @Autowired
+    private DrugMapper drugMapper;
 
 
     @Override
-    public PageInfo<PurchaseOrder> queryAllPurchaseOrder(Integer pageNum, Integer pageSize, String purchaseOrderNumber, String nameOfPurchaseOrder, String nameOfHospital, Integer purchaseOrderStatus, Integer supplierId) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.queryAllPurchaseOrder(purchaseOrderNumber, purchaseOrderNumber, nameOfHospital, purchaseOrderStatus, supplierId);
-        PageInfo<PurchaseOrder> info = new PageInfo<>(purchaseOrders);
-        return info;
-
+    public List<PurchaseOrder> queryAllPurchaseOrder(PurchaseOrder purchaseOrder) {
+        return null;
     }
 
     @Override
-    public PageInfo<PurchaseOrder> selectAllPurchaseOrder(Integer pageNum, Integer pageSize, String purchaseOrderNumber, String nameOfPurchaseOrder, Integer hospitalId, Integer purchaseOrderStatus) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<PurchaseOrder> purchaseOrders = purchaseOrderMapper.selectAllPurchaseOrder(purchaseOrderNumber, purchaseOrderNumber, hospitalId, purchaseOrderStatus);
-        PageInfo<PurchaseOrder> info = new PageInfo<>(purchaseOrders);
-        return info;
+    public List<PurchaseOrder> selectAllPurchaseOrder(PurchaseOrder purchaseOrder) {
+        return null;
     }
+
 
     @Override
     public int insert(PurchaseOrder purchaseOrder) {
@@ -45,5 +44,22 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
     public int update(PurchaseOrder purchaseOrder) {
         int update = purchaseOrderMapper.updateByPrimaryKey(purchaseOrder);
         return update;
+    }
+
+    @Override
+    public int updatePurchaseStatus(PurchaseOrder purchaseOrder) {
+        int i = purchaseOrderMapper.updateByPrimaryKeySelective(purchaseOrder);
+        return i;
+    }
+
+    @Override
+    public List<Drug> findByPurchaseOrderId(PurchaseOrder purchaseOrder) {
+        Integer pageNum = purchaseOrder.getPageNum();
+        Integer pageSize = purchaseOrder.getPageSize();
+        if (pageNum != null && pageSize != null) {
+            Integer startrow = (pageNum - 1) * pageSize;
+            purchaseOrder.setStartRow(startrow);
+        }
+        return drugMapper.selectByPurchaseOrderId(purchaseOrder);
     }
 }

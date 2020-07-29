@@ -7,81 +7,51 @@ public class PurchaseOrder {
 
     private int purchaseId;
 
-    public Date getOrderCreationTime() {
-        return orderCreationTime;
-    }
-
-    public void setOrderCreationTime(Date orderCreationTime) {
-        this.orderCreationTime = orderCreationTime;
-    }
-
-    public String getPurchaseOrderNumber() {
-        return purchaseOrderNumber;
-    }
-
-    public void setPurchaseOrderNumber(String purchaseOrderNumber) {
-        this.purchaseOrderNumber = purchaseOrderNumber;
-    }
-
     private String purchaseOrderNumber;
 
     private Date orderCreationTime;
 
     private String nameOfPurchaseOrder;
 
-    public Integer getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getBeginNum() {
-        return beginNum;
-    }
-
-    public void setBeginNum(Integer beginNum) {
-        this.beginNum = beginNum;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    private  int hospitalId;
+    private int hospitalId;
 
     private String contacts;
 
     private String contactNumber;
 
+    private Date orderModifiedTime;
 
-    private Integer pageNum;
+    private Date lastModifiedTime;
 
-    public String getContactNumber() {
-        return contactNumber;
-    }
+    private Date submissionTime;
 
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
+    private String remarks;
 
-    private Integer pageSize;
+    private String purchaseOrderStatus;
 
-    private Integer beginNum;
+    private String reviewer;
 
+    private String auditOpinion;
+
+    private Date auditTime;
+
+    private PurchaseOrderDetails pod;
+
+    private Hospital_Transaction_Details htd;
+
+    private Drug drug;
+
+    private Integer recoreds;
+
+    private Integer pageNum = 1;
+
+    //每页条数
+    private Integer pageSize = 10;
+
+    //起始条数
+    private Integer startRow;
+
+    //总套数
     private Integer total;
 
     public int getPurchaseId() {
@@ -92,6 +62,21 @@ public class PurchaseOrder {
         this.purchaseId = purchaseId;
     }
 
+    public String getPurchaseOrderNumber() {
+        return purchaseOrderNumber;
+    }
+
+    public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+        this.purchaseOrderNumber = purchaseOrderNumber;
+    }
+
+    public Date getOrderCreationTime() {
+        return orderCreationTime;
+    }
+
+    public void setOrderCreationTime(Date orderCreationTime) {
+        this.orderCreationTime = orderCreationTime;
+    }
 
     public String getNameOfPurchaseOrder() {
         return nameOfPurchaseOrder;
@@ -117,6 +102,13 @@ public class PurchaseOrder {
         this.contacts = contacts;
     }
 
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
     public Date getOrderModifiedTime() {
         return orderModifiedTime;
@@ -182,27 +174,13 @@ public class PurchaseOrder {
         this.auditTime = auditTime;
     }
 
-    private Date orderModifiedTime;
-
-    private Date lastModifiedTime;
-
-    private Date submissionTime;
-
-    private String remarks;
-
-    private String purchaseOrderStatus;
-
-    private String reviewer;
-
-    public Hospital_Transaction_Details getHospital_transaction_details() {
-        return hospital_transaction_details;
+    public Hospital_Transaction_Details getHtd() {
+        return htd;
     }
 
-    public void setHospital_transaction_details(Hospital_Transaction_Details hospital_transaction_details) {
-        this.hospital_transaction_details = hospital_transaction_details;
+    public void setHtd(Hospital_Transaction_Details htd) {
+        this.htd = htd;
     }
-
-    private String auditOpinion;
 
     public Integer getRecoreds() {
         return recoreds;
@@ -212,12 +190,51 @@ public class PurchaseOrder {
         this.recoreds = recoreds;
     }
 
-    private Date auditTime;
+    public Integer getPageNum() {
+        return pageNum;
+    }
 
-    private Hospital_Transaction_Details hospital_transaction_details;
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
 
-    private Integer recoreds;
+    public Integer getPageSize() {
+        return pageSize;
+    }
 
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
 
+    public Integer getStartRow() {
+        return startRow;
+    }
 
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
+    public PurchaseOrderDetails getPod() {
+        return pod;
+    }
+
+    public void setPod(PurchaseOrderDetails pod) {
+        this.pod = pod;
+    }
 }

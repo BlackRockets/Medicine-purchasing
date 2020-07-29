@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.dao.HospitalTransactionPurchaseOrderWarehousingTableDao">
+
+    <resultMap type="com.example.medicine.mapper.entity.HospitalTransactionPurchaseOrderWarehousingTable"
+               id="HospitalTransactionPurchaseOrderWarehousingTableMap">
+        <result property="purchaseOrderStockInTableId" column="purchase_order_stock_in_table_id" jdbcType="INTEGER"/>
+        <result property="purchaseOrderId" column="purchase_order_id" jdbcType="INTEGER"/>
+        <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+        <result property="storageVolume" column="storage_volume" jdbcType="VARCHAR"/>
+        <result property="warehousingAmount" column="warehousing_amount" jdbcType="VARCHAR"/>
+        <result property="invoiceUmber" column="invoice_umber" jdbcType="VARCHAR"/>
+        <result property="drugBatchNumber" column="drug_batch_number" jdbcType="VARCHAR"/>
+        <result property="validityPeriodOfDrug" column="validity_period_of_drug" jdbcType="TIMESTAMP"/>
+        <result property="storageTime" column="storage_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HospitalTransactionPurchaseOrderWarehousingTableMap">
+        select
+          purchase_order_stock_in_table_id, purchase_order_id, drug_information_id, storage_volume, warehousing_amount, invoice_umber, drug_batch_number, validity_period_of_drug, storage_time
+        from medicine.hospital_transaction_purchase_order_warehousing_table
+        where purchase_order_stock_in_table_id = #{purchaseOrderStockInTableId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HospitalTransactionPurchaseOrderWarehousingTableMap">
+        select
+          purchase_order_stock_in_table_id, purchase_order_id, drug_information_id, storage_volume, warehousing_amount, invoice_umber, drug_batch_number, validity_period_of_drug, storage_time
+        from medicine.hospital_transaction_purchase_order_warehousing_table
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="HospitalTransactionPurchaseOrderWarehousingTableMap">
+        select
+        purchase_order_stock_in_table_id, purchase_order_id, drug_information_id, storage_volume, warehousing_amount,
+        invoice_umber, drug_batch_number, validity_period_of_drug, storage_time
+        from medicine.hospital_transaction_purchase_order_warehousing_table
+        <where>
+            <if test="purchaseOrderStockInTableId != null">
+                and purchase_order_stock_in_table_id = #{purchaseOrderStockInTableId}
+            </if>
+            <if test="purchaseOrderId != null">
+                and purchase_order_id = #{purchaseOrderId}
+            </if>
+            <if test="drugInformationId != null">
+                and drug_information_id = #{drugInformationId}
+            </if>
+            <if test="storageVolume != null and storageVolume != ''">
+                and storage_volume = #{storageVolume}
+            </if>
+            <if test="warehousingAmount != null and warehousingAmount != ''">
+                and warehousing_amount = #{warehousingAmount}
+            </if>
+            <if test="invoiceUmber != null and invoiceUmber != ''">
+                and invoice_umber = #{invoiceUmber}
+            </if>
+            <if test="drugBatchNumber != null and drugBatchNumber != ''">
+                and drug_batch_number = #{drugBatchNumber}
+            </if>
+            <if test="validityPeriodOfDrug != null">
+                and validity_period_of_drug = #{validityPeriodOfDrug}
+            </if>
+            <if test="storageTime != null">
+                and storage_time = #{storageTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="purchaseOrderStockInTableId" useGeneratedKeys="true">
+        insert into medicine.hospital_transaction_purchase_order_warehousing_table(purchase_order_id, drug_information_id, storage_volume, warehousing_amount, invoice_umber, drug_batch_number, validity_period_of_drug, storage_time)
+        values (#{purchaseOrderId}, #{drugInformationId}, #{storageVolume}, #{warehousingAmount}, #{invoiceUmber}, #{drugBatchNumber}, #{validityPeriodOfDrug}, #{storageTime})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update medicine.hospital_transaction_purchase_order_warehousing_table
+        <set>
+            <if test="purchaseOrderId != null">
+                purchase_order_id = #{purchaseOrderId},
+            </if>
+            <if test="drugInformationId != null">
+                drug_information_id = #{drugInformationId},
+            </if>
+            <if test="storageVolume != null and storageVolume != ''">
+                storage_volume = #{storageVolume},
+            </if>
+            <if test="warehousingAmount != null and warehousingAmount != ''">
+                warehousing_amount = #{warehousingAmount},
+            </if>
+            <if test="invoiceUmber != null and invoiceUmber != ''">
+                invoice_umber = #{invoiceUmber},
+            </if>
+            <if test="drugBatchNumber != null and drugBatchNumber != ''">
+                drug_batch_number = #{drugBatchNumber},
+            </if>
+            <if test="validityPeriodOfDrug != null">
+                validity_period_of_drug = #{validityPeriodOfDrug},
+            </if>
+            <if test="storageTime != null">
+                storage_time = #{storageTime},
+            </if>
+        </set>
+        where purchase_order_stock_in_table_id = #{purchaseOrderStockInTableId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from medicine.hospital_transaction_purchase_order_warehousing_table where purchase_order_stock_in_table_id = #{purchaseOrderStockInTableId}
+    </delete>
+
+</mapper>

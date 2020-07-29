@@ -2,6 +2,7 @@ package com.example.medicine.service;
 
 import com.example.medicine.bean.Drug;
 import org.springframework.web.multipart.MultipartFile;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -34,4 +35,6 @@ public interface DrugService {
 
     //导入
     Boolean doImport(MultipartFile file);
+
+    List<Drug> selectAllDrug(Drug drug);
 }

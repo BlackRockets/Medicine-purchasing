@@ -11,18 +11,15 @@ import java.util.Map;
 
 @Component
 public interface PurchaseOrderMapper {
+    //按采购单查询
+    List<PurchaseOrder> queryAllPurchaseOrder(PurchaseOrder purchaseOrder);
 
-    List<PurchaseOrder> queryAllPurchaseOrder(
-            @Param("purchaseOrderNumber") String purchaseOrderNumber,
-            @Param("nameOfPurchaseOrder") String nameOfPurchaseOrder,
-            @Param("nameOfHospital") String nameOfHospital,
-            @Param("purchaseOrderStatus") Integer purchaseOrderStatus,
-            @Param("supplierId") Integer supplierId);
+    //采购单维护查询
     List<PurchaseOrder> selectAllPurchaseOrder(
-            @Param("purchaseOrderNumber") String purchaseOrderNumber,
-            @Param("nameOfPurchaseOrder") String nameOfPurchaseOrder,
-            @Param("hospitalId") Integer hospitalId,
-            @Param("purchaseOrderStatus") Integer purchaseOrderStatus);
+            PurchaseOrder purchaseOrder);
+
+    //采购单入库前查询
+    List<PurchaseOrder> selectAllPurchaseOrderWarehousing(PurchaseOrder purchaseOrder);
 
     int countAll();
 
@@ -34,9 +31,10 @@ public interface PurchaseOrderMapper {
 
     PurchaseOrder selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(PurchaseOrder record);
+    //采购单入库
+    int updateByPrimaryKeySelective(PurchaseOrder purchaseOrder);
 
-    Integer selectCount();
+    Integer selectCount(PurchaseOrder purchaseOrder);
 
     int updateByPrimaryKey(PurchaseOrder record);
 }

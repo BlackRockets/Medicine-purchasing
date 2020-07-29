@@ -27,6 +27,11 @@
     <result column="settlement_amount" jdbcType="VARCHAR" property="settlementAmount" />
     <result column="settlement_status" jdbcType="VARCHAR" property="settlementStatus" />
   </resultMap>
+  
+  <select id="selectAllHospitalTransationDetials"  resultMap="BaseResultMap"  >
+    select *
+     from hospital_transaction_details
+  </select>
   <insert id="insert" parameterType="com.example.medicine.bean.Hospital_Transaction_Details">
     insert into hospital_transaction_details (hospital_transaction_details_id, purchase_order_id, 
       drug_information_id, supplier_id, bid_price, 
@@ -198,4 +203,5 @@
       </if>
     </trim>
   </insert>
+
 </mapper>
