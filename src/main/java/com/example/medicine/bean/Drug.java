@@ -1,68 +1,72 @@
 package com.example.medicine.bean;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.metadata.BaseRowModel;
+
 import java.util.Date;
 
-public class Drug {
+public class Drug extends BaseRowModel {
     private Integer id;
 
+    @ExcelProperty(index = 0, value = "流水号")
     private String serialUmber;
-
+    @ExcelProperty(index = 1, value = "通用名")
     private String dosageForm;
-
+    @ExcelProperty(index = 2, value = "剂型")
     private String dosageFormDrug;
-
+    @ExcelProperty(index = 3, value = "规格")
     private String specifications;
-
+    @ExcelProperty(index = 4, value = "转换系数")
     private String conversionCoefficientNo;
-
+    @ExcelProperty(index = 5, value = "生产企业")
     private String nameOfManufacturer;
-
+    @ExcelProperty(index = 6, value = "商品名")
     private String tradeName;
-
+    @ExcelProperty(index = 7, value = "中标价")
     private String bidPrice;
-
+    @ExcelProperty(index = 8, value = "单位")
     private String company;
-
+    @ExcelProperty(index = 9, value = "通用名称")
     private String commonNamePinyin;
-
+    @ExcelProperty(index = 10, value = "产品照片")
     private String productPhotos;
-
+    @ExcelProperty(index = 11, value = "批准文号")
     private String approvalNumber;
-
+    @ExcelProperty(index = 12, value = "批准文号有效期")
     private String validityPeriodOfApprovalNumber;
-
+    @ExcelProperty(index = 13, value = "是否进口药")
     private Integer importedDrugs;
-
+    @ExcelProperty(index = 14, value = "包装材质")
     private String packingMaterial;
-
+    @ExcelProperty(index = 15, value = "包装单位")
     private String packagingUnit;
-
+    @ExcelProperty(index = 16, value = "最新零售价")
     private Double latestRetailPrice;
-
+    @ExcelProperty(index = 17, value = "零售价出处")
     private String retailPriceSource;
-
+    @ExcelProperty(index = 18, value = "质量层次")
     private String qualityLevel;
-
+    @ExcelProperty(index = 19, value = "质量层次")
     private String qualityLevelDescription;
-
+    @ExcelProperty(index = 20, value = "有无药品检验报告")
     private Integer drugInspectionReport;
-
+    @ExcelProperty(index = 21, value = "药品检验报告编号")
     private String drugInspectionReportNo;
-
+    @ExcelProperty(index = 22, value = "药品检验报告有效期")
     private Date validityPeriodOfDrugInspectionReport;
-
+    @ExcelProperty(index = 23, value = "产品说明")
     private String productDescription;
-
+    @ExcelProperty(index = 24, value = "药品类别")
     private String drugCategory;
-
+    @ExcelProperty(index = 25, value = "药品交易状态")
     private Integer drugTradeStatus;
 
     private Double startPrice;
 
     private Double endPrice;
-
+    @ExcelProperty(index = 26, value = "采购标识")
     private Integer flag;
-
+    @ExcelProperty(index = 27, value = "供货标识")
     private Integer supplierFlag;
 
     private Vendor_Information vendor_information;

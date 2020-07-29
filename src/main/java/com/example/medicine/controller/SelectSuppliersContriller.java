@@ -28,7 +28,6 @@ public class SelectSuppliersContriller {
     public String selectSuppliersFindAll(@RequestParam("page")Integer page, @RequestParam("limit")Integer limit, Drug drug){
         drug.setPageNum(page);
         drug.setPageSize(limit);
-        System.out.println(drug);
         List<Drug> drugs = selectSuppliersService.selectAllDrugs(drug);
         Integer count = selectSuppliersService.selectCount(drug);
         HashMap<Object, Object> resultMap = new HashMap<>();

@@ -1,6 +1,7 @@
 package com.example.medicine.service;
 
 import com.example.medicine.bean.Drug;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -30,4 +31,7 @@ public interface DrugService {
     List<Drug> selectPurchaseDrugs(List<Integer> integers);
 
     int updatePurchaseDrugs(List<Drug> integers);
+
+    //导入
+    Boolean doImport(MultipartFile file);
 }

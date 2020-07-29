@@ -112,11 +112,11 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品类别：</label>
                             <div class="layui-input-inline">
-                                <select style="margin-top: 20%" name="drugCategory"  lay-search="">
+                                <select style="margin-top: 20%" name="drugCategory" id="drugCategorys" lay-search="">
                                     <option value="">全部</option>
-                                    <option value="1">layer</option>
+                                    <!--<option value="1">layer</option>
                                     <option value="2">form</option>
-                                    <option value="3">layim</option>
+                                    <option value="3">layim</option>-->
                                 </select>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                                 <select style="margin-top: 20%" name="supervisionOrganizationControlStatus"  lay-search="">
                                     <option value="">全部</option>
                                     <option value="1">正常</option>
-                                    <option value="2">取消</option>
+                                    <option value="2">暂停供货</option>
                                 </select>
                             </div>
                         </div>
@@ -567,6 +567,24 @@
         var element = layui.element;
         var laydate=layui.laydate;
         $ = layui.$;
+
+        $.ajax({
+            type: 'post',
+            url: '/drug/drugCategory/',
+            data: null,
+            dataType: 'json',
+            success:function (data) {
+                console.log(data)
+                var datas="";
+                for (var i=0;i<data.length;i++){
+                    datas += "<option value='"+data[i]+"'>" + data[i] +"</option>";
+                }
+                $('#drugCategorys').append(datas);
+                form.render('select');
+
+            }
+        })
+
 
         var tableIns=table.render({
             elem: '#demo'

@@ -361,7 +361,6 @@
                 ,{field:'drugCategory', title: '药品类别',width: 90,templet: '<div>{{d.drug.drugCategory}}</div>'}
                 ,{field:'drugTradeStatus',title: '药品交易状态',width: 90,templet: function(d){if(d.drug.drugTradeStatus == 1) return "正常";else if(d.drugTradeStatus == 2) return "取消";}}
                 ,{field:'nameOfEnterprise',title: '供货商',width: 90,templet: '<div>{{d.vendor_information.nameOfEnterprise}}</div>'}
-                ,{field:'drugTradeStatus',title: '供货状态',width: 90,templet: function(d){if(d.drugTradeStatus == 1) return "正常";else if(d.drugTradeStatus == 2) return "取消";}}
                 ,{fixed: 'right', width:80, align:'center', toolbar: '#barDemo'}
             ]],
             page: true

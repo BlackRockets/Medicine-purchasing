@@ -1,10 +1,12 @@
 package com.example.medicine.serviceImpl;
 
 import com.example.medicine.bean.Drug;
+import com.example.medicine.common.EasyExcelUtil;
 import com.example.medicine.mapper.DrugMapper;
 import com.example.medicine.service.DrugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -95,6 +97,27 @@ public class DrugServiceImpl implements DrugService {
 
         int i = drugMapper.updatePurchaseDrugs(drugs);
         return i;
+    }
+
+    @Override
+    public Boolean doImport(MultipartFile file) {
+        List<Object> obj=null;
+        try {
+            obj = EasyExcelUtil.readExcel(file, new Drug(), 1, 1);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Boolean bool=true;
+        for (Object object : obj) {
+            Drug importDrug= (Drug) object;
+            System.out.println("----------------"+ importDrug);
+            int insert = drugMapper.insert(importDrug);
+            if(insert == 0){
+                bool=false;
+            }
+        }
+        return bool;
     }
 
 
