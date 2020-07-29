@@ -301,7 +301,7 @@
             </table>
             <div align="center" id="settlement">
                 <button  type="button" class="layui-btn layui-btn-normal" >保存退货单</button>
-                <button  type="button" class="layui-btn layui-btn-normal" >提交退货单</button>
+                <button  type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="submitReturnOrder">提交退货单</button>
             </div>
 
         </form>
@@ -810,7 +810,7 @@
                 type:1,
                 scrollbar: false,
                 title:['创建退货单','font-size:20px;text-align:center;'],
-                area:['100%','100%'],
+                area:['80%','90%'],
                 content:$("#createReturnOrder").html(),
                 success: function(){
                     form.render();
@@ -904,6 +904,24 @@
 
         });
 
+
+        //提交退货单
+        form.on('submit(submitReturnOrder)', function (data) {
+            var returnOrderId = $("#returnOrderId").val();
+            $.ajax({
+                url:'/returnOrder/deleteReturnOrder',
+                type:'post',
+                dataType:"json",
+                data: {
+                    ids:array.toString(),
+                },
+                success:function (date) {
+                    layer.msg("删除成功!");
+                    table.reload("medicineTableMark");
+                }
+            })
+        });
+
         //跳转添加退货药品
         var addMedic = null;
         form.on('submit(add)', function (data) {
@@ -921,44 +939,61 @@
                     });
                     table.render({
                         elem: '#addMedicineTable',
-                        url:'/returnOrder/findDrugByReturnOrderId/?returnOrderId='+returnOrderId+'',
-                        id:'addMedicineTableMark',
+                        url:'/returnOrder/findDrug',
+                        id:'addMedicineTables',
                         cols: [[
                             {type: 'checkbox', fixed: 'left'},
-                            {field:'id', title: '采购单编号',},
-                            {field:'approvalNumber', title: '采购单名称'},
-                            {field:'commonNamePinyin',title: '采购医院',},
-                            {field:'serialUmber',title: '流水号'},
-                            {field:'dosageForm',title: '通用名',},
-                            {field:'tradeName', title: '商品名',},
-                            {field:'bidPrice', title: '中标价',},
-                            {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                            {field:'purchaseOrderNumber', title: '采购单编号',width:'100'},
+                            {field:'nameOfPurchaseOrder', title: '采购单名称',width:'100'},
+                            {field:'hospitalId', title: '采购医院',width:'100'},
+                            {field:'serialUmber',title: '流水号',width:'80'},
+                            {field:'dosageForm',title: '通用名',width:'80'},
+                            {field:'tradeName', title: '商品名',width:'80'},
+                            {field:'bidPrice', title: '中标价',width:'80'},
+                            {field:'purchaseVolume',title: '采购量',width:'80'},
+                            {field:'purchaseAmount', title: '采购金额',width:'90'},
+                            {field:'storageVolume', title: '入库量',width:'90'},
+                            {field:'approvalNumber', title: '药品批号',width:'90'},
+                            {field:'validityPeriodOfApprovalNumber', title: '药品有效期',width:'100'},
+                            {field:'dosageFormDrug', title: '剂型',width:'60'},
+                            {field:'specifications', title: '规格',width:'60'},
+                            {field:'company', title: '单位',width:'60'},
+                            {field:'qualityLevelDescription', title: '质量层次',width:'90'},
                         ]],
                         page: true
                     });
-                }
+                },
+                cancel: function(){
+                    /*layer.close(addMedic);*/
+                    table.reload("deleteMedicineTableMark");
+                },
             })
         });
 
         //添加药品
         form.on('submit(addMedicine)', function (data) {
-            var checkStatus = table.checkStatus("addMedicineTableMark");
+            var checkStatus = table.checkStatus("addMedicineTables");
             var data1 = checkStatus.data;
             var returnOrderId = $("#returnOrderId").val();
+            var array = new Array();
+            for (let index in data1) {
+                data1[index].returnOrderId = returnOrderId;
+                data1[index].purchaseOrderId = data1[index].purchaseId;
+                array.push(data1[index]);
+            }
+
+
             $.ajax({
-                url:'/returnOrder/saveReturnOrder',
+                url:'/returnOrder/addDrugToReturnOrder',
                 type:'post',
                 dataType:"json",
-                data:'',
-                async: false,
-                processData : false, // 使数据不做处理
-                contentType : false, // 不要设置Content-Type请求头
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(array),
                 success:function (date) {
-
-                    layer.close(addMedic);
                     layer.msg("添加成功!");
                 }
             })
+
 
         });
 
@@ -989,23 +1024,17 @@
         form.on('submit(save)', function (data) {
             var checkStatus = table.checkStatus("deleteMedicineTableMark");
             var data1 = checkStatus.data;
-
             var array1 = new Array();
             for (let index in data1) {
                 var s = data1[index];
                 array1.push(s);
             }
-            var formData = new FormData;
-            /*formData.append("returnOrder",returnOrderData);*/
             $.ajax({
                 url:'/returnOrder/saveReturnCount',
                 type:'post',
                 dataType:"json",
-                /*contentType:"application/json",*/
-                data: {
-                   /*returnOrderDetail:JSON.stringify(saveDataAry),*/
-                    returnOrderDetail:aaa,
-                },
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(array1),
                 success:function (date) {
                     table.reload("deleteMedicineTableMark");
                     layer.msg("保存成功!");
@@ -1017,7 +1046,6 @@
         //查询退货单中的药品
         form.on('submit(findReturnOrder)', function (data) {
             var returnOrderId = $("#returnOrderId").val();
-            console.log(returnOrderId);
             $.ajax({
                 url:'/returnOrder/findDrugByReturnOrderId/',
                 type:'post',
@@ -1046,7 +1074,6 @@
                     });
 
 
-
                     layer.close(addMedic);
                     layer.msg("添加成功!");
                 }
@@ -1061,7 +1088,6 @@
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             var returnOrderId = parseInt(data.returnOrderId);
-            console.log(data);
             if(layEvent === 'del'){
                 layer.confirm('真的删除行么', function(index){
                     var array = new Array();
@@ -1109,26 +1135,24 @@
                             id:'deleteMedicineTableMark',
                             cols: [[
                                 {type: 'checkbox', fixed: 'left'},
-                                {field:'id', title: '采购单编号',width:'100'},
-                                {field:'approvalNumber', title: '采购单名称',width:'100'},
-                                {field:'commonNamePinyin',title: '采购医院',width:'90'},
+                                {field:'purchaseOrderId', title: '采购单编号',width:'100'},
+                                {field:'nameOfPurchaseOrder', title: '采购单名称',width:'100'},
                                 {field:'serialUmber',title: '流水号',width:'80'},
                                 {field:'dosageForm',title: '通用名',width:'80'},
                                 {field:'tradeName', title: '商品名',width:'80'},
                                 {field:'bidPrice', title: '中标价',width:'80'},
-                                {field:'dosageForm',title: '采购量',width:'80'},
-                                {field:'tradeName', title: '采购金额',width:'90'},
-                                {field:'bidPrice', title: '入库量',width:'90'},
-                                {field:'bidPrice', title: '实际交易金额',width:'120'},
-                                {field:'bidPrice', title: '药品批号',width:'90'},
-                                {field:'bidPrice', title: '药品有效期',width:'100'},
-                                {field:'returnCount', edit: 'text', title: '退货量',width:'80'},
-                                {field:'returnCount', title: '退货金额',width:'90'},
-                                {field:'returnCount', edit: 'text', title: '退货原因',width:'90'},
-                                {field:'returnCount', title: '剂型',width:'60'},
-                                {field:'returnCount', title: '规格',width:'60'},
-                                {field:'returnCount', title: '单位',width:'60'},
-                                {field:'returnCount', title: '质量层次',width:'90'},
+                                {field:'purchaseVolume',title: '采购量',width:'80'},
+                                {field:'purchaseAmount', title: '采购金额',width:'90'},
+                                {field:'storageVolume', title: '入库量',width:'90'},
+                                {field:'approvalNumber', title: '药品批号',width:'90'},
+                                {field:'validityPeriodOfApprovalNumber', title: '药品有效期',width:'100'},
+                                {field:'returnQuantity', edit: 'text', title: '退货量',width:'80'},
+                                {field:'returnMoney', title: '退货金额',width:'90'},
+                                {field:'returnReason', edit: 'text', title: '退货原因',width:'90'},
+                                {field:'dosageFormDrug', title: '剂型',width:'60'},
+                                {field:'specifications', title: '规格',width:'60'},
+                                {field:'company', title: '单位',width:'60'},
+                                {field:'qualityLevelDescription', title: '质量层次',width:'90'},
                             ]],
                             page: true
                         });

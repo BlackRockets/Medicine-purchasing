@@ -26,4 +26,10 @@ public interface ReturnOrderService {
     //保存退货量
     void saveReturnCount(List<Hospital_Return_Order_Detail> returnOrderDetail);
 
+    //查询所有已经入库的药品
+    String findDrug(Hospital_Transaction_Return_Form returnOrder);
+
+    //添加药品到退货单
+    void addDrugToReturnOrder(List<Hospital_Return_Order_Detail> returnOrder);
+
 }

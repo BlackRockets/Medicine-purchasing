@@ -111,6 +111,10 @@
       #{builder,jdbcType=VARCHAR}, #{orderCreationTime,jdbcType=TIMESTAMP}, #{submissionTime,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR}, #{returnOrderStatus,jdbcType=INTEGER})
   </insert>
+  <update id="submitReturnOrder" parameterType="java.lang.Integer">
+        update set hospital_transaction_return_form returnOrderStatus = #{returnOrderStatus}
+        where returnOrderId = #{returnOrderId}
+  </update>
   <insert id="insertSelective" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" useGeneratedKeys="true" keyProperty="returnOrderId">
     insert into hospital_transaction_return_form
     <trim prefix="(" suffix=")" suffixOverrides=",">

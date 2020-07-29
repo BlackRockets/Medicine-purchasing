@@ -74,10 +74,31 @@ public class ReturnOrderController {
     //保存退货量
     @ResponseBody
     @RequestMapping(value = "saveReturnCount",produces = {"application/json;charset=utf-8"})
-    public void saveReturnCount(@RequestBody Hospital_Return_Order_Detail[] returnOrderDetail){
-        /*JSON parse = (JSON) JSON.parse(returnOrderDetail);*/
-        System.out.println(returnOrderDetail);
-      /*  List<Hospital_Return_Order_Detail> returnOrderDetail1=null;
-        returnOrderService.saveReturnCount(returnOrderDetail1);*/
+    public int saveReturnCount(@RequestBody List<Hospital_Return_Order_Detail> returnOrderDetail){
+        returnOrderService.saveReturnCount(returnOrderDetail);
+        return 1;
+    }
+
+    //提交退货单
+    @ResponseBody
+    @RequestMapping(value = "submitReturnOrder",produces = {"application/json;charset=utf-8"})
+    public int submitReturnOrder(Integer returnOrderId){
+
+        return 1;
+    }
+
+    //查询所有已经入库药品
+    @ResponseBody
+    @RequestMapping(value = "findDrug",produces = {"application/json;charset=utf-8"})
+    public String findDrug(Hospital_Transaction_Return_Form returnOrder){
+        return returnOrderService.findDrug(returnOrder);
+    }
+
+    //添加药品到退货单
+    @ResponseBody
+    @RequestMapping(value = "addDrugToReturnOrder",produces = {"application/json;charset=utf-8"})
+    public int addDrugToReturnOrder(@RequestBody List<Hospital_Return_Order_Detail> returnOrderDetail){
+        returnOrderService.addDrugToReturnOrder(returnOrderDetail);
+        return 1;
     }
 }

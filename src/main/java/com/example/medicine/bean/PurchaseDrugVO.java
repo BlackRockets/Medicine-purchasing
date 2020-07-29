@@ -1,13 +1,32 @@
 package com.example.medicine.bean;
 
-import java.util.Date;
+public class PurchaseDrugVO {
+    private Integer purchaseId;
 
-public class DrugVO {
     private Integer id;
 
-    private Integer purchaseOrderId;
+    private String purchaseOrderNumber;
 
     private String nameOfPurchaseOrder;
+
+    private int hospitalId;
+
+
+    private Integer drugInformationId;
+
+
+    /**
+     * 采购量
+     */
+    private Integer purchaseVolume;
+    /**
+     * 采购金额
+     */
+    private Integer purchaseAmount;
+    /**
+     * 入库量
+     */
+    private Integer storageVolume;
 
     private String serialUmber;
 
@@ -29,17 +48,6 @@ public class DrugVO {
 
     private String qualityLevelDescription;
 
-    private Integer purchaseVolume;
-
-    private Integer purchaseAmount;
-
-    private Integer storageVolume;
-
-    private Integer returnQuantity;
-
-    private Integer returnMoney;
-
-    private Integer returnReason;
 
     //页码
     private Integer pageNum=1;
@@ -50,76 +58,12 @@ public class DrugVO {
     //起始条数
     private Integer startRow;
 
-    public Integer getReturnQuantity() {
-        return returnQuantity;
+    public Integer getDrugInformationId() {
+        return drugInformationId;
     }
 
-    public void setReturnQuantity(Integer returnQuantity) {
-        this.returnQuantity = returnQuantity;
-    }
-
-    public Integer getReturnMoney() {
-        return returnMoney;
-    }
-
-    public void setReturnMoney(Integer returnMoney) {
-        this.returnMoney = returnMoney;
-    }
-
-    public Integer getReturnReason() {
-        return returnReason;
-    }
-
-    public void setReturnReason(Integer returnReason) {
-        this.returnReason = returnReason;
-    }
-
-    public Integer getPurchaseAmount() {
-        return purchaseAmount;
-    }
-
-    public void setPurchaseAmount(Integer purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
-    }
-
-    public Integer getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getStartRow() {
-        return startRow;
-    }
-
-    public void setStartRow(Integer startRow) {
-        this.startRow = startRow;
-    }
-
-    public Integer getPurchaseVolume() {
-        return purchaseVolume;
-    }
-
-    public void setPurchaseVolume(Integer purchaseVolume) {
-        this.purchaseVolume = purchaseVolume;
-    }
-
-    public Integer getStorageVolume() {
-        return storageVolume;
-    }
-
-    public void setStorageVolume(Integer storageVolume) {
-        this.storageVolume = storageVolume;
+    public void setDrugInformationId(Integer drugInformationId) {
+        this.drugInformationId = drugInformationId;
     }
 
     public Integer getId() {
@@ -130,12 +74,20 @@ public class DrugVO {
         this.id = id;
     }
 
-    public Integer getPurchaseOrderId() {
-        return purchaseOrderId;
+    public Integer getPurchaseId() {
+        return purchaseId;
     }
 
-    public void setPurchaseOrderId(Integer purchaseOrderId) {
-        this.purchaseOrderId = purchaseOrderId;
+    public void setPurchaseId(Integer purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public String getPurchaseOrderNumber() {
+        return purchaseOrderNumber;
+    }
+
+    public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+        this.purchaseOrderNumber = purchaseOrderNumber;
     }
 
     public String getNameOfPurchaseOrder() {
@@ -144,6 +96,38 @@ public class DrugVO {
 
     public void setNameOfPurchaseOrder(String nameOfPurchaseOrder) {
         this.nameOfPurchaseOrder = nameOfPurchaseOrder;
+    }
+
+    public int getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(int hospitalId) {
+        this.hospitalId = hospitalId;
+    }
+
+    public Integer getPurchaseVolume() {
+        return purchaseVolume;
+    }
+
+    public void setPurchaseVolume(Integer purchaseVolume) {
+        this.purchaseVolume = purchaseVolume;
+    }
+
+    public Integer getPurchaseAmount() {
+        return purchaseAmount;
+    }
+
+    public void setPurchaseAmount(Integer purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
+    }
+
+    public Integer getStorageVolume() {
+        return storageVolume;
+    }
+
+    public void setStorageVolume(Integer storageVolume) {
+        this.storageVolume = storageVolume;
     }
 
     public String getSerialUmber() {
@@ -224,5 +208,29 @@ public class DrugVO {
 
     public void setQualityLevelDescription(String qualityLevelDescription) {
         this.qualityLevelDescription = qualityLevelDescription;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
     }
 }

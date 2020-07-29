@@ -4,7 +4,116 @@
   <resultMap id="BaseResultMap" type="com.example.medicine.bean.DrugVO">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="purchase_order_id" jdbcType="INTEGER" property="purchaseOrderId" />
+    <result column="return_quantity" jdbcType="INTEGER" property="returnQuantity" />
+    <result column="return_money" jdbcType="INTEGER" property="returnMoney" />
+    <result column="return_reason" jdbcType="VARCHAR" property="returnReason" />
     <result column="name_of_purchase_order" jdbcType="VARCHAR" property="nameOfPurchaseOrder" />
+    <result property="purchaseVolume" column="purchase_volume" jdbcType="INTEGER"/>
+    <result property="purchaseAmount" column="purchase_amount" jdbcType="INTEGER"/>
+    <result property="storageVolume" column="storage_volume" jdbcType="INTEGER"/>
+    <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber" />
+    <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm" />
+    <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName" />
+    <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice" />
+    <result column="APPROVAL_NUMBER" jdbcType="VARCHAR" property="approvalNumber" />
+    <result column="VALIDITY_PERIOD_OF_APPROVAL_NUMBER" jdbcType="VARCHAR" property="validityPeriodOfApprovalNumber" />
+    <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug" />
+    <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+    <result column="QUALITY_LEVEL_DESCRIPTION" jdbcType="VARCHAR" property="qualityLevelDescription" />
+</resultMap>
 
-  </resultMap>
+    <resultMap id="BaseResultMap2" type="com.example.medicine.bean.PurchaseDrugVO">
+        <result property="purchaseId" column="purchase_id" jdbcType="INTEGER"/>
+        <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+        <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
+        <result property="hospitalId" column="hospital_id" jdbcType="INTEGER"/>
+        <result property="purchaseVolume" column="purchase_volume" jdbcType="INTEGER"/>
+        <result property="purchaseAmount" column="purchase_amount" jdbcType="INTEGER"/>
+        <result property="storageVolume" column="storage_volume" jdbcType="INTEGER"/>
+        <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+        <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber" />
+        <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm" />
+        <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName" />
+        <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice" />
+        <result column="APPROVAL_NUMBER" jdbcType="VARCHAR" property="approvalNumber" />
+        <result column="VALIDITY_PERIOD_OF_APPROVAL_NUMBER" jdbcType="VARCHAR" property="validityPeriodOfApprovalNumber" />
+        <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug" />
+        <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications" />
+        <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+        <result column="QUALITY_LEVEL_DESCRIPTION" jdbcType="VARCHAR" property="qualityLevelDescription" />
+    </resultMap>
+
+
+  <select id="selectByReturnOrderId" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" resultMap="BaseResultMap">
+      SELECT DISTINCT
+          rede.id,
+          rede.purchase_order_id,
+          rede.return_quantity,
+          rede.return_money,
+          rede.return_reason,
+          po.name_of_purchase_order,
+          pode.purchase_volume,
+          pode.purchase_amount,
+          pode.storage_volume,
+          d.SERIAL_UMBER,
+          d.DOSAGE_FORM,
+          d.TRADE_NAME,
+          d.BID_PRICE,
+          d.APPROVAL_NUMBER,
+          d.VALIDITY_PERIOD_OF_APPROVAL_NUMBER,
+          d.DOSAGE_FORM_DRUG,
+          d.SPECIFICATIONS,
+          d.COMPANY,
+          d.QUALITY_LEVEL_DESCRIPTION
+      FROM
+          hospital_transaction_return_form re
+          INNER JOIN hospital_return_order_detail rede ON re.return_order_id = rede.return_order_id
+          INNER JOIN purchase_order po ON rede.purchase_order_id = po.purchase_id
+          INNER JOIN purchase_order_details pode ON pode.purchase_order_id=rede.purchase_order_id
+          INNER JOIN drug d ON rede.drug_information_id=d.id
+          WHERE re.return_order_id=#{returnOrderId}
+        limit #{startRow},#{pageSize}
+  </select>
+    <select id="selectCount" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" resultType="java.lang.Integer">
+      SELECT  count(*) FROM hospital_transaction_return_form re
+	  INNER JOIN hospital_return_order_detail rede ON re.return_order_id = rede.return_order_id
+	  INNER JOIN purchase_order po ON rede.purchase_order_id = po.purchase_id
+	  WHERE re.return_order_id=#{returnOrderId}
+  </select>
+
+    <select id="selectPurchaseDrug" resultMap="BaseResultMap2" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
+        SELECT
+            a.purchase_id,
+            a.purchase_order_number,
+            a.name_of_purchase_order,
+            a.hospital_id,
+            b.purchase_volume,
+            b.purchase_amount,
+            b.storage_volume,
+            b.drug_information_id,
+            c.SERIAL_UMBER,
+            c.DOSAGE_FORM,
+            c.TRADE_NAME,
+            c.BID_PRICE,
+            c.APPROVAL_NUMBER,
+            c.VALIDITY_PERIOD_OF_APPROVAL_NUMBER,
+            c.DOSAGE_FORM_DRUG,
+            c.SPECIFICATIONS,
+            c.COMPANY,
+            c.QUALITY_LEVEL_DESCRIPTION
+        FROM
+            purchase_order a
+            INNER JOIN purchase_order_details b ON a.purchase_id=b.purchase_order_id
+            INNER JOIN drug c on b.drug_information_id=c.ID
+            where  b.purchasing_status=3
+  limit #{startRow},#{pageSize}
+    </select>
+
+    <select id="selectPurchaseDrugCount" resultType="java.lang.Integer" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
+        SELECT count(*) FROM purchase_order a
+        INNER JOIN purchase_order_details b ON a.purchase_id=b.purchase_order_id
+        INNER JOIN drug c on b.drug_information_id=c.ID
+        where  b.purchasing_status=3
+    </select>
 </mapper>
