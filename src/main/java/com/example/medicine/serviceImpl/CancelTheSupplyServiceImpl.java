@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class CancelTheSupplyServiceImpl implements CancelTheSupplyService {
+    
     @Autowired
     CancelTheSupplyMapper cancelTheSupplyMapper;
 

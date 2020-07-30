@@ -51,6 +51,102 @@ public class Hospital_Transaction_Details {
 
     private String settlementStatus;
 
+    private Drug drug;
+
+    private Vendor_Information vendor_information;
+
+    private HospitalInformationMaintenanceForm hospitalInformationMaintenanceForm;
+
+    private PurchaseOrderDetails purchaseOrderDetails;
+
+    private Date startTime;
+
+    private  Date endTime;
+
+    @Override
+    public String toString() {
+        return "Hospital_Transaction_Details{" +
+                "hospitalTransactionDetailsId=" + hospitalTransactionDetailsId +
+                ", purchaseOrderId=" + purchaseOrderId +
+                ", drugInformationId=" + drugInformationId +
+                ", supplierId=" + supplierId +
+                ", bidPrice=" + bidPrice +
+                ", transactionPrice=" + transactionPrice +
+                ", purchaseVolume='" + purchaseVolume + '\'' +
+                ", purchasingStatus='" + purchasingStatus + '\'' +
+                ", storageVolume='" + storageVolume + '\'' +
+                ", purchaseAmount='" + purchaseAmount + '\'' +
+                ", returnOrderId=" + returnOrderId +
+                ", returnOrderNumber='" + returnOrderNumber + '\'' +
+                ", returnGoods='" + returnGoods + '\'' +
+                ", warehousingAmount='" + warehousingAmount + '\'' +
+                ", invoiceNumber='" + invoiceNumber + '\'' +
+                ", drugBatchNumber='" + drugBatchNumber + '\'' +
+                ", validityPeriodOfDrug=" + validityPeriodOfDrug +
+                ", warehousing=" + warehousing +
+                ", reasonForReturn='" + reasonForReturn + '\'' +
+                ", returnStatus='" + returnStatus + '\'' +
+                ", statementOfAccountId=" + statementOfAccountId +
+                ", settlementVolume='" + settlementVolume + '\'' +
+                ", settlementAmount='" + settlementAmount + '\'' +
+                ", settlementStatus='" + settlementStatus + '\'' +
+                ", drug=" + drug +
+                ", vendor_information=" + vendor_information +
+                ", hospitalInformationMaintenanceForm=" + hospitalInformationMaintenanceForm +
+                ", purchaseOrderDetails=" + purchaseOrderDetails +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
+    }
+
+    public PurchaseOrderDetails getPurchaseOrderDetails() {
+        return purchaseOrderDetails;
+    }
+
+    public void setPurchaseOrderDetails(PurchaseOrderDetails purchaseOrderDetails) {
+        this.purchaseOrderDetails = purchaseOrderDetails;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Vendor_Information getVendor_information() {
+        return vendor_information;
+    }
+
+    public void setVendor_information(Vendor_Information vendor_information) {
+        this.vendor_information = vendor_information;
+    }
+
+    public HospitalInformationMaintenanceForm getHospitalInformationMaintenanceForm() {
+        return hospitalInformationMaintenanceForm;
+    }
+
+    public void setHospitalInformationMaintenanceForm(HospitalInformationMaintenanceForm hospitalInformationMaintenanceForm) {
+        this.hospitalInformationMaintenanceForm = hospitalInformationMaintenanceForm;
+    }
+
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
     public Integer getHospitalTransactionDetailsId() {
         return hospitalTransactionDetailsId;
     }

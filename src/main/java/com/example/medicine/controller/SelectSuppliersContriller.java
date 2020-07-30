@@ -61,4 +61,14 @@ public class SelectSuppliersContriller {
         System.out.println(drug);
         return JSON.toJSONString(drug);
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = "updateSuppliersFindAll",produces = {"application/json;charset=utf-8"})
+    public String updateSuppliersFindAll(@RequestParam("drugs")String drugs){
+        System.out.println(drugs);
+
+        return "";
+
+    }
 }

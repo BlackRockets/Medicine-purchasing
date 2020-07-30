@@ -39,21 +39,11 @@
                 </div>
             </div>
         </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">采购时间</label>
-            <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="startTime" id="orderCreationTime1" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-            <div class="layui-form-mid">-</div>
-            <div class="layui-input-inline" style="width: 100px;">
-                <input type="text" name="endTime" placeholder="" autocomplete="off" class="layui-input">
-            </div>
-        </div>
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">采购时间</label>
                 <div class="layui-input-inline" style="width: 100px;">
-                    <input type="text" name="orderCreationTime" id="orderCreationTime2" placeholder="" autocomplete="off"
+                    <input type="text" name="orderCreationTime" id="orderCreationTime" placeholder="" autocomplete="off"
                            class="layui-input">
                 </div>
                 <div class="layui-form-mid">-</div>
@@ -95,101 +85,6 @@
             </tr>
             </thead>
         </table>
-    <div class="layui-row">
-        <form class="layui-form " action="">
-            <table class="layui-table" lay-size="sm" id="TestAll" lay-filter="TestAll">
-                <thead>
-                <tr class="layui-row">
-                    <td><h2 align="center" style="font-weight: bold;">采购单维护</h2></td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td style="display: none">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">id：</label>
-                            <div class="layui-input-inline">
-                                <input type="tel" id="purchaseOrderId" name="purchaseOrderId" lay-verify=""
-                                       autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">采购单编号</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="purchaseOrderNumber"
-                                       autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline ">
-                            <label class="layui-form-label">采购单状态</label>
-                            <div class="layui-input-inline">
-                                <select name="purchaseOrderStatus" lay-verify="" lay-search="">
-                                    <option value="">全部</option>
-                                    <option value="1">未确认送货</option>
-                                    <option value="2">已发货</option>
-                                    <option value="4">已入库</option>
-                                    <option value="5">无法供货</option>
-                                    <option value="6">到期未送货</option>
-                                </select>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">采购单名称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="nameOfPurchaseOrder" id="nameOfPurchaseOrder"
-                                       autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">采购时间</label>
-                            <div class="layui-input-inline" style="width: 100px;">
-                                <input type="text" name="orderCreationTime" id="orderCreationTime" placeholder=""
-                                       autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                            <div class="layui-form-mid">-</div>
-                            <div class="layui-input-inline" style="width: 100px;">
-                                <input type="text" name="price_max" placeholder="" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">医院名称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="nameOfHospital" id="nameOfHospital" autocomplete="off"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <form class="layui-form" action="">
-                                <table class="layui-hide" lay-size="sm" id="main" lay-filter="main">
-                                    <button type="button" class="layui-btn layui-btn-sm" id="create">添加</button>
-                                    <button type="button" class="layui-btn layui-btn-sm" id="find">查询</button>
-                                    <button type="button" class="layui-btn layui-btn-sm" id="updateSubmit">刪除</button>
-                                </table>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
     </div>
 </div>
 <!--弹出添加界面-->

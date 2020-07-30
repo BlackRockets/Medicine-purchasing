@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.medicine.mapper.Hospital_Transaction_DetailsMapper">
-
-    <resultMap type="com.example.medicine.bean.Hospital_Transaction_Details" id="HospitalTransactionDetailsMap">
+    <resultMap type="com.example.medicine.bean.Hospital_Transaction_Details" id="BaseResultMap">
         <result property="hospitalTransactionDetailsId" column="hospital_transaction_details_id" jdbcType="INTEGER"/>
         <result property="purchaseOrderId" column="purchase_order_id" jdbcType="INTEGER"/>
         <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
@@ -28,7 +27,26 @@
         <result property="settlementAmount" column="settlement_amount" jdbcType="VARCHAR"/>
         <result property="settlementStatus" column="settlement_status" jdbcType="VARCHAR"/>
         <association property="drug" javaType="com.example.medicine.bean.Drug">
-
+            <id column="ID" jdbcType="INTEGER" property="id"/>
+            <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber"/>
+            <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm"/>
+            <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug"/>
+            <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications"/>
+            <result column="CONVERSION_COEFFICIENT_no" jdbcType="VARCHAR" property="conversionCoefficientNo"/>
+            <result column="NAME_OF_MANUFACTURER" jdbcType="VARCHAR" property="nameOfManufacturer"/>
+            <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName"/>
+            <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice"/>
+            <result column="COMPANY" jdbcType="VARCHAR" property="company"/>
+        </association>
+        <association property="purchaseOrderDetails" javaType="com.example.medicine.bean.PurchaseOrderDetails">
+            <id column="ID" jdbcType="INTEGER" property="id"/>
+            <result property="purchaseOrderId" column="purchase_order_id" jdbcType="VARCHAR"/>
+            <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+            <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
+        </association>
+        <association property="hospitalInformationMaintenanceForm" javaType="com.example.medicine.bean.HospitalInformationMaintenanceForm">
+            <id column="maintenanceTableId" jdbcType="INTEGER" property="purchase_order_id"/>
+            <result property="nameOfHospital" column="name_of_hospital" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
 

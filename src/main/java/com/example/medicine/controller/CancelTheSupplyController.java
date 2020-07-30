@@ -17,6 +17,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "cancelTheSupply")
 public class CancelTheSupplyController {
+
     @Autowired
     CancelTheSupplyServiceImpl cancelTheSupplyService;
 
