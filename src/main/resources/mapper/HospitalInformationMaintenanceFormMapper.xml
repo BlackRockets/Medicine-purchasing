@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.HospitalInformationMaintenanceFormMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.medicine.bean.HospitalInformationMaintenanceForm">
+        <!--@Table hospital_information_maintenance_form-->
+        <result property="maintenanceTableId" column="maintenance_table_id" jdbcType="INTEGER"/>
+        <result property="nameOfHospital" column="name_of_hospital" jdbcType="VARCHAR"/>
+        <result property="postalAddress" column="postal_address" jdbcType="VARCHAR"/>
+        <result property="postalCode" column="postal_code" jdbcType="INTEGER"/>
+        <result property="region" column="Region" jdbcType="VARCHAR"/>
+        <result property="hospitalLevel" column="hospital_level" jdbcType="VARCHAR"/>
+        <result property="numberOfBeds" column="number_of_beds" jdbcType="VARCHAR"/>
+        <result property="profitMedicalInstitution" column="profit_medical_institution" jdbcType="VARCHAR"/>
+        <result property="hospitalOfficeTelephone" column="hospital_office_telephone" jdbcType="VARCHAR"/>
+        <result property="faxOfHospitalOffice" column="fax_of_hospital_office" jdbcType="VARCHAR"/>
+        <result property="pharmacyTelephone" column="pharmacy_telephone" jdbcType="VARCHAR"/>
+        <result property="typeOfHospital" column="type_of_hospital" jdbcType="VARCHAR"/>
+        <result property="drugRevenueOfLastYear" column="drug_revenue_of_last_year" jdbcType="VARCHAR"/>
+        <result property="businessIncomeOfLastYear" column="business_income_of_last_year" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BaseResultMap">
+        select
+          maintenance_table_id, name_of_hospital, postal_address, postal_code, Region, hospital_level, number_of_beds, profit_medical_institution, hospital_office_telephone, fax_of_hospital_office, pharmacy_telephone, type_of_hospital, drug_revenue_of_last_year, business_income_of_last_year
+        from medicine.hospital_information_maintenance_form
+        where maintenance_table_id = #{maintenanceTableId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+          maintenance_table_id, name_of_hospital, postal_address, postal_code, Region, hospital_level, number_of_beds, profit_medical_institution, hospital_office_telephone, fax_of_hospital_office, pharmacy_telephone, type_of_hospital, drug_revenue_of_last_year, business_income_of_last_year
+        from medicine.hospital_information_maintenance_form
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+          maintenance_table_id, name_of_hospital, postal_address, postal_code, Region, hospital_level, number_of_beds, profit_medical_institution, hospital_office_telephone, fax_of_hospital_office, pharmacy_telephone, type_of_hospital, drug_revenue_of_last_year, business_income_of_last_year
+        from medicine.hospital_information_maintenance_form
+        <where>
+            <if test="maintenanceTableId != null">
+                and maintenance_table_id = #{maintenanceTableId}
+            </if>
+            <if test="nameOfHospital != null and nameOfHospital != ''">
+                and name_of_hospital = #{nameOfHospital}
+            </if>
+            <if test="postalAddress != null and postalAddress != ''">
+                and postal_address = #{postalAddress}
+            </if>
+            <if test="postalCode != null">
+                and postal_code = #{postalCode}
+            </if>
+            <if test="region != null and region != ''">
+                and Region = #{region}
+            </if>
+            <if test="hospitalLevel != null and hospitalLevel != ''">
+                and hospital_level = #{hospitalLevel}
+            </if>
+            <if test="numberOfBeds != null and numberOfBeds != ''">
+                and number_of_beds = #{numberOfBeds}
+            </if>
+            <if test="profitMedicalInstitution != null and profitMedicalInstitution != ''">
+                and profit_medical_institution = #{profitMedicalInstitution}
+            </if>
+            <if test="hospitalOfficeTelephone != null and hospitalOfficeTelephone != ''">
+                and hospital_office_telephone = #{hospitalOfficeTelephone}
+            </if>
+            <if test="faxOfHospitalOffice != null and faxOfHospitalOffice != ''">
+                and fax_of_hospital_office = #{faxOfHospitalOffice}
+            </if>
+            <if test="pharmacyTelephone != null and pharmacyTelephone != ''">
+                and pharmacy_telephone = #{pharmacyTelephone}
+            </if>
+            <if test="typeOfHospital != null and typeOfHospital != ''">
+                and type_of_hospital = #{typeOfHospital}
+            </if>
+            <if test="drugRevenueOfLastYear != null and drugRevenueOfLastYear != ''">
+                and drug_revenue_of_last_year = #{drugRevenueOfLastYear}
+            </if>
+            <if test="businessIncomeOfLastYear != null and businessIncomeOfLastYear != ''">
+                and business_income_of_last_year = #{businessIncomeOfLastYear}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="maintenanceTableId" useGeneratedKeys="true">
+        insert into medicine.hospital_information_maintenance_form(name_of_hospital, postal_address, postal_code, Region, hospital_level, number_of_beds, profit_medical_institution, hospital_office_telephone, fax_of_hospital_office, pharmacy_telephone, type_of_hospital, drug_revenue_of_last_year, business_income_of_last_year)
+        values (#{nameOfHospital}, #{postalAddress}, #{postalCode}, #{region}, #{hospitalLevel}, #{numberOfBeds}, #{profitMedicalInstitution}, #{hospitalOfficeTelephone}, #{faxOfHospitalOffice}, #{pharmacyTelephone}, #{typeOfHospital}, #{drugRevenueOfLastYear}, #{businessIncomeOfLastYear})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update medicine.hospital_information_maintenance_form
+        <set>
+            <if test="nameOfHospital != null and nameOfHospital != ''">
+                name_of_hospital = #{nameOfHospital},
+            </if>
+            <if test="postalAddress != null and postalAddress != ''">
+                postal_address = #{postalAddress},
+            </if>
+            <if test="postalCode != null">
+                postal_code = #{postalCode},
+            </if>
+            <if test="region != null and region != ''">
+                Region = #{region},
+            </if>
+            <if test="hospitalLevel != null and hospitalLevel != ''">
+                hospital_level = #{hospitalLevel},
+            </if>
+            <if test="numberOfBeds != null and numberOfBeds != ''">
+                number_of_beds = #{numberOfBeds},
+            </if>
+            <if test="profitMedicalInstitution != null and profitMedicalInstitution != ''">
+                profit_medical_institution = #{profitMedicalInstitution},
+            </if>
+            <if test="hospitalOfficeTelephone != null and hospitalOfficeTelephone != ''">
+                hospital_office_telephone = #{hospitalOfficeTelephone},
+            </if>
+            <if test="faxOfHospitalOffice != null and faxOfHospitalOffice != ''">
+                fax_of_hospital_office = #{faxOfHospitalOffice},
+            </if>
+            <if test="pharmacyTelephone != null and pharmacyTelephone != ''">
+                pharmacy_telephone = #{pharmacyTelephone},
+            </if>
+            <if test="typeOfHospital != null and typeOfHospital != ''">
+                type_of_hospital = #{typeOfHospital},
+            </if>
+            <if test="drugRevenueOfLastYear != null and drugRevenueOfLastYear != ''">
+                drug_revenue_of_last_year = #{drugRevenueOfLastYear},
+            </if>
+            <if test="businessIncomeOfLastYear != null and businessIncomeOfLastYear != ''">
+                business_income_of_last_year = #{businessIncomeOfLastYear},
+            </if>
+        </set>
+        where maintenance_table_id = #{maintenanceTableId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from medicine.hospital_information_maintenance_form where maintenance_table_id = #{maintenanceTableId}
+    </delete>
+
+    <insert id="addA">
+        insert into hospital_information_maintenance_form (maintenance_table_id,name_of_hospital)valus(#{maintenanceTableId},#{nameOfHospital})
+    </insert>
+</mapper>

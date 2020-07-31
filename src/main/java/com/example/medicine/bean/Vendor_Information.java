@@ -265,6 +265,39 @@ public class Vendor_Information {
         this.companyProfile = companyProfile == null ? null : companyProfile.trim();
     }
 
+    @Override
+    public String toString() {
+        return "Vendor_Information{" +
+                "supplierId=" + supplierId +
+                ", nameOfEnterprise='" + nameOfEnterprise + '\'' +
+                ", enterpriseCategory=" + enterpriseCategory +
+                ", licence='" + licence + '\'' +
+                ", licenseExpirationTime=" + licenseExpirationTime +
+                ", businessContact='" + businessContact + '\'' +
+                ", businessContactNumber='" + businessContactNumber + '\'' +
+                ", businessScope='" + businessScope + '\'' +
+                ", registeredAddress='" + registeredAddress + '\'' +
+                ", contactAddress='" + contactAddress + '\'' +
+                ", postalOde='" + postalOde + '\'' +
+                ", totalAssets=" + totalAssets +
+                ", enterpriseFax='" + enterpriseFax + '\'' +
+                ", nameOfLegalRepresentative='" + nameOfLegalRepresentative + '\'' +
+                ", corporateIdentityCard='" + corporateIdentityCard + '\'' +
+                ", registeredCapitalOfAnEnterprise='" + registeredCapitalOfAnEnterprise + '\'' +
+                ", salesAmountOfLastYear='" + salesAmountOfLastYear + '\'' +
+                ", email='" + email + '\'' +
+                ", website='" + website + '\'' +
+                ", enterpriseCodeCertificateNo='" + enterpriseCodeCertificateNo + '\'' +
+                ", validityPeriodOfEnterpriseCode='" + validityPeriodOfEnterpriseCode + '\'' +
+                ", enterpriseLetterOfCredit='" + enterpriseLetterOfCredit + '\'' +
+                ", letterOfCreditNo='" + letterOfCreditNo + '\'' +
+                ", validityOfLetterOfCredit='" + validityOfLetterOfCredit + '\'' +
+                ", fixedAssets='" + fixedAssets + '\'' +
+                ", companyProfile='" + companyProfile + '\'' +
+                ", remarks='" + remarks + '\'' +
+                '}';
+    }
+
     public String getRemarks() {
         return remarks;
     }

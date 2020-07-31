@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.medicine.mapper.HospitalTransationDetailsOrderMapper">
+    <resultMap type="com.example.medicine.bean.Hospital_Transaction_Details" id="BaseResultMap">
+        <result property="hospitalTransactionDetailsId" column="hospital_transaction_details_id" jdbcType="INTEGER"/>
+        <result property="purchaseOrderId" column="purchase_order_id" jdbcType="INTEGER"/>
+        <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+        <result property="supplierId" column="supplier_id" jdbcType="INTEGER"/>
+        <result property="bidPrice" column="bid_price" jdbcType="OTHER"/>
+        <result property="transactionPrice" column="transaction_price" jdbcType="OTHER"/>
+        <result property="purchaseVolume" column="purchase_volume" jdbcType="VARCHAR"/>
+        <result property="purchasingStatus" column="purchasing_status" jdbcType="VARCHAR"/>
+        <result property="storageVolume" column="storage_volume" jdbcType="VARCHAR"/>
+        <result property="purchaseAmount" column="purchase_amount" jdbcType="VARCHAR"/>
+        <result property="returnOrderId" column="return_order_id" jdbcType="INTEGER"/>
+        <result property="returnOrderNumber" column="return_order_number" jdbcType="VARCHAR"/>
+        <result property="returnGoods" column="return_goods" jdbcType="VARCHAR"/>
+        <result property="warehousingAmount" column="warehousing_amount" jdbcType="VARCHAR"/>
+        <result property="invoiceNumber" column="invoice_number" jdbcType="VARCHAR"/>
+        <result property="drugBatchNumber" column="drug_batch_number" jdbcType="VARCHAR"/>
+        <result property="validityPeriodOfDrug" column="Validity_period_of_drug" jdbcType="TIMESTAMP"/>
+        <result property="warehousing" column="warehousing" jdbcType="TIMESTAMP"/>
+        <result property="reasonForReturn" column="reason_for_return" jdbcType="VARCHAR"/>
+        <result property="returnStatus" column="return_status" jdbcType="VARCHAR"/>
+        <result property="statementOfAccountId" column="statement_of_account_id" jdbcType="INTEGER"/>
+        <result property="settlementVolume" column="settlement_volume" jdbcType="VARCHAR"/>
+        <result property="settlementAmount" column="settlement_amount" jdbcType="VARCHAR"/>
+        <result property="settlementStatus" column="settlement_status" jdbcType="VARCHAR"/>
+        <association property="drug" javaType="com.example.medicine.bean.Drug">
+            <id column="ID" jdbcType="INTEGER" property="id"/>
+            <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber"/>
+            <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm"/>
+            <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug"/>
+            <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications"/>
+            <result column="CONVERSION_COEFFICIENT_no" jdbcType="VARCHAR" property="conversionCoefficientNo"/>
+            <result column="NAME_OF_MANUFACTURER" jdbcType="VARCHAR" property="nameOfManufacturer"/>
+            <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName"/>
+            <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice"/>
+            <result column="COMPANY" jdbcType="VARCHAR" property="company"/>
+        </association>
+        <association property="purchaseOrderDetails" javaType="com.example.medicine.bean.PurchaseOrderDetails">
+            <id column="ID" jdbcType="INTEGER" property="id"/>
+            <result property="purchaseOrderId" column="purchase_order_id" jdbcType="VARCHAR"/>
+            <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+            <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
+        </association>
+        <association property="hospitalInformationMaintenanceForm"
+                     javaType="com.example.medicine.bean.HospitalInformationMaintenanceForm">
+            <id column="maintenanceTableId" jdbcType="INTEGER" property="purchase_order_id"/>
+            <result property="nameOfHospital" column="name_of_hospital" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from hospital_transaction_details h
+        join drug d on h.drug_information_id = d.id
+        join vendor_information v on h.supplier_id = v.supplier_id
+        join purchase_order p on h.purchase_order_id = p.purchase_id
+        join hospital_procurement_of_drugs hos on hos.supplier_id = v.supplier_id
+        join hospital_information_maintenance_form hosform on hosform.maintenance_table_id = hos.maintenance_table_id
+        <where>
+            <if test="purchaseOrderDetails.purchaseOrderNumber != null and purchaseOrderDetails.purchaseOrderNumber != ''">
+                and p.purchase_order_number like CONCAT("%",#{purchaseOrderDetails.purchaseOrderNumber},"%")
+            </if>
+            <if test="purchaseOrderDetails.nameOfPurchaseOrder != null and purchaseOrderDetails.nameOfPurchaseOrder != ''">
+                and p.name_of_purchase_order like CONCAT("%",#{purchaseOrderDetails.nameOfPurchaseOrder},"%")
+            </if>
+            <if test="hospitalInformationMaintenanceForm.nameOfHospital != null and hospitalInformationMaintenanceForm.nameOfHospital != ''">
+                and hosform.name_of_hospital like CONCAT("%",#{hospitalInformationMaintenanceForm.nameOfHospital},"%")
+            </if>
+            <if test="purchasingStatus != null and purchasingStatus != ''">
+                and h.purchasing_status like CONCAT("%",#{purchasingStatus},"%")
+            </if>
+            <if test="vendor_information.nameOfEnterprise != null and vendor_information.nameOfEnterprise != ''">
+                and v.name_of_enterprise like CONCAT("%",#{vendor_information.nameOfEnterprise},"%")
+            </if>
+            <if test="drug.serialUmber != null and drug.serialUmber != ''">
+                and d.SERIAL_UMBER like CONCAT("%",#{drug.serialUmber},"%")
+            </if>
+            <if test="drug.dosageForm != null and drug.dosageForm != ''">
+                and d.DOSAGE_FORM like CONCAT("%",#{drug.dosageForm},"%")
+            </if>
+            <if test="drug.dosageFormDrug != null and drug.dosageFormDrug != ''">
+                and d.DOSAGE_FORM_DRUG like CONCAT("%",#{drug.dosageFormDrug},"%")
+            </if>
+            <if test="drug.specifications != null and drug.specifications != ''">
+                and d.SPECIFICATIONS like CONCAT("%",#{drug.specifications},"%")
+            </if>
+            <if test="drug.company != null and drug.company != ''">
+                and d.company like CONCAT("%",#{drug.company},"%")
+            </if>
+            <if test="drug.conversionCoefficientNo != null and drug.conversionCoefficientNo != ''">
+                and d.CONVERSION_COEFFICIENT_NO like CONCAT("%",#{drug.conversionCoefficientNo},"%")
+            </if>
+            <if test="drug.nameOfManufacturer != null and drug.nameOfManufacturer != ''">
+                and d.NAME_OF_MANUFACTURER like CONCAT("%",#{drug.nameOfManufacturer},"%")
+            </if>
+            <if test="drug.tradeName != null and drug.tradeName != ''">
+                and d.TRADE_NAME like CONCAT("%",#{drug.tradeName},"%")
+            </if>
+            <if test="drug.qualityLevel != null and drug.qualityLevel != ''">
+                and d.QUALITY_LEVEL like CONCAT("%",#{drug.qualityLevel},"%")
+            </if>
+            <if test="drug.drugCategory != null and drug.drugCategory != ''">
+                and d.DRUG_CATEGORY like CONCAT("%",#{drug.drugCategory},"%")
+            </if>
+            <!--<if test="startTime != null and endTime != null">
+                and p.order_creation_time between
+            </if>-->
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+    <select id="scount" resultType="java.lang.Integer">
+        select count(*) from hospital_transaction_details h
+        join drug d on h.drug_information_id = d.id
+        join vendor_information v on h.supplier_id = v.supplier_id
+        join purchase_order p on h.purchase_order_id = p.purchase_id
+        join hospital_procurement_of_drugs hos on hos.supplier_id = v.supplier_id
+        join hospital_information_maintenance_form hosform on hosform.maintenance_table_id = hos.maintenance_table_id
+        <where>
+            <if test="purchaseOrderDetails.purchaseOrderNumber != null and purchaseOrderDetails.purchaseOrderNumber != ''">
+                and p.purchase_order_number like CONCAT("%",#{purchaseOrderDetails.purchaseOrderNumber},"%")
+            </if>
+            <if test="purchaseOrderDetails.nameOfPurchaseOrder != null and purchaseOrderDetails.nameOfPurchaseOrder != ''">
+                and p.name_of_purchase_order like CONCAT("%",#{purchaseOrderDetails.nameOfPurchaseOrder},"%")
+            </if>
+            <if test="hospitalInformationMaintenanceForm.nameOfHospital != null and hospitalInformationMaintenanceForm.nameOfHospital != ''">
+                and hosform.name_of_hospital like CONCAT("%",#{hospitalInformationMaintenanceForm.nameOfHospital},"%")
+            </if>
+            <if test="purchasingStatus != null and purchasingStatus != ''">
+                and h.purchasing_status like CONCAT("%",#{purchasingStatus},"%")
+            </if>
+            <if test="vendor_information.nameOfEnterprise != null and vendor_information.nameOfEnterprise != ''">
+                and v.name_of_enterprise like CONCAT("%",#{vendor_information.nameOfEnterprise},"%")
+            </if>
+            <if test="drug.serialUmber != null and drug.serialUmber != ''">
+                and d.SERIAL_UMBER like CONCAT("%",#{drug.serialUmber},"%")
+            </if>
+            <if test="drug.dosageForm != null and drug.dosageForm != ''">
+                and d.DOSAGE_FORM like CONCAT("%",#{drug.dosageForm},"%")
+            </if>
+            <if test="drug.dosageFormDrug != null and drug.dosageFormDrug != ''">
+                and d.DOSAGE_FORM_DRUG like CONCAT("%",#{drug.dosageFormDrug},"%")
+            </if>
+            <if test="drug.specifications != null and drug.specifications != ''">
+                and d.SPECIFICATIONS like CONCAT("%",#{drug.specifications},"%")
+            </if>
+            <if test="drug.company != null and drug.company != ''">
+                and d.company like CONCAT("%",#{drug.company},"%")
+            </if>
+            <if test="drug.conversionCoefficientNo != null and drug.conversionCoefficientNo != ''">
+                and d.CONVERSION_COEFFICIENT_NO like CONCAT("%",#{drug.conversionCoefficientNo},"%")
+            </if>
+            <if test="drug.nameOfManufacturer != null and drug.nameOfManufacturer != ''">
+                and d.NAME_OF_MANUFACTURER like CONCAT("%",#{drug.nameOfManufacturer},"%")
+            </if>
+            <if test="drug.tradeName != null and drug.tradeName != ''">
+                and d.TRADE_NAME like CONCAT("%",#{drug.tradeName},"%")
+            </if>
+            <if test="drug.qualityLevel != null and drug.qualityLevel != ''">
+                and d.QUALITY_LEVEL like CONCAT("%",#{drug.qualityLevel},"%")
+            </if>
+            <if test="drug.drugCategory != null and drug.drugCategory != ''">
+                and d.DRUG_CATEGORY like CONCAT("%",#{drug.drugCategory},"%")
+            </if>
+            <!--<if test="startTime != null and endTime != null">
+                and p.order_creation_time between
+            </if>-->
+        </where>
+    </select>
+
+</mapper>

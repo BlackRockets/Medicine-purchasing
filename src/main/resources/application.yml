@@ -2,9 +2,9 @@
 spring:
   datasource:
     name: medicine
-    url: jdbc:mysql://192.168.1.40:3306/medicine?serverTimezone=GMT&characterEncoding=utf-8
-    username: root
     password: 123456
+    url: jdbc:mysql://192.168.0.188/medicine?serverTimezone=GMT&characterEncoding=utf-8
+    username: xiong
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
     view:

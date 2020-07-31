@@ -69,6 +69,7 @@ public class DrugItemsController {
     @ResponseBody
     @RequestMapping("doImport")
     public String doImport(@RequestParam("file") MultipartFile file){
+        System.out.println(file);
         drugItemService.doImport(file);
         return "success";
     }

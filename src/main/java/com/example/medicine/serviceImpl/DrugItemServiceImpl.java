@@ -34,6 +34,12 @@ public class DrugItemServiceImpl implements DrugItemService {
     }
 
     @Override
+    public List<DrugItems> selectDrugItemsNo() {
+        List<DrugItems> drugItems = drugItemsMapper.selectDrugItemsNo();
+        return drugItems;
+    }
+
+    @Override
     public int addAllDrugItem(DrugItems drugItems) {
         int insert = drugItemsMapper.insert(drugItems);
         return insert;
@@ -65,5 +71,6 @@ public class DrugItemServiceImpl implements DrugItemService {
             }
             drugItemsMapper.insert(drugItems);
         }
+
     }
 }

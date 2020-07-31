@@ -27,6 +27,9 @@
         <result property="settlementVolume" column="settlement_volume" jdbcType="VARCHAR"/>
         <result property="settlementAmount" column="settlement_amount" jdbcType="VARCHAR"/>
         <result property="settlementStatus" column="settlement_status" jdbcType="VARCHAR"/>
+        <association property="drug" javaType="com.example.medicine.bean.Drug">
+
+        </association>
     </resultMap>
 
     <!--&lt;!&ndash;查询单个&ndash;&gt;
