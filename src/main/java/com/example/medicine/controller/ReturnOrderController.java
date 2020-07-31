@@ -3,6 +3,7 @@ package com.example.medicine.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.medicine.bean.Drug;
+import com.example.medicine.bean.DrugVO;
 import com.example.medicine.bean.Hospital_Return_Order_Detail;
 import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.common.ReturnUtil;
@@ -100,5 +101,19 @@ public class ReturnOrderController {
     public int addDrugToReturnOrder(@RequestBody List<Hospital_Return_Order_Detail> returnOrderDetail){
         returnOrderService.addDrugToReturnOrder(returnOrderDetail);
         return 1;
+    }
+
+    //查询未确认退货
+    @ResponseBody
+    @RequestMapping(value = "findConfirmReturnOrder",produces = {"application/json;charset=utf-8"})
+    public String findConfirmReturnOrder(Hospital_Transaction_Return_Form returnOrder){
+        return returnOrderService.findConfirmReturnOrder(returnOrder);
+    }
+
+    //确认退货
+    @ResponseBody
+    @RequestMapping(value = "confirmReturnOrder",produces = {"application/json;charset=utf-8"})
+    public int confirmReturnOrder(@RequestBody List<DrugVO> record){
+        return returnOrderService.confirmReturnOrder(record);
     }
 }

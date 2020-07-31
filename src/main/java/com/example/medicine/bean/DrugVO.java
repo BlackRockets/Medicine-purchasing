@@ -7,6 +7,14 @@ public class DrugVO {
 
     private Integer purchaseOrderId;
 
+    private String returnOrderNo;
+
+    private String returnOrderName;
+
+    private String purchaseOrderNumber;
+
+    private int hospitalId;
+
     private String nameOfPurchaseOrder;
 
     private String serialUmber;
@@ -49,6 +57,38 @@ public class DrugVO {
 
     //起始条数
     private Integer startRow;
+
+    public String getReturnOrderNo() {
+        return returnOrderNo;
+    }
+
+    public void setReturnOrderNo(String returnOrderNo) {
+        this.returnOrderNo = returnOrderNo;
+    }
+
+    public String getReturnOrderName() {
+        return returnOrderName;
+    }
+
+    public void setReturnOrderName(String returnOrderName) {
+        this.returnOrderName = returnOrderName;
+    }
+
+    public String getPurchaseOrderNumber() {
+        return purchaseOrderNumber;
+    }
+
+    public void setPurchaseOrderNumber(String purchaseOrderNumber) {
+        this.purchaseOrderNumber = purchaseOrderNumber;
+    }
+
+    public int getHospitalId() {
+        return hospitalId;
+    }
+
+    public void setHospitalId(int hospitalId) {
+        this.hospitalId = hospitalId;
+    }
 
     public Integer getReturnQuantity() {
         return returnQuantity;

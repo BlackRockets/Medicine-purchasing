@@ -18,4 +18,7 @@ public interface Hospital_Return_Order_VOMapper {
 
     int selectPurchaseDrugCount(Hospital_Transaction_Return_Form returnOrder);
 
+    List<DrugVO> selectConfirmReturnOrder(Hospital_Transaction_Return_Form returnOrder);
+
+    int selectConfirmReturnOrderCount(Hospital_Transaction_Return_Form returnOrder);
 }

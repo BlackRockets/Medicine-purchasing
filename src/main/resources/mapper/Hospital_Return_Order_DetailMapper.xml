@@ -124,4 +124,13 @@
       return_status = #{returnStatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <update id="updateById" parameterType="com.example.medicine.bean.DrugVO">
+    update hospital_return_order_detail
+    set return_status = 1
+    where id in
+    <foreach collection="list" item="item" open="(" separator="," close=")" >
+      #{item.id}
+    </foreach>
+  </update>
 </mapper>

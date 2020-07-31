@@ -7,6 +7,10 @@
     <result column="return_quantity" jdbcType="INTEGER" property="returnQuantity" />
     <result column="return_money" jdbcType="INTEGER" property="returnMoney" />
     <result column="return_reason" jdbcType="VARCHAR" property="returnReason" />
+    <result column="return_order_no" jdbcType="VARCHAR" property="returnOrderNo" />
+    <result column="return_order_name" jdbcType="VARCHAR" property="returnOrderName" />
+    <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
+    <result property="hospitalId" column="hospital_id" jdbcType="INTEGER"/>
     <result column="name_of_purchase_order" jdbcType="VARCHAR" property="nameOfPurchaseOrder" />
     <result property="purchaseVolume" column="purchase_volume" jdbcType="INTEGER"/>
     <result property="purchaseAmount" column="purchase_amount" jdbcType="INTEGER"/>
@@ -52,6 +56,10 @@
           rede.return_quantity,
           rede.return_money,
           rede.return_reason,
+          re.return_order_no,
+      	  re.return_order_name,
+          po.purchase_order_number,
+          po.hospital_id,
           po.name_of_purchase_order,
           pode.purchase_volume,
           pode.purchase_amount,
@@ -72,14 +80,22 @@
           INNER JOIN purchase_order po ON rede.purchase_order_id = po.purchase_id
           INNER JOIN purchase_order_details pode ON pode.purchase_order_id=rede.purchase_order_id
           INNER JOIN drug d ON rede.drug_information_id=d.id
-          WHERE re.return_order_id=#{returnOrderId}
+          <where>
+                <if test="returnOrderId != null and returnOrderId != '' ">
+                    re.return_order_id=#{returnOrderId}
+                </if>
+          </where>
         limit #{startRow},#{pageSize}
   </select>
     <select id="selectCount" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" resultType="java.lang.Integer">
       SELECT  count(*) FROM hospital_transaction_return_form re
 	  INNER JOIN hospital_return_order_detail rede ON re.return_order_id = rede.return_order_id
 	  INNER JOIN purchase_order po ON rede.purchase_order_id = po.purchase_id
-	  WHERE re.return_order_id=#{returnOrderId}
+        <where>
+            <if test="returnOrderId != null and returnOrderId != '' ">
+                re.return_order_id=#{returnOrderId}
+            </if>
+        </where>
   </select>
 
     <select id="selectPurchaseDrug" resultMap="BaseResultMap2" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
@@ -115,5 +131,47 @@
         INNER JOIN purchase_order_details b ON a.purchase_id=b.purchase_order_id
         INNER JOIN drug c on b.drug_information_id=c.ID
         where  b.purchasing_status=3
+    </select>
+
+
+    <select id="selectConfirmReturnOrder" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        rede.id,
+        rede.purchase_order_id,
+        rede.return_quantity,
+        rede.return_money,
+        rede.return_reason,
+        re.return_order_no,
+        re.return_order_name,
+        po.purchase_order_number,
+        po.hospital_id,
+        po.name_of_purchase_order,
+        pode.purchase_volume,
+        pode.purchase_amount,
+        pode.storage_volume,
+        d.SERIAL_UMBER,
+        d.DOSAGE_FORM,
+        d.TRADE_NAME,
+        d.BID_PRICE,
+        d.APPROVAL_NUMBER,
+        d.VALIDITY_PERIOD_OF_APPROVAL_NUMBER,
+        d.DOSAGE_FORM_DRUG,
+        d.SPECIFICATIONS,
+        d.COMPANY,
+        d.QUALITY_LEVEL_DESCRIPTION
+        FROM
+        hospital_transaction_return_form re
+        INNER JOIN hospital_return_order_detail rede ON re.return_order_id = rede.return_order_id
+        INNER JOIN purchase_order po ON rede.purchase_order_id = po.purchase_id
+        INNER JOIN purchase_order_details pode ON pode.purchase_order_id=rede.purchase_order_id
+        INNER JOIN drug d ON rede.drug_information_id=d.id
+        WHERE rede.return_status=0
+        limit #{startRow},#{pageSize}
+    </select>
+    <select id="selectConfirmReturnOrderCount" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" resultType="java.lang.Integer">
+        SELECT  count(*) FROM hospital_transaction_return_form re
+        INNER JOIN hospital_return_order_detail rede ON re.return_order_id = rede.return_order_id
+        INNER JOIN purchase_order po ON rede.purchase_order_id = po.purchase_id
+        WHERE rede.return_status=0
     </select>
 </mapper>

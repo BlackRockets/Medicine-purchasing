@@ -1,5 +1,6 @@
 package com.example.medicine.service;
 
+import com.example.medicine.bean.DrugVO;
 import com.example.medicine.bean.Hospital_Return_Order_Detail;
 import com.example.medicine.bean.Hospital_Transaction_Return_Form;
 import com.example.medicine.common.ReturnUtil;
@@ -32,4 +33,9 @@ public interface ReturnOrderService {
     //添加药品到退货单
     void addDrugToReturnOrder(List<Hospital_Return_Order_Detail> returnOrder);
 
+    //查询未退货
+    String findConfirmReturnOrder(Hospital_Transaction_Return_Form returnOrder);
+
+    //确认退货
+    int confirmReturnOrder(List<DrugVO> record);
 }

@@ -111,5 +111,27 @@ public class ReturnOrderServiceImpl implements ReturnOrderService {
         }
     }
 
+    @Override
+    public  String findConfirmReturnOrder(Hospital_Transaction_Return_Form returnOrder) {
+        //页码
+        Integer pageNum = returnOrder.getPageNum();
+        //每页条数
+        Integer pageSize = returnOrder.getPageSize();
+        //起始条数
+        if(pageNum!=null && pageSize!=null){
+            Integer startrow = (pageNum-1)*pageSize;
+            returnOrder.setStartRow(startrow);
+        }
+        ReturnUtil returnUtil = new ReturnUtil();
+        List<DrugVO> drugVOS = hospitalReturnOrderVoMapper.selectConfirmReturnOrder(returnOrder);
+        int total = hospitalReturnOrderVoMapper.selectConfirmReturnOrderCount(returnOrder);
+        return returnUtil.getData(drugVOS,total);
+    }
+
+    @Override
+    public int confirmReturnOrder(List<DrugVO> record) {
+        return hospital_return_order_detailMapper.updateById(record);
+    }
+
 
 }
