@@ -32,6 +32,9 @@ public class PurchaseingDrugsController {
         drug.setPageNum(page);
         drug.setPageSize(limit);
         List<Drug> drugs = drugService.findAllPurchaseingDrugs(drug);
+        for (Drug drug1 : drugs) {
+            System.out.println(drug1);
+        }
         int count = drugService.selectPurchaseingDrugsCount(drug);
         Map<String,Object> resultMap = new HashMap();
         resultMap.put("data",drugs);

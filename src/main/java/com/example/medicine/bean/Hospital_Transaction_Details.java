@@ -97,6 +97,34 @@ public class Hospital_Transaction_Details {
         this.pageStart = pageStart;
     }
 
+    public PurchaseOrderDetails getPurchaseOrderDetails() {
+        return purchaseOrderDetails;
+    }
+
+    public void setPurchaseOrderDetails(PurchaseOrderDetails purchaseOrderDetails) {
+        this.purchaseOrderDetails = purchaseOrderDetails;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Vendor_Information getVendor_information() {
+        return vendor_information;
+    }
+
     @Override
     public String toString() {
         return "Hospital_Transaction_Details{" +
@@ -130,35 +158,10 @@ public class Hospital_Transaction_Details {
                 ", purchaseOrderDetails=" + purchaseOrderDetails +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", pageStart=" + pageStart +
                 '}';
-    }
-
-    public PurchaseOrderDetails getPurchaseOrderDetails() {
-        return purchaseOrderDetails;
-    }
-
-    public void setPurchaseOrderDetails(PurchaseOrderDetails purchaseOrderDetails) {
-        this.purchaseOrderDetails = purchaseOrderDetails;
-    }
-
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
-    public Vendor_Information getVendor_information() {
-        return vendor_information;
     }
 
     public void setVendor_information(Vendor_Information vendor_information) {

@@ -26,11 +26,7 @@ public class SupplierDrugListControlController {
         supplier.setPageSize(limit);
         supplier.setDrug(drug);
         supplier.setVendor_information(vendor);
-        System.out.println(supplier);
         List<SupplierDrugListControl> drugs = supplierDrugListControlService.selectAllDrugs(supplier);
-        for (SupplierDrugListControl drug1 : drugs) {
-            System.out.println(drug1);
-        }
         Integer integer = supplierDrugListControlService.selectCount(supplier);
         HashMap<Object, Object> resultMap = new HashMap<>();
         resultMap.put("data",drugs);

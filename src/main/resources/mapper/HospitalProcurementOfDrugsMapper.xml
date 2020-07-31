@@ -83,6 +83,7 @@
                 and BID_PRICE between #{startPrice} and #{endPrice}
             </if>
             and DRUG_TRADE_STATUS = 1
+            and FLAG = 2
         </where>
         limit #{pageNum},#{pageSize}
     </select>
@@ -127,6 +128,7 @@
                 and BID_PRICE between #{startPrice} and #{endPrice}
             </if>
             and DRUG_TRADE_STATUS = 1
+            and FLAG = 2
         </where>
     </select>
 

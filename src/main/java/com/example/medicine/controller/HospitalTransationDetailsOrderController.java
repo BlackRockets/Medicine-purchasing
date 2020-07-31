@@ -25,17 +25,14 @@ public class HospitalTransationDetailsOrderController {
     @ResponseBody
     @RequestMapping(value = "hospitalTransationDetailsOrderFindAll",produces = {"application/json;charset=utf-8"})
     public String hospitalTransationDetailsOrderFindAll(@RequestParam("page") Integer page, @RequestParam("limit") Integer limit, Hospital_Transaction_Details hospital, Drug drug, Vendor_Information ven, HospitalInformationMaintenanceForm hos, PurchaseOrderDetails pur){
-        System.out.println(hospital);
         hospital.setPageNum(page);
         hospital.setPageSize(limit);
         hospital.setDrug(drug);
         hospital.setVendor_information(ven);
         hospital.setHospitalInformationMaintenanceForm(hos);
         hospital.setPurchaseOrderDetails(pur);
-
         List<Hospital_Transaction_Details> hospitals = hospitalTransationDetailsOrderService.selectAll(hospital);
         int scount = hospitalTransationDetailsOrderService.scount(hospital);
-
         HashMap<Object, Object> resultMap = new HashMap<>();
         resultMap.put("code",0);
         resultMap.put("count",scount);

@@ -29,6 +29,10 @@
     <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription" />
     <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
     <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus" />
+      <association property="vendor_information" javaType="com.example.medicine.bean.Vendor_Information">
+          <id column="supplier_id" jdbcType="INTEGER" property="supplierId" />
+          <result column="name_of_enterprise" jdbcType="VARCHAR" property="nameOfEnterprise" />
+      </association>
   </resultMap>
   <sql id="Base_Column_List">
     ID, SERIAL_UMBER, DOSAGE_FORM, DOSAGE_FORM_DRUG, SPECIFICATIONS, CONVERSION_COEFFICIENT_no, 
@@ -480,7 +484,7 @@
 
 
     <select id="findAllPurchaseingDrugs" resultMap="BaseResultMap">
-        select d.*,b.name_of_enterprise
+        select *
         from drug d
         join supplier_drug s on d.id = s.drug_information_id
         join vendor_information b on s.enterprise_id = b.supplier_id

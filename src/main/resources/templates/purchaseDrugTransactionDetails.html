@@ -236,9 +236,9 @@
             ,url:'/hospitalTransationDetailsOrder/hospitalTransationDetailsOrderFindAll/'
             ,method: 'post'
             ,toolbar: 'true'
-            ,totalRow: true
+            /*,totalRow: true*/
             ,cols: [[
-                {fixed: 'left',totalRowText: '合计：',field:'nameOfHospital', title: '采购医院', width:90,templet: '<div>{{d.hospitalInformationMaintenanceForm.nameOfHospital}}</div>'}
+                {fixed: 'left',field:'nameOfHospital', title: '采购医院', width:90,templet: '<div>{{d.hospitalInformationMaintenanceForm.nameOfHospital}}</div>'}
                 ,{field:'purchaseOrderNumber', title: '采购单编号', width:90,templet: '<div>{{d.purchaseOrderDetails.purchaseOrderNumber}}</div>'}
                 ,{field:'nameOfPurchaseOrder', title: '采购单名称', width:90,templet: '<div>{{d.purchaseOrderDetails.nameOfPurchaseOrder}}</div>'}
                 ,{field:'serialUmber', title: '流水号', width:90,templet: '<div>{{d.drug.serialUmber}}</div>'}
@@ -251,14 +251,14 @@
                 ,{field:'tradeName', title: '商品名称', width: 100,templet: '<div>{{d.drug.tradeName}}</div>'}
                 ,{field: 'bidPrice', title: '中标价', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
                 ,{field: 'transactionPrice', title: '交易价', width: 90}
-                ,{field: 'purchaseVolume', title: '采购量', totalRow: true,width: 90}
-                ,{field: 'purchaseAmount', title: '采购金额',totalRow: true, width: 90}
-                ,{field: 'storageVolume', title: '入库量', totalRow: true,width: 90}
-                ,{field: 'warehousingAmount', title: '入库金额',totalRow: true}
-                ,{field: 'returnOrderNumber', title: '退货量',totalRow: true, width: 90}
-                ,{field: 'returnGoods', title: '退货金额', width: 90,totalRow: true}
-                ,{field: 'settlementVolume', title: '结算量', width: 90,totalRow: true}
-                ,{field: 'settlementAmount', title: '结算金额', width: 90,totalRow: true}
+                ,{field: 'purchaseVolume', title: '采购量', width: 90}
+                ,{field: 'purchaseAmount', title: '采购金额', width: 90}
+                ,{field: 'storageVolume', title: '入库量', width: 90}
+                ,{field: 'warehousingAmount', title: '入库金额',}
+                ,{field: 'returnOrderNumber', title: '退货量', width: 90}
+                ,{field: 'returnGoods', title: '退货金额', width: 90,}
+                ,{field: 'settlementVolume', title: '结算量', width: 90,}
+                ,{field: 'settlementAmount', title: '结算金额', width: 90,}
                 ,{fixed: 'right',field:'purchasingStatus', title: '采购状态',width: 90,templet: function(d){if(d.purchasingStatus == 1) return "未确认送货";else if(d.purchasingStatus == 2) return "已发货";else if(d.purchasingStatus == 3) return "已入库";else if(d.purchasingStatus == 4) return "无法供货";else if(d.purchasingStatus == 5) return "到期未供货";}}
             ]]
             ,page: true
