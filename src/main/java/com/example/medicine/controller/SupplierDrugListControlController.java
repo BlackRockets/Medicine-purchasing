@@ -7,9 +7,7 @@ import com.example.medicine.bean.Vendor_Information;
 import com.example.medicine.serviceImpl.SupplierDrugListControlServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +46,19 @@ public class SupplierDrugListControlController {
     public String selectSupplierDrugListControl(Integer id){
         SupplierDrugListControl supplierDrugListControl = supplierDrugListControlService.selectSupplierDrugListControl(id);
         return JSON.toJSONString(supplierDrugListControl);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "supplierDrugListControlUpdate",method = RequestMethod.POST,produces = {"application/json;charset=utf-8"})
+    public String updateSuppliersFindAll(@RequestBody List<SupplierDrugListControl> drugs){
+        System.out.println(drugs);
+        int i = supplierDrugListControlService.updateStatus(drugs);
+        HashMap<Object, Object> resultMap = new HashMap<>();
+        resultMap.put("successCount",i);
+        resultMap.put("errorCount",drugs.size()-i);
+        resultMap.put("count",drugs.size());
+        return JSON.toJSONString(resultMap);
+
     }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.medicine.mapper.Hospital_Transaction_DetailsMapper">
+<mapper namespace="com.example.medicine.mapper.HospitalTransationDetailsOrderMapper">
     <resultMap type="com.example.medicine.bean.Hospital_Transaction_Details" id="BaseResultMap">
         <result property="hospitalTransactionDetailsId" column="hospital_transaction_details_id" jdbcType="INTEGER"/>
         <result property="purchaseOrderId" column="purchase_order_id" jdbcType="INTEGER"/>
@@ -44,199 +44,129 @@
             <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
             <result property="nameOfPurchaseOrder" column="name_of_purchase_order" jdbcType="VARCHAR"/>
         </association>
-        <association property="hospitalInformationMaintenanceForm" javaType="com.example.medicine.bean.HospitalInformationMaintenanceForm">
+        <association property="hospitalInformationMaintenanceForm"
+                     javaType="com.example.medicine.bean.HospitalInformationMaintenanceForm">
             <id column="maintenanceTableId" jdbcType="INTEGER" property="purchase_order_id"/>
             <result property="nameOfHospital" column="name_of_hospital" jdbcType="VARCHAR"/>
         </association>
     </resultMap>
 
-    <!--&lt;!&ndash;查询单个&ndash;&gt;
-    <select id="queryById" resultMap="HospitalTransactionDetailsMap">
-        select
-          hospital_transaction_details_id, purchase_order_id, drug_information_id, supplier_id, bid_price, transaction_price, purchase_volume, purchasing_status, storage_volume, purchase_amount, return_order_id, return_order_number, return_goods, warehousing_amount, invoice_number, drug_batch_number, Validity_period_of_drug, warehousing, reason_for_return, return_status, statement_of_account_id, settlement_volume, settlement_amount, settlement_status
-        from medicine.hospital_transaction_details
-        where hospital_transaction_details_id = #{hospitalTransactionDetailsId}
-    </select>
-
-    &lt;!&ndash;查询指定行数据&ndash;&gt;
-    <select id="queryAllByLimit" resultMap="HospitalTransactionDetailsMap">
-        select
-          hospital_transaction_details_id, purchase_order_id, drug_information_id, supplier_id, bid_price, transaction_price, purchase_volume, purchasing_status, storage_volume, purchase_amount, return_order_id, return_order_number, return_goods, warehousing_amount, invoice_number, drug_batch_number, Validity_period_of_drug, warehousing, reason_for_return, return_status, statement_of_account_id, settlement_volume, settlement_amount, settlement_status
-        from medicine.hospital_transaction_details
-        limit #{offset}, #{limit}
-    </select>
-
-    &lt;!&ndash;通过实体作为筛选条件查询&ndash;&gt;
-    <select id="queryAll" resultMap="HospitalTransactionDetailsMap">
-        select
-        hospital_transaction_details_id, purchase_order_id, drug_information_id, supplier_id, bid_price,
-        transaction_price, purchase_volume, purchasing_status, storage_volume, purchase_amount, return_order_id,
-        return_order_number, return_goods, warehousing_amount, invoice_number, drug_batch_number,
-        Validity_period_of_drug, warehousing, reason_for_return, return_status, statement_of_account_id,
-        settlement_volume, settlement_amount, settlement_status
-        from medicine.hospital_transaction_details
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from hospital_transaction_details h
+        join drug d on h.drug_information_id = d.id
+        join vendor_information v on h.supplier_id = v.supplier_id
+        join purchase_order p on h.purchase_order_id = p.purchase_id
+        join hospital_procurement_of_drugs hos on hos.supplier_id = v.supplier_id
+        join hospital_information_maintenance_form hosform on hosform.maintenance_table_id = hos.maintenance_table_id
         <where>
-            <if test="hospitalTransactionDetailsId != null">
-                and hospital_transaction_details_id = #{hospitalTransactionDetailsId}
+            <if test="purchaseOrderDetails.purchaseOrderNumber != null and purchaseOrderDetails.purchaseOrderNumber != ''">
+                and p.purchase_order_number like CONCAT("%",#{purchaseOrderDetails.purchaseOrderNumber},"%")
             </if>
-            <if test="purchaseOrderId != null">
-                and purchase_order_id = #{purchaseOrderId}
+            <if test="purchaseOrderDetails.nameOfPurchaseOrder != null and purchaseOrderDetails.nameOfPurchaseOrder != ''">
+                and p.name_of_purchase_order like CONCAT("%",#{purchaseOrderDetails.nameOfPurchaseOrder},"%")
             </if>
-            <if test="drugInformationId != null">
-                and drug_information_id = #{drugInformationId}
-            </if>
-            <if test="supplierId != null">
-                and supplier_id = #{supplierId}
-            </if>
-            <if test="bidPrice != null">
-                and bid_price = #{bidPrice}
-            </if>
-            <if test="transactionPrice != null">
-                and transaction_price = #{transactionPrice}
-            </if>
-            <if test="purchaseVolume != null and purchaseVolume != ''">
-                and purchase_volume = #{purchaseVolume}
+            <if test="hospitalInformationMaintenanceForm.nameOfHospital != null and hospitalInformationMaintenanceForm.nameOfHospital != ''">
+                and hosform.name_of_hospital like CONCAT("%",#{hospitalInformationMaintenanceForm.nameOfHospital},"%")
             </if>
             <if test="purchasingStatus != null and purchasingStatus != ''">
-                and purchasing_status = #{purchasingStatus}
+                and h.purchasing_status like CONCAT("%",#{purchasingStatus},"%")
             </if>
-            <if test="storageVolume != null and storageVolume != ''">
-                and storage_volume = #{storageVolume}
+            <if test="vendor_information.nameOfEnterprise != null and vendor_information.nameOfEnterprise != ''">
+                and v.name_of_enterprise like CONCAT("%",#{vendor_information.nameOfEnterprise},"%")
             </if>
-            <if test="purchaseAmount != null and purchaseAmount != ''">
-                and purchase_amount = #{purchaseAmount}
+            <if test="drug.serialUmber != null and drug.serialUmber != ''">
+                and d.SERIAL_UMBER like CONCAT("%",#{drug.serialUmber},"%")
             </if>
-            <if test="returnOrderId != null">
-                and return_order_id = #{returnOrderId}
+            <if test="drug.dosageForm != null and drug.dosageForm != ''">
+                and d.DOSAGE_FORM like CONCAT("%",#{drug.dosageForm},"%")
             </if>
-            <if test="returnOrderNumber != null and returnOrderNumber != ''">
-                and return_order_number = #{returnOrderNumber}
+            <if test="drug.dosageFormDrug != null and drug.dosageFormDrug != ''">
+                and d.DOSAGE_FORM_DRUG like CONCAT("%",#{drug.dosageFormDrug},"%")
             </if>
-            <if test="returnGoods != null and returnGoods != ''">
-                and return_goods = #{returnGoods}
+            <if test="drug.specifications != null and drug.specifications != ''">
+                and d.SPECIFICATIONS like CONCAT("%",#{drug.specifications},"%")
             </if>
-            <if test="warehousingAmount != null and warehousingAmount != ''">
-                and warehousing_amount = #{warehousingAmount}
+            <if test="drug.company != null and drug.company != ''">
+                and d.company like CONCAT("%",#{drug.company},"%")
             </if>
-            <if test="invoiceNumber != null and invoiceNumber != ''">
-                and invoice_number = #{invoiceNumber}
+            <if test="drug.conversionCoefficientNo != null and drug.conversionCoefficientNo != ''">
+                and d.CONVERSION_COEFFICIENT_NO like CONCAT("%",#{drug.conversionCoefficientNo},"%")
             </if>
-            <if test="drugBatchNumber != null and drugBatchNumber != ''">
-                and drug_batch_number = #{drugBatchNumber}
+            <if test="drug.nameOfManufacturer != null and drug.nameOfManufacturer != ''">
+                and d.NAME_OF_MANUFACTURER like CONCAT("%",#{drug.nameOfManufacturer},"%")
             </if>
-            <if test="validityPeriodOfDrug != null">
-                and Validity_period_of_drug = #{validityPeriodOfDrug}
+            <if test="drug.tradeName != null and drug.tradeName != ''">
+                and d.TRADE_NAME like CONCAT("%",#{drug.tradeName},"%")
             </if>
-            <if test="warehousing != null">
-                and warehousing = #{warehousing}
+            <if test="drug.qualityLevel != null and drug.qualityLevel != ''">
+                and d.QUALITY_LEVEL like CONCAT("%",#{drug.qualityLevel},"%")
             </if>
-            <if test="reasonForReturn != null and reasonForReturn != ''">
-                and reason_for_return = #{reasonForReturn}
+            <if test="drug.drugCategory != null and drug.drugCategory != ''">
+                and d.DRUG_CATEGORY like CONCAT("%",#{drug.drugCategory},"%")
             </if>
-            <if test="returnStatus != null and returnStatus != ''">
-                and return_status = #{returnStatus}
+            <!--<if test="startTime != null and endTime != null">
+                and p.order_creation_time between
+            </if>-->
+        </where>
+        limit #{pageStart},#{pageSize}
+    </select>
+    <select id="scount" resultType="java.lang.Integer">
+        select count(*) from hospital_transaction_details h
+        join drug d on h.drug_information_id = d.id
+        join vendor_information v on h.supplier_id = v.supplier_id
+        join purchase_order p on h.purchase_order_id = p.purchase_id
+        join hospital_procurement_of_drugs hos on hos.supplier_id = v.supplier_id
+        join hospital_information_maintenance_form hosform on hosform.maintenance_table_id = hos.maintenance_table_id
+        <where>
+            <if test="purchaseOrderDetails.purchaseOrderNumber != null and purchaseOrderDetails.purchaseOrderNumber != ''">
+                and p.purchase_order_number like CONCAT("%",#{purchaseOrderDetails.purchaseOrderNumber},"%")
             </if>
-            <if test="statementOfAccountId != null">
-                and statement_of_account_id = #{statementOfAccountId}
+            <if test="purchaseOrderDetails.nameOfPurchaseOrder != null and purchaseOrderDetails.nameOfPurchaseOrder != ''">
+                and p.name_of_purchase_order like CONCAT("%",#{purchaseOrderDetails.nameOfPurchaseOrder},"%")
             </if>
-            <if test="settlementVolume != null and settlementVolume != ''">
-                and settlement_volume = #{settlementVolume}
+            <if test="hospitalInformationMaintenanceForm.nameOfHospital != null and hospitalInformationMaintenanceForm.nameOfHospital != ''">
+                and hosform.name_of_hospital like CONCAT("%",#{hospitalInformationMaintenanceForm.nameOfHospital},"%")
             </if>
-            <if test="settlementAmount != null and settlementAmount != ''">
-                and settlement_amount = #{settlementAmount}
+            <if test="purchasingStatus != null and purchasingStatus != ''">
+                and h.purchasing_status like CONCAT("%",#{purchasingStatus},"%")
             </if>
-            <if test="settlementStatus != null and settlementStatus != ''">
-                and settlement_status = #{settlementStatus}
+            <if test="vendor_information.nameOfEnterprise != null and vendor_information.nameOfEnterprise != ''">
+                and v.name_of_enterprise like CONCAT("%",#{vendor_information.nameOfEnterprise},"%")
             </if>
+            <if test="drug.serialUmber != null and drug.serialUmber != ''">
+                and d.SERIAL_UMBER like CONCAT("%",#{drug.serialUmber},"%")
+            </if>
+            <if test="drug.dosageForm != null and drug.dosageForm != ''">
+                and d.DOSAGE_FORM like CONCAT("%",#{drug.dosageForm},"%")
+            </if>
+            <if test="drug.dosageFormDrug != null and drug.dosageFormDrug != ''">
+                and d.DOSAGE_FORM_DRUG like CONCAT("%",#{drug.dosageFormDrug},"%")
+            </if>
+            <if test="drug.specifications != null and drug.specifications != ''">
+                and d.SPECIFICATIONS like CONCAT("%",#{drug.specifications},"%")
+            </if>
+            <if test="drug.company != null and drug.company != ''">
+                and d.company like CONCAT("%",#{drug.company},"%")
+            </if>
+            <if test="drug.conversionCoefficientNo != null and drug.conversionCoefficientNo != ''">
+                and d.CONVERSION_COEFFICIENT_NO like CONCAT("%",#{drug.conversionCoefficientNo},"%")
+            </if>
+            <if test="drug.nameOfManufacturer != null and drug.nameOfManufacturer != ''">
+                and d.NAME_OF_MANUFACTURER like CONCAT("%",#{drug.nameOfManufacturer},"%")
+            </if>
+            <if test="drug.tradeName != null and drug.tradeName != ''">
+                and d.TRADE_NAME like CONCAT("%",#{drug.tradeName},"%")
+            </if>
+            <if test="drug.qualityLevel != null and drug.qualityLevel != ''">
+                and d.QUALITY_LEVEL like CONCAT("%",#{drug.qualityLevel},"%")
+            </if>
+            <if test="drug.drugCategory != null and drug.drugCategory != ''">
+                and d.DRUG_CATEGORY like CONCAT("%",#{drug.drugCategory},"%")
+            </if>
+            <!--<if test="startTime != null and endTime != null">
+                and p.order_creation_time between
+            </if>-->
         </where>
     </select>
-
-    &lt;!&ndash;新增所有列&ndash;&gt;
-    <insert id="insert" keyProperty="hospitalTransactionDetailsId" useGeneratedKeys="true">
-        insert into medicine.hospital_transaction_details(purchase_order_id, drug_information_id, supplier_id, bid_price, transaction_price, purchase_volume, purchasing_status, storage_volume, purchase_amount, return_order_id, return_order_number, return_goods, warehousing_amount, invoice_number, drug_batch_number, Validity_period_of_drug, warehousing, reason_for_return, return_status, statement_of_account_id, settlement_volume, settlement_amount, settlement_status)
-        values (#{purchaseOrderId}, #{drugInformationId}, #{supplierId}, #{bidPrice}, #{transactionPrice}, #{purchaseVolume}, #{purchasingStatus}, #{storageVolume}, #{purchaseAmount}, #{returnOrderId}, #{returnOrderNumber}, #{returnGoods}, #{warehousingAmount}, #{invoiceNumber}, #{drugBatchNumber}, #{validityPeriodOfDrug}, #{warehousing}, #{reasonForReturn}, #{returnStatus}, #{statementOfAccountId}, #{settlementVolume}, #{settlementAmount}, #{settlementStatus})
-    </insert>
-
-    &lt;!&ndash;通过主键修改数据&ndash;&gt;
-    <update id="update">
-        update medicine.hospital_transaction_details
-        <set>
-            <if test="purchaseOrderId != null">
-                purchase_order_id = #{purchaseOrderId},
-            </if>
-            <if test="drugInformationId != null">
-                drug_information_id = #{drugInformationId},
-            </if>
-            <if test="supplierId != null">
-                supplier_id = #{supplierId},
-            </if>
-            <if test="bidPrice != null">
-                bid_price = #{bidPrice},
-            </if>
-            <if test="transactionPrice != null">
-                transaction_price = #{transactionPrice},
-            </if>
-            <if test="purchaseVolume != null and purchaseVolume != ''">
-                purchase_volume = #{purchaseVolume},
-            </if>
-            <if test="purchasingStatus != null and purchasingStatus != ''">
-                purchasing_status = #{purchasingStatus},
-            </if>
-            <if test="storageVolume != null and storageVolume != ''">
-                storage_volume = #{storageVolume},
-            </if>
-            <if test="purchaseAmount != null and purchaseAmount != ''">
-                purchase_amount = #{purchaseAmount},
-            </if>
-            <if test="returnOrderId != null">
-                return_order_id = #{returnOrderId},
-            </if>
-            <if test="returnOrderNumber != null and returnOrderNumber != ''">
-                return_order_number = #{returnOrderNumber},
-            </if>
-            <if test="returnGoods != null and returnGoods != ''">
-                return_goods = #{returnGoods},
-            </if>
-            <if test="warehousingAmount != null and warehousingAmount != ''">
-                warehousing_amount = #{warehousingAmount},
-            </if>
-            <if test="invoiceNumber != null and invoiceNumber != ''">
-                invoice_number = #{invoiceNumber},
-            </if>
-            <if test="drugBatchNumber != null and drugBatchNumber != ''">
-                drug_batch_number = #{drugBatchNumber},
-            </if>
-            <if test="validityPeriodOfDrug != null">
-                Validity_period_of_drug = #{validityPeriodOfDrug},
-            </if>
-            <if test="warehousing != null">
-                warehousing = #{warehousing},
-            </if>
-            <if test="reasonForReturn != null and reasonForReturn != ''">
-                reason_for_return = #{reasonForReturn},
-            </if>
-            <if test="returnStatus != null and returnStatus != ''">
-                return_status = #{returnStatus},
-            </if>
-            <if test="statementOfAccountId != null">
-                statement_of_account_id = #{statementOfAccountId},
-            </if>
-            <if test="settlementVolume != null and settlementVolume != ''">
-                settlement_volume = #{settlementVolume},
-            </if>
-            <if test="settlementAmount != null and settlementAmount != ''">
-                settlement_amount = #{settlementAmount},
-            </if>
-            <if test="settlementStatus != null and settlementStatus != ''">
-                settlement_status = #{settlementStatus},
-            </if>
-        </set>
-        where hospital_transaction_details_id = #{hospitalTransactionDetailsId}
-    </update>
-
-    &lt;!&ndash;通过主键删除&ndash;&gt;
-    <delete id="deleteById">
-        delete from medicine.hospital_transaction_details where hospital_transaction_details_id = #{hospitalTransactionDetailsId}
-    </delete>-->
 
 </mapper>

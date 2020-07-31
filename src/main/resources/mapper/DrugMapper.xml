@@ -475,7 +475,7 @@
         <include refid="Base_Column_List"/>
         from drug
     </select>
-    <select id="selectDrugCategory">
+    <select id="selectDrugCategory" resultType="java.lang.String">
     select distinct DRUG_CATEGORY  from drug
   </select>
 

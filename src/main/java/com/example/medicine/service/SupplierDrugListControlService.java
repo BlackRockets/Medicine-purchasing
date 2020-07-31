@@ -11,4 +11,6 @@ public interface SupplierDrugListControlService {
     Integer selectCount(SupplierDrugListControl supplier);
 
     SupplierDrugListControl selectSupplierDrugListControl(Integer id);
+
+    int updateStatus(List<SupplierDrugListControl> drugs);
 }

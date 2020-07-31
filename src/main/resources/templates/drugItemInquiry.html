@@ -83,11 +83,11 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品类别：</label>
                             <div class="layui-input-inline">
-                                <select name="drugCategory" lay-verify="" lay-search="">
+                                <select name="drugCategory" id="drugCategorys" lay-search="">
                                     <option value="">请选择</option>
-                                    <option value="1">layer</option>
+                                    <!--<option value="1">layer</option>
                                     <option value="2">form</option>
-                                    <option value="3">layim</option>
+                                    <option value="3">layim</option>-->
                                 </select>
                             </div>
                         </div>
@@ -98,9 +98,8 @@
                             <div class="layui-input-inline">
                                 <select name="statu" lay-verify="" lay-search="">
                                     <option value="">全部</option>
-                                    <option value="1">layer</option>
-                                    <option value="2">form</option>
-                                    <option value="3">layim</option>
+                                    <option value="1">正常</option>
+                                    <option value="2">不正常</option>
                                 </select>
                             </div>
                         </div>
@@ -131,7 +130,22 @@
         var table = layui.table;
         var form = layui.form;
         var upload = layui.upload;
+        $ = layui.jquery;
+        $.ajax({
+            type: 'post',
+            url: '/drug/drugCategory/',
+            data: null,
+            dataType: 'json',
+            success: function (data) {
+                var datas = "";
+                for (var i = 0; i < data.length; i++) {
+                    datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+                }
+                $('#drugCategorys').append(datas);
+                form.render('select');
 
+            }
+        })
         //起始加载数据表格
         var mainTable = table.render({
             elem: '#test'

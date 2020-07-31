@@ -1,5 +1,7 @@
 package com.example.medicine.bean;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Hospital_Transaction_Details {
@@ -59,9 +61,41 @@ public class Hospital_Transaction_Details {
 
     private PurchaseOrderDetails purchaseOrderDetails;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private  Date endTime;
+
+    private Integer pageNum;
+
+    private Integer pageSize;
+
+    private Integer pageStart;
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageStart() {
+        return pageStart;
+    }
+
+    public void setPageStart(Integer pageStart) {
+        this.pageStart = pageStart;
+    }
 
     @Override
     public String toString() {

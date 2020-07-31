@@ -33,4 +33,15 @@ public class SupplierDrugListControlServiceImpl implements SupplierDrugListContr
         SupplierDrugListControl supplierDrugListControl = supplierDrugListControlMapper.selectSupplierDrugListControl(id);
         return supplierDrugListControl;
     }
+
+    @Override
+    public int updateStatus(List<SupplierDrugListControl> drugs) {
+        for (SupplierDrugListControl drug : drugs) {
+            if(drug.getSupervisionOrganizationControlStatus() > 2){
+                drug.setSupervisionOrganizationControlStatus(1);
+            }
+        }
+        int i = supplierDrugListControlMapper.updateStatus(drugs);
+        return i;
+    }
 }

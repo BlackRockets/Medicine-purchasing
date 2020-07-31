@@ -25,7 +25,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">采购单编号：</label>
                             <div class="layui-input-inline">
-                                <input type="tel" name="purchaseOrderNumber"  autocomplete="off" class="layui-input">
+                                <input type="text" name="purchaseOrderNumber"  autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -160,10 +160,14 @@
                             <label class="layui-form-label">质量层次：</label>
                             <div class="layui-input-inline">
                                 <select name="qualityLevel"  lay-search="">
-                                    <option value="">全部</option>
-                                    <option value="1">layer</option>
-                                    <option value="2">form</option>
-                                    <option value="3">layim</option>
+                                    <option value="">请选择</option>
+                                    <option value="国家一类新药">国家一类新药</option>
+                                    <option value="国家科学进步奖">国家科学进步奖</option>
+                                    <option value="专利">专利</option>
+                                    <option value="原研">原研</option>
+                                    <option value="单独定价">单独定价</option>
+                                    <option value="优质优价">优质优价</option>
+                                    <option value="GMP">GMP</option>
                                 </select>
                             </div>
                         </div>
@@ -171,23 +175,22 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <button type="button" class="layui-btn layui-btn-sm">查询</button>
+                        <button type="button" id="conditionSubmit" class="layui-btn layui-btn-sm"
+                                lay-filter="conditionSubmit" lay-submit>查询
+                        </button>
                     </td>
                     <td>
                         <div class="layui-inline">
                             <label class="layui-form-label">药品类别：</label>
                             <div class="layui-input-inline">
-                                <select name="drugCategory" lay-verify="required" lay-search="">
+                                <select name="drugCategory" id="drugCategorys" lay-search="">
                                     <option value="">全部</option>
-                                    <option value="1">layer</option>
+                                    <!--<option value="1">layer</option>
                                     <option value="2">form</option>
-                                    <option value="3">layim</option>
+                                    <option value="3">layim</option>-->
                                 </select>
                             </div>
                         </div>
-                    </td>
-                    <td align="center">
-                        <button type="button" class="layui-btn layui-btn-sm">导出</button>
                     </td>
                 </tbody>
             </table>
@@ -213,15 +216,31 @@
        var laydate=layui.laydate;
        $ = layui.$;
 
+       $.ajax({
+           type: 'post',
+           url: '/drug/drugCategory/',
+           data: null,
+           dataType: 'json',
+           success: function (data) {
+               var datas = "";
+               for (var i = 0; i < data.length; i++) {
+                   datas += "<option value='" + data[i] + "'>" + data[i] + "</option>";
+               }
+               $('#drugCategorys').append(datas);
+               form.render('select');
+
+           }
+       })
        var tableIns=table.render({
            elem: '#demo'
            ,url:'/hospitalTransationDetailsOrder/hospitalTransationDetailsOrderFindAll/'
            ,method: 'post'
            ,toolbar: 'true'
+           ,totalRow: true
            ,cols: [[
-               {field:'serialUmber', title: '采购医院', width:90,templet: '<div>{{d.drug.serialUmber}}</div>'}
-               ,{field:'serialUmber', title: '采购单编号', width:90,templet: '<div>{{d.drug.serialUmber}}</div>'}
-               ,{field:'serialUmber', title: '采购单名称', width:90,templet: '<div>{{d.drug.serialUmber}}</div>'}
+               {fixed: 'left',totalRowText: '合计：',field:'nameOfHospital', title: '采购医院', width:90,templet: '<div>{{d.hospitalInformationMaintenanceForm.nameOfHospital}}</div>'}
+               ,{field:'purchaseOrderNumber', title: '采购单编号', width:90,templet: '<div>{{d.purchaseOrderDetails.purchaseOrderNumber}}</div>'}
+               ,{field:'nameOfPurchaseOrder', title: '采购单名称', width:90,templet: '<div>{{d.purchaseOrderDetails.nameOfPurchaseOrder}}</div>'}
                ,{field:'serialUmber', title: '流水号', width:90,templet: '<div>{{d.drug.serialUmber}}</div>'}
                ,{field:'dosageForm', title: '通用名', width:80,templet: '<div>{{d.drug.dosageForm}}</div>'}
                ,{field:'dosageFormDrug',title: '剂型', width: 90,templet: '<div>{{d.drug.dosageFormDrug}}</div>'}
@@ -231,24 +250,50 @@
                ,{field:'nameOfManufacturer', title: '生产企业', width:100,templet: '<div>{{d.drug.nameOfManufacturer}}</div>'}
                ,{field:'tradeName', title: '商品名称', width: 100,templet: '<div>{{d.drug.tradeName}}</div>'}
                ,{field: 'bidPrice', title: '中标价', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '交易价', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '采购量', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '采购金额', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '入库量', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '入库金额', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '退货量', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '退货金额', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '结算量', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field: 'bidPrice', title: '结算金额', width: 90,templet: '<div>{{d.drug.bidPrice}}</div>'}
-               ,{field:'supervisionOrganizationControlStatus', title: '采购状态',width: 90,templet: function(d){if(d.supervisionOrganizationControlStatus == 1) return "正常";else if(d.supervisionOrganizationControlStatus == 2) return "暂停供货";}}
-               ,{fixed: 'right', width:150, align:'center', toolbar: '#barDemo'}
+               ,{field: 'transactionPrice', title: '交易价', width: 90}
+               ,{field: 'purchaseVolume', title: '采购量', totalRow: true,width: 90}
+               ,{field: 'purchaseAmount', title: '采购金额',totalRow: true, width: 90}
+               ,{field: 'storageVolume', title: '入库量', totalRow: true,width: 90}
+               ,{field: 'warehousingAmount', title: '入库金额',totalRow: true}
+               ,{field: 'returnOrderNumber', title: '退货量',totalRow: true, width: 90}
+               ,{field: 'returnGoods', title: '退货金额', width: 90,totalRow: true}
+               ,{field: 'settlementVolume', title: '结算量', width: 90,totalRow: true}
+               ,{field: 'settlementAmount', title: '结算金额', width: 90,totalRow: true}
+               ,{fixed: 'right',field:'purchasingStatus', title: '采购状态',width: 90,templet: function(d){if(d.purchasingStatus == 1) return "未确认送货";else if(d.purchasingStatus == 2) return "已发货";else if(d.purchasingStatus == 3) return "已入库";else if(d.purchasingStatus == 4) return "无法供货";else if(d.purchasingStatus == 5) return "到期未供货";}}
            ]]
            ,page: true
            ,limit: 5
            ,limits: [5,10,15]
        });
 
-
+       //条件查询
+       form.on('submit(conditionSubmit)', function (data) {
+           tableIns.reload({
+               url: '/hospitalTransationDetailsOrder/hospitalTransationDetailsOrderFindAll/'
+               , page: {
+                   curr: 1 //重新从第 1 页开始
+               }
+               , where: {
+                   purchaseOrderNumber: data.field.purchaseOrderNumber
+                   ,nameOfPurchaseOrder: data.field.nameOfPurchaseOrder
+                   ,nameOfHospital: data.field.nameOfHospital
+                   ,purchasingStatus: data.field.purchasingStatus
+                   ,nameOfEnterprise: data.field.nameOfEnterprise
+                   ,startTime: data.field.startTime
+                   ,endTime: data.field.endTime
+                   ,serialUmber: data.field.serialUmber
+                   , dosageForm: data.field.dosageForm
+                   , dosageFormDrug: data.field.dosageFormDrug
+                   , specifications: data.field.specifications
+                   , company: data.field.company
+                   , conversionCoefficientNo: data.field.conversionCoefficientNo
+                   , nameOfManufacturer: data.field.nameOfManufacturer
+                   , tradeName: data.field.tradeName
+                   , qualityLevel: data.field.qualityLevel
+                   , drugCategory: data.field.drugCategory
+               }
+           });
+       })
 
 
        //日期

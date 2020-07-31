@@ -2,14 +2,12 @@ package com.example.medicine.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.medicine.bean.Drug;
+import com.example.medicine.bean.SupplierDrugListControl;
 import com.example.medicine.serviceImpl.SelectSuppliersServiceImpl;
 import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -58,17 +56,7 @@ public class SelectSuppliersContriller {
     @RequestMapping(value = "selectSuppliersById",produces = {"application/json;charset=utf-8"})
     public String selectSuppliersById(Integer id){
         Drug drug = selectSuppliersService.selectById(id);
-        System.out.println(drug);
         return JSON.toJSONString(drug);
     }
 
-
-    @ResponseBody
-    @RequestMapping(value = "updateSuppliersFindAll",produces = {"application/json;charset=utf-8"})
-    public String updateSuppliersFindAll(@RequestParam("drugs")String drugs){
-        System.out.println(drugs);
-
-        return "";
-
-    }
 }
