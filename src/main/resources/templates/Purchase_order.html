@@ -41,6 +41,7 @@
                             </div>
                         </div>
                     </td>
+
                     <td>
                         <div class="layui-inline ">
                             <label class="layui-form-label">采购单状态</label>
@@ -980,7 +981,7 @@
             , page: true
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'hospitalId', title: '采购医院'}
+                , {field: 'nameOfHospital', templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院'}
                 , {field: 'purchaseOrderNumber', title: '采购单编号',}
                 , {field: 'nameOfPurchaseOrder', title: '采购单名称'}
                 , {field: 'orderCreationTime', title: '建单时间',}
@@ -1141,9 +1142,15 @@
         });
         $("#find").on("click", function () {
             var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
+            var purchaseOrderStatus = $("[name=purchaseOrderStatus]").val();
+            var nameOfPurchaseOrder = $("[name=nameOfPurchaseOrder]").val();
+            var nameOfHospital = $("[name=nameOfHospital]").val();
             tableIns.reload({
                 where: {
-                    purchaseOrderNumber: purchaseOrderNumber
+                    purchaseOrderNumber: purchaseOrderNumber,
+                    purchaseOrderStatus:purchaseOrderStatus,
+                    nameOfPurchaseOrder:nameOfPurchaseOrder,
+                    nameOfHospital:nameOfHospital
                 }
                 , page: {
                     curr: 1
@@ -1194,6 +1201,33 @@
             })
         });
 
+        //批量删除
+        $("#del").on('click',function () {
+            var checkStatus=table.checkStatus('main');
+            var selectCount=checkStatus.data.length;
+            if (selectCount == 0){
+                layer.msg('至少选中一条数据',function (){});
+                return false;
+            }layer.confirm('确定要删除吗？',function (index) {
+                layer.close(index);
+                var isStr="";
+                for (var i=0;i<selectCount;i++){
+                    isStr=isStr+","+checkStatus.data[i].purchaseId;}
+                $.ajax({
+                    type: 'post',
+                    data:{"ids":isStr},
+                    url: '',
+                    success:function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('main')
+                    },error:function (code) {
+                        parent.layer.msg('操作失败！',{icon:5,time:1000});
+                    }
+                });
+            })
+        });
+
         //添加药品
         form.on('submit(addMedicine)', function (data) {
             var checkStatus = table.checkStatus("addMedicineTableMark");
@@ -1207,6 +1241,7 @@
             layer.msg("添加成功!");
         });
 
+        //修改
         var on = form.on('submit(updateSubmit)', function (dataEdit) {
             var purchaseOrders = JSON.stringify(dataEdit.field);
             var formData = new FormData;

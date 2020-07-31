@@ -1,6 +1,7 @@
 package com.example.medicine.serviceImpl;
 
 import com.example.medicine.bean.Hospital_Transaction_Details;
+import com.example.medicine.bean.PurchaseOrder;
 import com.example.medicine.mapper.Hospital_Transaction_DetailsMapper;
 import com.example.medicine.service.HospitalTransationDetailsService;
 import com.github.pagehelper.PageHelper;
@@ -16,11 +17,18 @@ public class HospitalTransationDetailsServiceImpl implements HospitalTransationD
 
 @Autowired
 private Hospital_Transaction_DetailsMapper hospital_transaction_detailsMapper;
+
     @Override
-    public PageInfo<Hospital_Transaction_Details> selectAllHospitalTransationDetials(Integer pageNum, Integer pageSize, Hospital_Transaction_Details hospital_transaction_details) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<Hospital_Transaction_Details> hospitalTransactionDetails = hospital_transaction_detailsMapper.selectAllHospitalTransationDetials(hospital_transaction_details);
-        PageInfo<Hospital_Transaction_Details> info = new PageInfo<>(hospitalTransactionDetails);
-        return info;
+    public List<Hospital_Transaction_Details> selectAllHospitalTransationDetials(Hospital_Transaction_Details hospital_transaction_details) {
+        Integer pageNum=hospital_transaction_details.getPageNum();
+        Integer pageSize=hospital_transaction_details.getPageSize();
+        if(pageNum!=null && pageSize!=null){
+            Integer startrow = (pageNum-1)*pageSize;
+            hospital_transaction_details.setStartRow(startrow);
+        }
+
+        //查询出来的数据
+        List<Hospital_Transaction_Details> hospital_transaction_details1 = hospital_transaction_detailsMapper.selectAllHospitalTransationDetials(hospital_transaction_details);
+        return hospital_transaction_details1;
     }
 }

@@ -46,8 +46,7 @@ public class PurchaseOrderDetails implements Serializable {
     /**
      * 采购金额
      */
-    private Integer
-            purchaseAmout;
+    private Integer purchaseAmount;
     /**
      * 采购状态(存储数据字典：1、未确认送货 2、已发货、3、已入库 4 无法供货 5
      * 到期未供货)
@@ -134,9 +133,9 @@ public class PurchaseOrderDetails implements Serializable {
         this.purchaseVolume = purchaseVolume;
     }
 
-    public Integer getpurchaseAmout() { return purchaseAmout; }
+    public Integer getpurchaseAmount() { return purchaseAmount; }
 
-    public void setpurchaseAmout(Integer purchaseAmout) { this.purchaseAmout = purchaseAmout;
+    public void setpurchaseAmount(Integer purchaseAmount) { this.purchaseAmount = purchaseAmount;
     }
 
     public Integer getPurchasingStatus() {
@@ -175,12 +174,12 @@ public class PurchaseOrderDetails implements Serializable {
         return serialVersionUID;
     }
 
-    public Integer getPurchaseAmout() {
-        return purchaseAmout;
+    public Integer getPurchaseAmount() {
+        return purchaseAmount;
     }
 
-    public void setPurchaseAmout(Integer purchaseAmout) {
-        this.purchaseAmout = purchaseAmout;
+    public void setPurchaseAmount(Integer purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
     }
 
     public Integer getDrugInformationId() {

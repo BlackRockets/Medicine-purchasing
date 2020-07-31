@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <script src="../static/layui/jquery-3.4.1.min.js"></script>
+    <!-- <script src="../static/layui/jquery-form.js"></script>-->
+    <script src="../static/layui/layui.js" charset="utf-8"></script>
     <!--监督管理   查询药品交易明细-->
 </head>
 <body>
@@ -69,12 +72,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">供货商：</label>
                             <div class="layui-input-inline">
-                                <select name="supplierId" lay-verify="" lay-search="">
-                                    <option value="">全部</option>
-                                    <option value="1">layer</option>
-                                    <option value="2">form</option>
-                                    <option value="3">layim</option>
-                                </select>
+                                <input type="tel" name="nameOfEnterprise" lay-verify=""
+                                       autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -98,7 +97,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品流水号：</label>
                             <div class="layui-input-inline">
-                                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off"
+                                <input type="tel" name="serialUmber" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -107,7 +106,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">通用名：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="" autocomplete="off" class="layui-input">
+                                <input type="text" name="dosageForm" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -191,20 +190,10 @@
                         <button type="button" class="layui-btn layui-btn-sm" id="find">查询</button>
                     </td>
                     <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">质量层次：</label>
-                            <div class="layui-input-inline">
-                                <select name="drupCategory" lay-verify="required" lay-search="">
-                                    <option value="">全部</option>
-                                    <option value="1">layer</option>
-                                    <option value="2">form</option>
-                                    <option value="3">layim</option>
-                                </select>
-                            </div>
-                        </div>
+
                     </td>
                     <td align="center">
-                        <button type="button" class="layui-btn layui-btn-sm">导出</button>
+                        <button type="button" class="layui-btn layui-btn-sm" >导出</button>
                     </td>
                 </tbody>
             </table>
@@ -212,22 +201,9 @@
     </div>
 </div>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
+</body>
 <script>
-    layui.use(['form', 'table', 'laydate'], function () {
-        var form = layui.form
-            , layer = layui.layer
-            , layedit = layui.layedit
-            , laydate = layui.laydate;
-        var table = layui.table;
 
-        //日期
-        laydate.render({
-            elem: '#time01'
-        });
-        laydate.render({
-            elem: '#time02'
-        });
-    });
     layui.use(['table', 'form'], function () {
         var table = layui.table;
         var mainTable = table.render({
@@ -236,20 +212,20 @@
             , toolbar: 'default'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'nameOfHospital', title: '采购医院',}
-                , {field: 'nameOfPurchaseOrder', title: '采购单编号',}
-                , {field: 'purchaseOrderStatus', title: '采购单名称',}
-                , {field: 'id', title: '开始采购时间',}
-                , {field: 'id', title: '结束采购时间',}
-                , {field: 'serialUmber', title: '流水号',}
-                , {field: 'dosageForm', title: '通用名'}
-                , {field: 'tradeName', title: '商品名'}
-                , {field: 'dosageFormDrug', title: '剂型',}
-                , {field: 'specifications', title: '规格'}
-                , {field: 'company', title: '单位',}
-                , {field: 'conversionCoefficientNo', title: '转换系数',}
-                , {field: 'qualityLevel', title: '质量层次',}
-                , {field: 'nameOfManufacturer', title: '生产企业',}
+                , {field: 'nameOfHospital',templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院',}
+                , {field: 'nameOfPurchaseOrder',templet: '<div>{{d.po.nameOfPurchaseOrder}}</div>', title: '采购单编号',}
+                , {field: 'purchaseOrderStatus',templet: '<div>{{d.po.purchaseOrderStatus}}</div>', title: '采购单名称',}
+                /*, {field: 'id', title: '开始采购时间',}
+                , {field: 'id', title: '结束采购时间',}*/
+                , {field: 'serialUmber',templet: '<div>{{d.drug.serialUmber}}</div>', title: '流水号',}
+                , {field: 'dosageForm',templet: '<div>{{d.drug.dosageForm}}</div>', title: '通用名'}
+                , {field: 'tradeName',templet: '<div>{{d.drug.tradeName}}</div>', title: '商品名'}
+                , {field: 'dosageFormDrug',templet: '<div>{{d.drug.dosageFormDrug}}</div>', title: '剂型',}
+                , {field: 'specifications',templet: '<div>{{d.drug.specifications}}</div>', title: '规格'}
+                , {field: 'company',templet: '<div>{{d.drug.company}}</div>', title: '单位',}
+                , {field: 'conversionCoefficientNo',templet: '<div>{{d.drug.conversionCoefficientNo}}</div>', title: '转换系数',}
+                , {field: 'qualityLevel',templet: '<div>{{d.drug.qualityLevel}}</div>', title: '质量层次',}
+                , {field: 'nameOfManufacturer',templet: '<div>{{d.drug.nameOfManufacturer}}</div>', title: '生产企业',}
                 , {field: 'bidPrice', title: '中标价',}
                 , {field: 'transactionPrice', title: '交易价',}
                 , {field: 'purchaseVolume', title: '采购量',}
@@ -260,32 +236,48 @@
             ]]
             , page: true
         });
+        $("#find").on("click", function () {
+            var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
+            var nameOfPurchaseOrder = $("[name=nameOfPurchaseOrder]").val();
+            var nameOfHospital = $("[name=nameOfHospital]").val();
+            var purchaseOrderStatus = $("[name=purchaseOrderStatus]").val();
+            var nameOfEnterprise = $("[name=nameOfEnterprise]").val();
+            var serialUmber = $("[name=serialUmber]").val();
+            var dosageForm = $("[name=dosageForm]").val();
+            var dosageFormDrug = $("[name=dosageFormDrug]").val();
+            var specifications = $("[name=specifications]").val();
+            var company = $("[name=company]").val();
+            var conversionCoefficientNo = $("[name=conversionCoefficientNo]").val();
+            var nameOfManufacturer = $("[name=nameOfManufacturer]").val();
+            var tradeName = $("[name=tradeName]").val();
+            var qualityLevel = $("[name=qualityLevel]").val();
+            var drugCategory = $("[name=drugCategory]").val();
+            mainTable.reload({
+                where: {
+                    purchaseOrderNumber: purchaseOrderNumber,
+                    nameOfPurchaseOrder: nameOfPurchaseOrder,
+                    nameOfHospital: nameOfHospital,
+                    purchaseOrderStatus: purchaseOrderStatus,
+                    nameOfEnterprise: nameOfEnterprise,
+                    serialUmber: serialUmber,
+                    dosageForm: dosageForm,
+                    dosageFormDrug: dosageFormDrug,
+                    specifications: specifications,
+                    company: company,
+                    conversionCoefficientNo: conversionCoefficientNo,
+                    nameOfManufacturer: nameOfManufacturer,
+                    tradeName: tradeName,
+                    qualityLevel: qualityLevel,
+                    drugCategory: drugCategory
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+        })
+
     });
 
-    /* ,cols: [[
-         {type: 'checkbox', fixed: 'left'}
-         ,{field:'nameOfHospital', title: '采购医院',}
-         ,{field:'nameOfPurchaseOrder', title: '采购单编号',}
-         ,{field:'purchaseOrderStatus', title: '采购单名称',}
-         ,{field:'id', title: '开始采购时间',}
-         ,{field:'id', title: '结束采购时间',}
-         ,{field:'serialUmber', title: '流水号',}
-         ,{field:'dosageForm', title: '通用名'}
-         ,{field:'tradeName', title: '商品名'}
-         ,{field:'sex',title: '剂型',}
-         ,{field:'city',title: '规格'}
-         ,{field:'sign',title: '单位',}
-         ,{field:'experience', title: '转换系数',}
-         ,{field:'experience', title: '质量层次',}
-         ,{field:'experience', title: '生产企业',}
-         ,{field:'bidPrice', title: '中标价',}
-         ,{field:'experience', title: '交易价',}
-         ,{field:'purchaseVolume', title: '采购量',}
-         ,{field:'purchaseAmount', title: '采购金额',}
-         ,{field:'experience', title: '采购状态',}
-         ,{field:'warehousingAmount', title: '入库量',}
-         ,{field:'warehousingAmount',title: '入库金额'}
-     ]]*/
 </script>
-</body>
+
 </html>

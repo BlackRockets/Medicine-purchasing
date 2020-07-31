@@ -14,6 +14,12 @@ public interface PurchaseOrderMapper {
     //按采购单查询
     List<PurchaseOrder> queryAllPurchaseOrder(PurchaseOrder purchaseOrder);
 
+    //按采购单查询
+    List<PurchaseOrder> selectAllPurchaseOrderProcessing(PurchaseOrder purchaseOrder);
+
+    //采购单审核查询
+    List<PurchaseOrder> selectAllPurchaseOrderReview(PurchaseOrder purchaseOrder);
+
     //采购单维护查询
     List<PurchaseOrder> selectAllPurchaseOrder(
             PurchaseOrder purchaseOrder);
@@ -37,4 +43,6 @@ public interface PurchaseOrderMapper {
     Integer selectCount(PurchaseOrder purchaseOrder);
 
     int updateByPrimaryKey(PurchaseOrder record);
+
+    int deliver(Integer[] ids);
 }

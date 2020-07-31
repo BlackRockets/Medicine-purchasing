@@ -41,6 +41,14 @@ public class PurchaseOrder {
 
     private Drug drug;
 
+    private HospitalInformationMaintenanceForm himf;
+
+    private HospitalProcurementOfDrugs hpod;
+
+    private Vendor_Information vi;
+
+    private SupplierDrugListControl sdc;
+
     private Integer recoreds;
 
     private Integer pageNum = 1;
@@ -53,6 +61,8 @@ public class PurchaseOrder {
 
     //总套数
     private Integer total;
+
+
 
     public int getPurchaseId() {
         return purchaseId;
@@ -236,5 +246,37 @@ public class PurchaseOrder {
 
     public void setPod(PurchaseOrderDetails pod) {
         this.pod = pod;
+    }
+
+    public HospitalInformationMaintenanceForm getHimf() {
+        return himf;
+    }
+
+    public void setHimf(HospitalInformationMaintenanceForm himf) {
+        this.himf = himf;
+    }
+
+    public HospitalProcurementOfDrugs getHpod() {
+        return hpod;
+    }
+
+    public void setHpod(HospitalProcurementOfDrugs hpod) {
+        this.hpod = hpod;
+    }
+
+    public Vendor_Information getVi() {
+        return vi;
+    }
+
+    public void setVi(Vendor_Information vi) {
+        this.vi = vi;
+    }
+
+    public SupplierDrugListControl getSdc() {
+        return sdc;
+    }
+
+    public void setSdc(SupplierDrugListControl sdc) {
+        this.sdc = sdc;
     }
 }

@@ -60,7 +60,11 @@ public class HospitalTransactionPurchaseOrderWarehousingTable implements Seriali
     //总套数
     private Integer total;
 
+    private PurchaseOrder po;
 
+    private PurchaseOrderDetails pod;
+
+    private Drug drug;
 
     public Integer getPurchaseOrderStockInTableId() {
         return purchaseOrderStockInTableId;
@@ -168,5 +172,29 @@ public class HospitalTransactionPurchaseOrderWarehousingTable implements Seriali
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public PurchaseOrder getPo() {
+        return po;
+    }
+
+    public void setPo(PurchaseOrder po) {
+        this.po = po;
+    }
+
+    public PurchaseOrderDetails getPod() {
+        return pod;
+    }
+
+    public void setPod(PurchaseOrderDetails pod) {
+        this.pod = pod;
+    }
+
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
     }
 }

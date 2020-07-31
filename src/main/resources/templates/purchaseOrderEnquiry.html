@@ -72,7 +72,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">单位：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="company" id="company" lay-verify="" autocomplete="off"
+                                <input type="text" name="company"  lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -81,12 +81,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">供货商：</label>
                             <div class="layui-input-inline">
-                                <select name="supplierId" lay-verify="supplierId" lay-search="">
-                                    <option value="">全部</option>
-                                    <option value="1">layer</option>
-                                    <option value="2">form</option>
-                                    <option value="3">layim</option>
-                                </select>
+                                <input type="tel" name="nameOfEnterprise" lay-verify=""
+                                       autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
@@ -125,7 +121,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">规格：</label>
                             <div class="layui-input-inline">
-                                <input type="tel" name="specifications" id="specifications" lay-verify="specifications"
+                                <input type="tel" name="specifications"  lay-verify=""
                                        autocomplete="off"
                                        class="layui-input">
                             </div>
@@ -136,7 +132,7 @@
                             <label class="layui-form-label">转换系数：</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="conversionCoefficientNo"
-                                       lay-verify="conversionCoefficientNo"
+                                       lay-verify=""
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -146,7 +142,7 @@
                             <label class="layui-form-label">生产企业：</label>
                             <div class="layui-input-inline">
                                 <input type="tel" name="nameOfManufacturer"
-                                       lay-verify="nameOfManufacturer"
+                                       lay-verify=""
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -417,7 +413,7 @@
             , url: '/queryPurchaseOrder/findAllPurchaseOrder/'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                , {field: 'nameOfHospital', title: '采购医院'}
+                , {field: 'nameOfHospital',templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院'}
                 , {field: 'purchaseOrderNumber', title: '采购单编号',}
                 , {field: 'nameOfPurchaseOrder', title: '采购单名称'}
                 , {field: 'purchaseOrderStatus', title: '采购状态',}
@@ -428,27 +424,27 @@
                 , {field: 'auditTime', title: '审核时间',}
                 , {
                     field: 'purchaseVolume',
-                    templet: '<div>{{d.htd.purchaseVolume}}</div>',
+                    templet: '<div>{{d.pod.purchaseVolume}}</div>',
                     title: '采购量',
                 }
                 , {
                     field: 'purchaseAmount',
-                    templet: '<div>{{d.htd.purchaseAmount}}</div>',
+                    templet: '<div>{{d.pod.purchaseAmount}}</div>',
                     title: '采购金额'
                 }
                 , {
                     field: 'storageVolume',
-                    templet: '<div>{{d.htd.storageVolume}}</div>',
+                    templet: '<div>{{d.pod.storageVolume}}</div>',
                     title: '入库量',
                 }
                 , {
                     field: 'warehousingAmount',
-                    templet: '<div>{{d.htd.warehousingAmount}}</div>',
+                    templet: '<div>{{d.pod.warehousingAmount}}</div>',
                     title: '入库金额'
                 }
                 , {
-                    field: 'returnOrderNumber',
-                    templet: '<div>{{d.htd.returnOrderNumber}}</div>',
+                    field: 'returnQuantity',
+                    templet: '<div>{{d.pod.returnQuantity}}</div>',
                     title: '退货量'
                 }
             ]]
@@ -458,8 +454,8 @@
             var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
             var nameOfPurchaseOrder = $("[name=nameOfPurchaseOrder]").val();
             var nameOfHospital = $("[name=nameOfHospital]").val();
-            var purchaseOrderStatus = $("[name=purchaseOrderNumber]").val();
-            var supplierId = $("[name=supplierId]").val();
+            var purchaseOrderStatus = $("[name=purchaseOrderStatus]").val();
+            var nameOfEnterprise = $("[name=nameOfEnterprise]").val();
             var serialUmber = $("[name=serialUmber]").val();
             var dosageForm = $("[name=dosageForm]").val();
             var dosageFormDrug = $("[name=dosageFormDrug]").val();
@@ -469,14 +465,14 @@
             var nameOfManufacturer = $("[name=nameOfManufacturer]").val();
             var tradeName = $("[name=tradeName]").val();
             var qualityLevel = $("[name=qualityLevel]").val();
-            var drupCategory = $("[name=drupCategory]").val();
+            var drugCategory = $("[name=drugCategory]").val();
             tablesIns.reload({
                 where: {
                     purchaseOrderNumber: purchaseOrderNumber,
                     nameOfPurchaseOrder: nameOfPurchaseOrder,
                     nameOfHospital: nameOfHospital,
                     purchaseOrderStatus: purchaseOrderStatus,
-                    supplierId: supplierId,
+                    nameOfEnterprise: nameOfEnterprise,
                     serialUmber: serialUmber,
                     dosageForm: dosageForm,
                     dosageFormDrug: dosageFormDrug,
@@ -486,7 +482,7 @@
                     nameOfManufacturer: nameOfManufacturer,
                     tradeName: tradeName,
                     qualityLevel: qualityLevel,
-                    drupCategory: drupCategory
+                    drugCategory: drugCategory
                 }
                 , page: {
                     curr: 1

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../static/layui/css/layui.css" media="all">
+    <script src="../static/layui/jquery-3.4.1.min.js"></script>
     <script src="../static/layui/layui.js" charset="utf-8"></script>
 </head>
 <body>
@@ -18,26 +19,36 @@
         <div class="layui-inline">
             <label class="layui-form-label">采购单编号</label>
             <div class="layui-input-block">
-                <input type="text" name="purchaseOrderNumber" id="purchaseOrderNumber" autocomplete="off" class="layui-input">
+                <input type="text" name="purchaseOrderNumber" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">采购单名称</label>
             <div class="layui-input-inline">
-                <input type="text" name="nameOfPurchaseOrder" id="nameOfPurchaseOrder" autocomplete="off" class="layui-input">
+                <input type="text" name="nameOfPurchaseOrder" autocomplete="off"
+                       class="layui-input">
             </div>
 
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">采购单状态</label>
+            <label class="layui-form-label">采购状态</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <select name="purchasingStatus" lay-verify="" lay-search="">
+                    <option value="">全部</option>
+                    <option value="1">未确认送货</option>
+                    <option value="2">已发货</option>
+                    <option value="4">已入库</option>
+                    <option value="5">无法供货</option>
+                    <option value="6">到期未送货</option>
+                </select>
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">采购医院</label>
             <div class="layui-input-block">
-                <input type="text" name="purchaseOrderStatus" id="purchaseOrderStatus" autocomplete="off" class="layui-input">
+                <input type="text" name="nameOfHospital" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
     </div>
@@ -55,20 +66,37 @@
         <div class="layui-inline">
             <label class="layui-form-label">药品流水号</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="serialUmber" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">通用名</label>
             <div class="layui-input-inline">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="dosageForm" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux">拼音首字母搜索</div>
         </div>
         <div class="layui-inline">
-            <label class="layui-form-label">药剂</label>
+            <label class="layui-form-label">剂型</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="dosageFormDrug" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">商品名</label>
+            <div class="layui-input-block">
+                <input type="text" name="tradeName" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">药品类别</label>
+            <div class="layui-input-block">
+                <select name="drugCategory" lay-verify="" lay-search="">
+                    <option value="">请选择</option>
+                    <option value="1">layer</option>
+                    <option value="2">form</option>
+                    <option value="3">layim</option>
+                </select>
             </div>
         </div>
     </div>
@@ -76,40 +104,25 @@
         <div class="layui-inline">
             <label class="layui-form-label">规格</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="specifications" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">单位</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="company" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">转换系数</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="conversionCoefficientNo" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">生产企业</label>
             <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-    </div>
-    <div class="layui-form-item">
-
-        <div class="layui-inline">
-            <label class="layui-form-label">商品名</label>
-            <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-inline">
-            <label class="layui-form-label">药品类别</label>
-            <div class="layui-input-block">
-                <input type="text" name="date" id="date" autocomplete="off" class="layui-input">
+                <input type="text" name="nameOfManufacturer" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -119,67 +132,161 @@
     </fieldset>
     <div class="layui-row">
         <div class="layui-col-xs6" style="text-align: right">
-            <button class="layui-btn" lay-submit="" lay-filter="" >查询</button>
+            <button class="layui-btn" lay-submit="" lay-filter="" id="find">查询</button>
         </div>
         <div class="layui-col-xs6" style="text-align: left">
             <button class="layui-btn" lay-submit="" lay-filter="">导出</button>
         </div>
     </div>
 </form>
-<a class="layui-btn layui-btn-sm" id="add-order-btn">选择发货</a>
-<a class="layui-btn layui-btn-sm" id="add-order-btn">导入发货清单</a>
-<a class="layui-btn layui-btn-sm" id="add-order-btn">无法供货</a>
-<table class="layui-table" lay-data="{width: 100%, height:330, url:'/demo/table/user/', page:true, id:'idTest'}" lay-filter="demo">
-    <thead>
-    <tr>
-        <th lay-data="{type:'checkbox',align:'center'}">选择药品</th>
-        <th lay-data="{field:'id',align:'center',width:60}">序号</th>
-        <th lay-data="{field:'sex',align:'center', }">采购单编号</th>
-        <th lay-data="{field:'city',align:'center'}">采购单名称</th>
-        <th lay-data="{field:'sign',align:'center' }">采购医院</th>
-        <th lay-data="{field:'experience',align:'}">开始采购时间</th>
-        <th lay-data="{field:'classify',align:'}">结束采购时间</th>
-        <th lay-data="{field:'wealth',align:'center',width:80 }">通用名</th>
-        <th lay-data="{field:'score', align:'center',width:80 }">商品名</th>
-        <th lay-data="{field:'score',align:'center',width:60 }">剂型</th>
-        <th lay-data="{field:'score', align:'center',width:60 }">规格</th>
-        <th lay-data="{field:'score',align:'center',width:60  }">单位</th>
-        <th lay-data="{field:'score', align:'center',width:80 }">转换系数</th>
-        <th lay-data="{field:'score', align:'center' }">生产企业</th>
-        <th lay-data="{field:'score', align:'center',width:80 }">中标价</th>
-        <th lay-data="{field:'score', align:'center',width:80 }">交易价</th>
-        <th lay-data="{field:'score', align:'center',width:80 }">采购量</th>
-        <th lay-data="{field:'score', align:'center' }">采购总金额</th>
-        <th lay-data="{field:'score', align:'center' }">供货企业</th>
-        <th lay-data="{fixed: 'right', align:'center'}">采购单状态</th>
-    </tr>
-    </thead>
-</table>
-<script src="../static/layui/layui.js" charset="utf-8"></script>
-<script>
-    layui.use(['jquery', 'table', 'layer', 'form'], function() {
-        // 加载layui模块，使用其推荐的【预先加载】方式，详见官网【模块规范】一节
-        var $ = layui.$;
-        var table = layui.table;
-        var layer = layui.layer;
-        var form = layui.form;
+<div class="layui-inline">
+    <a class="layui-btn layui-btn-danger layui-btn-normal deliver_btn">批量删除</a>
+    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="deliver">发货</button>
+</div>
+<a class="layui-btn layui-btn-sm" id="">导入发货清单</a>
+<a class="layui-btn layui-btn-sm" id="unSupply">无法供货</a>
 
-        // 显示所有用户
-        table.render({
-            elem: '#user-tbl',
-            url: 'user/all',
-            method: 'get',
-            cols: [[
-                {field: 'account', title: '账户'},
-                {field: 'password', title: '密码'},
-                {field: 'name', title: '姓名'},
-                {field: 'info', title: '信息'},
-                {toolbar: '#user-tbl-toolbar', title: '操作'}
-            ]],
-            // 表格容器id，用于表格重载
-            id: 'user-tbl',
-        });
-    })
-</script>
+<table class="layui-hide" id="TestAll" lay-filter="test"></table>
+<script src="../static/layui/layui.js" charset="utf-8"></script>
 </body>
+<script>
+    layui.use(['table', 'form', 'upload'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var tablesIns = table.render({
+            elem: '#TestAll'
+            , id: 'listReload'
+            , toolbar: 'default'
+            , page: true
+            , url: '/PurchaseOrderProcessing/findAllPurchaseOrderProcessing/'
+            , cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {
+                    field: 'hospitalTransactionDetailsId',
+                    style: 'display: none',
+                    templet: '<div>{{d.htd.hospitalTransactionDetailsId}}</div>'
+                },
+                {field: 'purchaseOrderNumber', title: '采购单编号'},
+                {field: 'nameOfPurchaseOrder', title: '采购单名称'},
+                {field: 'nameOfHospital', templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院'},
+                /*  {field: 'info', title: '开始采购时间'},
+                  {field: 'name', title: '结束采购时间'},*/
+                {field: 'dosageForm', templet: '<div>{{d.drug.dosageForm}}</div>', title: '通用名'},
+                {field: 'tradeName', templet: '<div>{{d.drug.tradeName}}</div>', title: '商品名'},
+                {field: 'dosageFormDrug', templet: '<div>{{d.drug.dosageFormDrug}}</div>', title: '剂型'},
+                {field: 'specifications', templet: '<div>{{d.drug.specifications}}</div>', title: '规格'},
+                {field: 'company', templet: '<div>{{d.drug.company}}</div>', title: '单位'},
+                {
+                    field: 'conversionCoefficientNo',
+                    templet: '<div>{{d.drug.conversionCoefficientNo}}</div>',
+                    title: '转换系数'
+                },
+                {field: 'nameOfManufacturer', templet: '<div>{{d.drug.conversionCoefficientNo}}</div>', title: '生产企业'},
+                {field: 'bidPrice', templet: '<div>{{d.htd.bidPrice}}</div>', title: '中标价'},
+                {field: 'transactionPrice', templet: '<div>{{d.htd.transactionPrice}}</div>', title: '交易价'},
+                {
+                    field: 'purchaseVolume',
+                    templet: '<div>{{d.pod.purchaseVolume}}</div>',
+                    title: '采购量',
+                },
+                {
+                    field: 'purchaseAmount',
+                    templet: '<div>{{d.pod.purchaseAmount}}</div>',
+                    title: '采购金额'
+                },
+                {field: 'nameOfEnterprise', templet: '<div>{{d.vi.nameOfEnterprise}}</div>', title: '供货企业'},
+                {field: 'purchasingStatus', templet: '<div>{{d.htd.nameOfEnterprise}}</div>', title: '采购状态'},
+            ]]
+        });
+        $("#find").on("click", function () {
+            var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
+            var nameOfPurchaseOrder = $("[name=nameOfPurchaseOrder]").val();
+            var nameOfHospital = $("[name=nameOfHospital]").val();
+            var purchasingStatus = $("[name=purchasingStatus]").val();
+            var serialUmber = $("[name=serialUmber]").val();
+            var dosageForm = $("[name=dosageForm]").val();
+            var dosageFormDrug = $("[name=dosageFormDrug]").val();
+            var specifications = $("[name=specifications]").val();
+            var company = $("[name=company]").val();
+            var conversionCoefficientNo = $("[name=conversionCoefficientNo]").val();
+            var nameOfManufacturer = $("[name=nameOfManufacturer]").val();
+            var tradeName = $("[name=tradeName]").val();
+            var drugCategory = $("[name=drugCategory]").val();
+            tablesIns.reload({
+                where: {
+                    purchaseOrderNumber: purchaseOrderNumber,
+                    nameOfPurchaseOrder: nameOfPurchaseOrder,
+                    nameOfHospital: nameOfHospital,
+                    purchasingStatus: purchasingStatus,
+                    serialUmber: serialUmber,
+                    dosageForm: dosageForm,
+                    dosageFormDrug: dosageFormDrug,
+                    specifications: specifications,
+                    company: company,
+                    conversionCoefficientNo: conversionCoefficientNo,
+                    nameOfManufacturer: nameOfManufacturer,
+                    tradeName: tradeName,
+                    drugCategory: drugCategory
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+        })
+
+        /*    $("#deliver").on('click',function () {
+                var checkStatus=table.checkStatus('listReload');
+                var data=checkStatus.data;
+                layer.confirm('确定要发货吗？',function (index) {
+                    layer.close(index);
+                    var isStr="";
+                    for (var i=0;i<selectCount;i++){
+                        isStr=isStr+","+checkStatus.data[i].purchaseId;}
+                    $.ajax({
+                        type: 'post',
+                        data:{"ids":isStr},
+                        url: 'PurchaseOrderProcessing/deliver',
+                        success:function (data) {
+                            layer.close(index);
+                            layer.msg(data.msg);
+                            table.reload('listReload')
+                        },error:function (code) {
+                            parent.layer.msg('操作失败！',{icon:5,time:1000});
+                        }
+                    });
+                })
+            });*/
+
+        form.on('submit(deliver)', function () {
+            var checkStatus = table.checkStatus('listReload');
+            var data = checkStatus.data;
+            console.log(data)
+            var ids = new Array();
+            if (data.length > 0) {
+                for (var i in data) {
+                    ids.push(data[i].htd.hospitalTransactionDetailsId);
+                }
+            }
+            console.log(ids);
+             $.ajax({
+                 url: 'PurchaseOrderProcessing/deliver',
+                 contentType: "application/json",
+                 dataType: "json",
+                 data: JSON.stringify(ids),
+                 success: function (data) {
+                     $("#error").html("提交" + data.count + "条，成功" + data.successCount + "条，失败" + data.errorCount + "条");
+                     layer.open({
+                         title: ['信息提示', 'font-size:20px;text-align:center;'],
+                         area: ['60%', '60%'],
+                         /*content:$("#tishi").html()*/
+                     })
+                     layui.table.reload("listReload");
+
+                 }
+             })
+        });
+    });
+
+</script>
+
 </html>

@@ -18,15 +18,27 @@ public class PurchaseWarehousingServiceImpl implements PurchaseWarehousingServic
     private PurchaseWarehousingMapper purchaseWarehousingMapper;
 
     @Override
-    public List<PurchaseOrder> selectAllPurchaseOrderWarehousing(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable) {
+    public List<HospitalTransactionPurchaseOrderWarehousingTable> selectAllPurchaseOrderWarehousing(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable) {
         Integer pageNum = hospitalTransactionPurchaseOrderWarehousingTable.getPageNum();
         Integer pageSize = hospitalTransactionPurchaseOrderWarehousingTable.getPageSize();
         if (pageNum != null && pageSize != null) {
             Integer startrow = (pageNum - 1) * pageSize;
             hospitalTransactionPurchaseOrderWarehousingTable.setStartRow(startrow);
         }
-        List<PurchaseOrder> purchaseOrders = purchaseWarehousingMapper.selectAllPurchaseOrderWarehousing(hospitalTransactionPurchaseOrderWarehousingTable);
-        return purchaseOrders;
+        List<HospitalTransactionPurchaseOrderWarehousingTable> hospitalTransactionPurchaseOrderWarehousingTables = purchaseWarehousingMapper.selectAllPurchaseOrderWarehousing(hospitalTransactionPurchaseOrderWarehousingTable);
+        return hospitalTransactionPurchaseOrderWarehousingTables;
+    }
+
+    @Override
+    public int update(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable) {
+        int i =purchaseWarehousingMapper.update(hospitalTransactionPurchaseOrderWarehousingTable);
+        return i;
+    }
+
+    @Override
+    public int insert(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable) {
+        int i=purchaseWarehousingMapper.insert(hospitalTransactionPurchaseOrderWarehousingTable);
+        return i;
     }
 
 }

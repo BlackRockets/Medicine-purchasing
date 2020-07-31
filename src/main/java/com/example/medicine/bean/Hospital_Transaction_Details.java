@@ -51,6 +51,28 @@ public class Hospital_Transaction_Details {
 
     private String settlementStatus;
 
+    private Integer pageNum = 1;
+
+    //每页条数
+    private Integer pageSize = 10;
+
+    //起始条数
+    private Integer startRow;
+
+    //总套数
+    private Integer total;
+
+
+    private  Drug drug;
+
+    private PurchaseOrder po;
+
+    private HospitalInformationMaintenanceForm himf;
+
+    private Vendor_Information vi;
+
+    private HospitalProcurementOfDrugs hpod;
+
     public Integer getHospitalTransactionDetailsId() {
         return hospitalTransactionDetailsId;
     }
@@ -241,5 +263,77 @@ public class Hospital_Transaction_Details {
 
     public void setSettlementStatus(String settlementStatus) {
         this.settlementStatus = settlementStatus == null ? null : settlementStatus.trim();
+    }
+
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
+    public PurchaseOrder getPo() {
+        return po;
+    }
+
+    public void setPo(PurchaseOrder po) {
+        this.po = po;
+    }
+
+    public HospitalInformationMaintenanceForm getHimf() {
+        return himf;
+    }
+
+    public void setHimf(HospitalInformationMaintenanceForm himf) {
+        this.himf = himf;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(Integer startRow) {
+        this.startRow = startRow;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Vendor_Information getVi() {
+        return vi;
+    }
+
+    public void setVi(Vendor_Information vi) {
+        this.vi = vi;
+    }
+
+    public HospitalProcurementOfDrugs getHpod() {
+        return hpod;
+    }
+
+    public void setHpod(HospitalProcurementOfDrugs hpod) {
+        this.hpod = hpod;
     }
 }
