@@ -9,14 +9,16 @@ import java.util.List;
 @Component
 public interface Hospital_Transaction_DetailsMapper {
 
-    List<Hospital_Transaction_Details> selectAllHospitalTransationDetials(Hospital_Transaction_Details hospital_transaction_details);
+        List<Hospital_Transaction_Details> selectAllHospitalTransationDetials(Hospital_Transaction_Details hospital_transaction_details);
 
-    int insert(Hospital_Transaction_Details record);
+        int insert(Hospital_Transaction_Details record);
 
-    int insertSelective(Hospital_Transaction_Details record);
+        int insertSelective(Hospital_Transaction_Details record);
 
-    int selectCount(Hospital_Transaction_Details hospital_transaction_details);
+        int selectCount(Hospital_Transaction_Details hospital_transaction_details);
 
+        int deliver(List<Integer> list);
 
-    int deliver(@RequestBody List<Integer> ids);
-}
+        int unSupply(List<Integer> list);
+
+        }

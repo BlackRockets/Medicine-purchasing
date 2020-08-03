@@ -3,6 +3,7 @@ package com.example.medicine.bean;
 import java.util.Date;
 
 public class Hospital_Transaction_Details {
+
     private Integer hospitalTransactionDetailsId;
 
     private Integer purchaseOrderId;
@@ -45,11 +46,11 @@ public class Hospital_Transaction_Details {
 
     private Integer statementOfAccountId;
 
-    private String settlementVolume;
+    private Integer settlementVolume;
 
-    private String settlementAmount;
+    private Double settlementAmount;
 
-    private String settlementStatus;
+    private Integer settlementStatus;
 
     private Integer pageNum = 1;
 
@@ -61,7 +62,6 @@ public class Hospital_Transaction_Details {
 
     //总套数
     private Integer total;
-
 
     private  Drug drug;
 
@@ -126,7 +126,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setPurchaseVolume(String purchaseVolume) {
-        this.purchaseVolume = purchaseVolume == null ? null : purchaseVolume.trim();
+        this.purchaseVolume = purchaseVolume;
     }
 
     public String getPurchasingStatus() {
@@ -134,7 +134,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setPurchasingStatus(String purchasingStatus) {
-        this.purchasingStatus = purchasingStatus == null ? null : purchasingStatus.trim();
+        this.purchasingStatus = purchasingStatus;
     }
 
     public String getStorageVolume() {
@@ -142,7 +142,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setStorageVolume(String storageVolume) {
-        this.storageVolume = storageVolume == null ? null : storageVolume.trim();
+        this.storageVolume = storageVolume;
     }
 
     public String getPurchaseAmount() {
@@ -150,7 +150,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setPurchaseAmount(String purchaseAmount) {
-        this.purchaseAmount = purchaseAmount == null ? null : purchaseAmount.trim();
+        this.purchaseAmount = purchaseAmount;
     }
 
     public Integer getReturnOrderId() {
@@ -166,7 +166,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setReturnOrderNumber(String returnOrderNumber) {
-        this.returnOrderNumber = returnOrderNumber == null ? null : returnOrderNumber.trim();
+        this.returnOrderNumber = returnOrderNumber;
     }
 
     public String getReturnGoods() {
@@ -174,7 +174,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setReturnGoods(String returnGoods) {
-        this.returnGoods = returnGoods == null ? null : returnGoods.trim();
+        this.returnGoods = returnGoods;
     }
 
     public String getWarehousingAmount() {
@@ -182,7 +182,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setWarehousingAmount(String warehousingAmount) {
-        this.warehousingAmount = warehousingAmount == null ? null : warehousingAmount.trim();
+        this.warehousingAmount = warehousingAmount;
     }
 
     public String getInvoiceNumber() {
@@ -190,7 +190,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber == null ? null : invoiceNumber.trim();
+        this.invoiceNumber = invoiceNumber;
     }
 
     public String getDrugBatchNumber() {
@@ -198,7 +198,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setDrugBatchNumber(String drugBatchNumber) {
-        this.drugBatchNumber = drugBatchNumber == null ? null : drugBatchNumber.trim();
+        this.drugBatchNumber = drugBatchNumber;
     }
 
     public Date getValidityPeriodOfDrug() {
@@ -222,7 +222,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setReasonForReturn(String reasonForReturn) {
-        this.reasonForReturn = reasonForReturn == null ? null : reasonForReturn.trim();
+        this.reasonForReturn = reasonForReturn;
     }
 
     public String getReturnStatus() {
@@ -230,7 +230,7 @@ public class Hospital_Transaction_Details {
     }
 
     public void setReturnStatus(String returnStatus) {
-        this.returnStatus = returnStatus == null ? null : returnStatus.trim();
+        this.returnStatus = returnStatus;
     }
 
     public Integer getStatementOfAccountId() {
@@ -241,53 +241,7 @@ public class Hospital_Transaction_Details {
         this.statementOfAccountId = statementOfAccountId;
     }
 
-    public String getSettlementVolume() {
-        return settlementVolume;
-    }
 
-    public void setSettlementVolume(String settlementVolume) {
-        this.settlementVolume = settlementVolume == null ? null : settlementVolume.trim();
-    }
-
-    public String getSettlementAmount() {
-        return settlementAmount;
-    }
-
-    public void setSettlementAmount(String settlementAmount) {
-        this.settlementAmount = settlementAmount == null ? null : settlementAmount.trim();
-    }
-
-    public String getSettlementStatus() {
-        return settlementStatus;
-    }
-
-    public void setSettlementStatus(String settlementStatus) {
-        this.settlementStatus = settlementStatus == null ? null : settlementStatus.trim();
-    }
-
-    public Drug getDrug() {
-        return drug;
-    }
-
-    public void setDrug(Drug drug) {
-        this.drug = drug;
-    }
-
-    public PurchaseOrder getPo() {
-        return po;
-    }
-
-    public void setPo(PurchaseOrder po) {
-        this.po = po;
-    }
-
-    public HospitalInformationMaintenanceForm getHimf() {
-        return himf;
-    }
-
-    public void setHimf(HospitalInformationMaintenanceForm himf) {
-        this.himf = himf;
-    }
 
     public Integer getPageNum() {
         return pageNum;
@@ -321,6 +275,30 @@ public class Hospital_Transaction_Details {
         this.total = total;
     }
 
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
+    public PurchaseOrder getPo() {
+        return po;
+    }
+
+    public void setPo(PurchaseOrder po) {
+        this.po = po;
+    }
+
+    public HospitalInformationMaintenanceForm getHimf() {
+        return himf;
+    }
+
+    public void setHimf(HospitalInformationMaintenanceForm himf) {
+        this.himf = himf;
+    }
+
     public Vendor_Information getVi() {
         return vi;
     }
@@ -335,5 +313,29 @@ public class Hospital_Transaction_Details {
 
     public void setHpod(HospitalProcurementOfDrugs hpod) {
         this.hpod = hpod;
+    }
+
+    public Integer getSettlementVolume() {
+        return settlementVolume;
+    }
+
+    public void setSettlementVolume(Integer settlementVolume) {
+        this.settlementVolume = settlementVolume;
+    }
+
+    public Double getSettlementAmount() {
+        return settlementAmount;
+    }
+
+    public void setSettlementAmount(Double settlementAmount) {
+        this.settlementAmount = settlementAmount;
+    }
+
+    public Integer getSettlementStatus() {
+        return settlementStatus;
+    }
+
+    public void setSettlementStatus(Integer settlementStatus) {
+        this.settlementStatus = settlementStatus;
     }
 }

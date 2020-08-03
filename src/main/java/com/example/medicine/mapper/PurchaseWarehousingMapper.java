@@ -10,6 +10,8 @@ import java.util.List;
 @Component
 public interface PurchaseWarehousingMapper {
 
+
+    int warehousing(List list);
     int update(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable);
     int insert(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable);
     int selectCount(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable);

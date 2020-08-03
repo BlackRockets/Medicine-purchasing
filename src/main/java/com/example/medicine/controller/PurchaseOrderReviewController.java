@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,5 +60,19 @@ public class PurchaseOrderReviewController {
         }
         int i = purchaseOrderService.update(purchaseOrder);
         return i;
+    }
+    @ResponseBody
+    @RequestMapping(value = "pass", produces = {"application/json;charset=utf-8"})
+    public String pass(@RequestParam("ids1") Integer[] ids1){
+        List<Integer> Integers= Arrays.asList(ids1);
+        int i= purchaseOrderService.pass(Integers);
+        return JSON.toJSONString(i);
+    }
+    @ResponseBody
+    @RequestMapping(value = "notPass", produces = {"application/json;charset=utf-8"})
+    public String notPass(@RequestParam("ids2") Integer[] ids2){
+        List<Integer> Integers= Arrays.asList(ids2);
+        int i= purchaseOrderService.notPass(Integers);
+        return JSON.toJSONString(i);
     }
 }

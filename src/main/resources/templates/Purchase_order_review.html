@@ -64,9 +64,6 @@
                 </div>
             </div>
         </div>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend></legend>
-        </fieldset>
         <div class="layui-inline">
             <form class="layui-form" action="">
                 <table class="layui-hide" lay-size="sm" id="main" lay-filter="main">
@@ -76,7 +73,75 @@
         </div>
     </form>
 </div>
-<a class="layui-btn layui-btn-sm" id="updateSubmit">提交审核结果</a>
+<div class="layui-row" id="Page" style="display:none;">
+    <form class="layui-form" lay-filter="formUpload" action="" style="text-align: center">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">采购单编号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="purchaseOrderNumber"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">采购单名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="nameOfPurchaseOrder" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">建单时间</label>
+                <div class="layui-input-block">
+                    <input type="text" name="orderCreationTime"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">提交时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="submissionTime" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">采购单状态</label>
+                <div class="layui-input-block">
+                    <select name="purchaseOrderStatus" lay-verify="" lay-search="">
+                        <option value="">全部</option>
+                        <option value="1">未确认送货</option>
+                        <option value="2">已发货</option>
+                        <option value="4">已入库</option>
+                        <option value="5">无法供货</option>
+                        <option value="6">到期未送货</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">采购时间</label>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input"
+                           id="times03">
+                </div>
+                <div class="layui-form-mid">-</div>
+                <div class="layui-input-inline" style="width: 100px;">
+                    <input type="text" name="price_max" placeholder="" autocomplete="off" class="layui-input"
+                           id="times04">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">医院名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="nameOfHospital"  autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<a class="layui-btn layui-btn-sm" id="pass">审核通过</a>
+<a class="layui-btn layui-btn-sm" id="unpass">审核不通过</a>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
 </script>
@@ -94,37 +159,17 @@
             , url: '/PurchaseOrderReview/findAllPurchaseOrderReview'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'status'
-                    , title: '状态'
-                    , templet: function (d) {
-                        if (d.purchaseOrderStatus == 1) {
-                            return '请选择';
-                        } else {
-                            return '<select name="purchaseOrderStatus" lay-filter="stateSelect" lay-verify="required" data-state="' + d.purchaseOrderStatus + '" data-value="' + d.purchaseId + '" >' +
-                                '        <option value="1">请选择 </option>' +
-                                '        <option value="3">审核通过</option>' +
-                                '        <option value="4">审核不通过</option>' +
-                                '      </select>';}}
-                    ,  width: 150},
                 {field: 'auditOpinion', title: '审核意见'},
                 {field: 'nameOfHospital', templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院'},
                 {field: 'purchaseOrderNumber', title: '采购单编号'},
                 {field: 'nameOfPurchaseOrder', title: '采购单名称'},
-                {field: 'orderCreationTime', title: '建单时间'},
-                {field: 'submissionTime', title: '提交时间'},
-                {field: 'auditTime', title: '审核时间',},
+                {field: 'orderCreationTime',templet:'<div>{{ layui.util.toDateString(d.orderCreationTime, "yyyy-MM-dd HH:mm:ss") }}</div>', title: '建单时间'},
+                {field: 'submissionTime',templet:'<div>{{ layui.util.toDateString(d.submissionTime, "yyyy-MM-dd HH:mm:ss") }}</div>', title: '提交时间'},
+                {field: 'auditTime',templet:'<div>{{ layui.util.toDateString(d.auditTime, "yyyy-MM-dd HH:mm:ss") }}</div>', title: '审核时间',},
                 {field: 'purchaseOrderStatus', title: '采购单状态'},
                 {fixed: 'right', width: 60,title: '操作', align: 'center', toolbar: '#barDemo'}
             ]]
-            , done: function (res, curr, count) {
-                var tableElem = this.elem.next('.layui-table-view');
-                count || tableElem.find('.layui-table-header').css('overflow', 'auto');
-                layui.each(tableElem.find('select[name="purchaseOrderStatus"]'), function (index, item) {
-                    var elem = $(item);
-                    elem.val(elem.data('state')).parents('div.layui-table-cell').css('overflow', 'visible');
-                });
-                form.render();//刷新表单
-            }
+
         });
         $("#find").on("click", function () {
             var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
@@ -147,38 +192,77 @@
         table.on('tool(test)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 , layEvent = obj.event; //获得 lay-event 对应的值
-            var purchaseId = parseInt(data.purchaseId);
-           if (layEvent === 'edit') {
+           if (layEvent === 'detail') {
                 layer.open({
                     type: 1,
+                    title: ['采购单查看', 'font-size:20px;text-align:center;'],
                     scrollbar: false,
+                    area: ['60%', '60%'],
+                    content: $('#Page').html(),
+                    success: function () {
+                        form.render();
+                        form.val('formUpload',{
+                            auditOpinion: data.auditOpinion,
+                            nameOfHospital: data.himf.nameOfHospital,
+                            purchaseOrderNumber: data.purchaseOrderNumber,
+                            nameOfPurchaseOrder: data.nameOfPurchaseOrder,
+                            orderCreationTime: data.orderCreationTime,
+                            submissionTime: data.submissionTime,
+                            auditTime: data.auditTime,
+                            purchaseOrderStatus: data.purchaseOrderStatus,
+
+                        })
+                    }
+
 
                 });
             }
         });
 
-        form.on('submit(updateSubmit)', function (dataEdit) {
-            var purchaseOrders = JSON.stringify(dataEdit.field);
-            var formData = new FormData;
-            formData.append("purchaseOrders", purchaseOrders);
-            $.ajax({
-                url: '/PurchaseOrderReview/updatePurchaseOrderReview',
-                type: 'post',
-                dataType: "json",
-                data: formData,
-                async: false,
-                processData: false, // 使数据不做处理
-                contentType: false, // 不要设置Content-Type请求头
-                success: function (date) {
-                    var res = String($.trim(date));
-                    if (res == "1") {
-                        layer.close(index);
-                        layer.msg("修改成功!");
-                        layui.table.reload("test");
-                    } else {
-
-                    }
+        $("#pass").on('click', function () {
+            var checkStatus = table.checkStatus('listReload');
+            var data = checkStatus.data;
+            var selectCount = data.length;
+            layer.confirm('确认审核通过吗？', function (index) {
+                layer.close(index);
+                var isStr = [];
+                for (var i = 0; i < selectCount; i++) {
+                    isStr.push(data[i].purchaseId);
                 }
+                $.ajax({
+                    type: 'post',
+                    data: {"ids1": isStr},
+                    url: '/PurchaseOrderReview/pass',
+                    traditional: true,
+                    success: function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('listReload')
+                    }
+                });
+            })
+        });
+        $("#unpass").on('click', function () {
+            var checkStatus = table.checkStatus('listReload');
+            var data = checkStatus.data;
+            var selectCount = data.length;
+            layer.confirm('确认审核不通过吗？', function (index) {
+                layer.close(index);
+                var isStr = [];
+                for (var i = 0; i < selectCount; i++) {
+                    isStr.push(data[i].purchaseId);
+                }
+                $.ajax({
+                    type: 'post',
+                    data: {"ids2": isStr},
+                    url: '/PurchaseOrderReview/notPass',
+                    traditional: true,
+                    success: function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('listReload')
+                    }
+                });
             })
         });
     });

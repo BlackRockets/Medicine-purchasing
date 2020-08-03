@@ -66,6 +66,8 @@ public class HospitalTransactionPurchaseOrderWarehousingTable implements Seriali
 
     private Drug drug;
 
+    private Hospital_Transaction_Details htd;
+
     public Integer getPurchaseOrderStockInTableId() {
         return purchaseOrderStockInTableId;
     }
@@ -196,5 +198,13 @@ public class HospitalTransactionPurchaseOrderWarehousingTable implements Seriali
 
     public void setDrug(Drug drug) {
         this.drug = drug;
+    }
+
+    public Hospital_Transaction_Details getHtd() {
+        return htd;
+    }
+
+    public void setHtd(Hospital_Transaction_Details htd) {
+        this.htd = htd;
     }
 }

@@ -419,9 +419,9 @@
                 , {field: 'purchaseOrderStatus', title: '采购状态',}
                 /*,{field:'experience', title: '开始采购时间',}
                         ,{field:'experience', title: '结束采购时间',}*/
-                , {field: 'orderCreationTime', title: '建单时间',}
-                , {field: 'submissionTime', title: '提交时间',}
-                , {field: 'auditTime', title: '审核时间',}
+                , {field: 'orderCreationTime',templet:'<div>{{ layui.util.toDateString(d.orderCreationTime, "yyyy-MM-dd HH:mm:ss") }}</div>', title: '建单时间',}
+                , {field: 'submissionTime',templet:'<div>{{ layui.util.toDateString(d.submissionTime, "yyyy-MM-dd HH:mm:ss") }}</div>', title: '提交时间',}
+                , {field: 'auditTime',templet:'<div>{{ layui.util.toDateString(d.auditTime, "yyyy-MM-dd HH:mm:ss") }}</div>', title: '审核时间',}
                 , {
                     field: 'purchaseVolume',
                     templet: '<div>{{d.pod.purchaseVolume}}</div>',

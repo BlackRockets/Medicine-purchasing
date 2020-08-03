@@ -134,11 +134,22 @@
         limit #{offset}, #{limit}
     </select>
     <select id="selectAllPurchaseOrderProcessing" resultMap="PurchaseOrderMap">
-        select  * from purchase_order a,hospital_information_maintenance_form b,drug d,
-        purchase_order_details c,supplier_drug s ,vendor_information v ,hospital_procurement_of_drugs h
-         ,hospital_transaction_details t where t.purchase_order_id=a.purchase_id and t.drug_information_id = d.ID and
-         a.hospital_id=b.maintenance_table_id and d.ID=s.drug_information_id and v.supplier_id=h.supplier_id and
-        a.purchase_id=c.purchase_order_id and h.information_on_drugs_id =d.ID and c.drug_information_id =d.ID and a.purchase_order_status=3
+        select * from purchase_order a,
+        hospital_information_maintenance_form b,
+        drug d,
+        purchase_order_details c,
+        supplier_drug s ,
+        vendor_information v ,
+        hospital_procurement_of_drugs h ,
+        hospital_transaction_details t
+        where t.purchase_order_id=a.purchase_id
+        and t.drug_information_id = d.ID and
+        t.supplier_id = v.supplier_id and
+        a.purchase_id = c.purchase_order_id and
+        b.maintenance_table_id = h.maintenance_table_id and
+        s.enterprise_id= v.supplier_id
+        and
+        a.purchase_order_status=3
         <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
             and a.purchase_order_number like CONCAT("%",#{purchaseOrderNumber,jdbcType=VARCHAR},"%")
         </if>
@@ -362,14 +373,28 @@
     <delete id="deleteById">
         delete from medicine.purchase_order where purchase_id = #{purchaseId}
     </delete>
-
-    <!--<update id="updateStatus" parameterType="java.util.List">
-        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
-            update supplier_drug_list_control
-            <set>
-                SUPERVISION_ORGANIZATION_CONTROL_STATUS = #{item.supervisionOrganizationControlStatus}
-            </set>
-            where SUPPLIER_DRUG_LIST_CONTROL_ID = #{item.supplierDrugListControlId}
+    <update id="pass" parameterType="java.util.List">
+        update purchase_order  set purchase_order_status = 3  where  purchase_id  in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
         </foreach>
-    </update>-->
+    </update>
+    <update id="notPass" parameterType="java.util.List">
+        update purchase_order  set purchase_order_status = 4  where  purchase_id  in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </update>
+    <delete id="deleteAll" parameterType="java.util.List">
+        delete from purchase_order where purchase_id in
+        <foreach  collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+    <insert id="insertDrug" keyProperty="ID" useGeneratedKeys="true">
+            insert into purchase_order_details (purchase_order_id, purchase_order_number, name_of_purchase_order, order_creation_time, submission_time, audit_time, purchase_volume,
+            purchase_amount, purchasing_status, storage_volume, warehousing_amount, return_quantity, drug_information_id)
+            values (#{htd.purchaseOrderId}, #{htd.purchaseOrderNumber}, #{htd.nameOfPurchaseOrder}, #{htd.orderCreationTime}, #{htd.submissionTime}, #{htd.auditTime}, #{htd.purchaseVolume},
+            #{htd.purchaseAmount}, #{htd.purchasingStatus}, #{htd.storageVolume}, #{htd.warehousingAmount}, #{htd.returnQuantity}, #{htd.drugInformationId})
+    </insert>
 </mapper>

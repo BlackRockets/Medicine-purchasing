@@ -45,4 +45,15 @@ public interface PurchaseOrderMapper {
     int updateByPrimaryKey(PurchaseOrder record);
 
     int deliver(Integer[] ids);
+
+    int pass(List<Integer> ids);
+
+    int notPass(List<Integer> ids);
+
+    int insertDrug(PurchaseOrder purchaseOrder);
+
+    int deleteAll(List<Integer> ids);
+
+    int submitPurchaseOrder(Integer id);
+
 }

@@ -99,7 +99,7 @@
                                 <table class="layui-hide" lay-size="sm" id="main" lay-filter="main">
                                     <button type="button" class="layui-btn layui-btn-sm" id="create">添加</button>
                                     <button type="button" class="layui-btn layui-btn-sm" id="find">查询</button>
-                                    <button type="button" class="layui-btn layui-btn-sm" id="updateSubmit">刪除</button>
+                                    <button type="button" class="layui-btn layui-btn-sm" id="deleteAll">刪除</button>
                                 </table>
                             </form>
                         </div>
@@ -546,7 +546,7 @@
             </table>
             <div align="center" id="settlement">
                 <button type="button" class="layui-btn layui-btn-normal">保存采购单</button>
-                <button type="button" class="layui-btn layui-btn-normal">提交采购单</button>
+                <button type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="submitPurchaseOrder">提交采购单</button>
             </div>
 
         </form>
@@ -561,7 +561,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品流水号：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="serialUmber" lay-verify="email" autocomplete="off"
+                                <input type="text" name="serialUmber" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -570,7 +570,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">通用名：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="dosageForm" lay-verify="email" autocomplete="off"
+                                <input type="text" name="dosageForm" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -579,7 +579,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">剂型：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="dosageFormDrug" lay-verify="email" autocomplete="off"
+                                <input type="text" name="dosageFormDrug" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -590,7 +590,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">规格：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="specifications" lay-verify="email" autocomplete="off"
+                                <input type="text" name="specifications" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -599,7 +599,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">单位：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="company" lay-verify="email" autocomplete="off"
+                                <input type="text" name="company" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -608,7 +608,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">转换系数：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="conversionCoefficientNo" lay-verify="email" autocomplete="off"
+                                <input type="text" name="conversionCoefficientNo" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -619,7 +619,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">生产企业：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="nameOfManufacturer" lay-verify="email" autocomplete="off"
+                                <input type="text" name="nameOfManufacturer" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -628,7 +628,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">商品名：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="tradeName" lay-verify="email" autocomplete="off"
+                                <input type="text" name="tradeName" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -637,7 +637,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">质量层次：</label>
                             <div class="layui-input-inline">
-                                <select name="qualityLevel" lay-verify="required" lay-search="">
+                                <select name="qualityLevel" lay-verify="" lay-search="">
                                     <option value="">全部</option>
                                     <option value="1">layer</option>
                                     <option value="2">form</option>
@@ -652,7 +652,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品类别：</label>
                             <div class="layui-input-inline">
-                                <select name="drupCategory" lay-verify="required" lay-search="">
+                                <select name="drupCategory" lay-verify="" lay-search="">
                                     <option value="">全部</option>
                                     <option value="1">layer</option>
                                     <option value="2">form</option>
@@ -665,7 +665,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">入库时间：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="warehousing" lay-verify="email" autocomplete="off"
+                                <input type="text" name="warehousing" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -674,7 +674,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药品批号：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="drugBatchNumber" lay-verify="email" autocomplete="off"
+                                <input type="text" name="drugBatchNumber" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -685,7 +685,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">发票号或入库单号：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="invoiceNumber" lay-verify="email" autocomplete="off"
+                                <input type="text" name="invoiceNumber" lay-verify="" autocomplete="off"
                                        class="layui-input">
                             </div>
                         </div>
@@ -694,7 +694,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">供货商：</label>
                             <div class="layui-input-inline">
-                                <select name="supplierId" lay-verify="supplierId" lay-search="">
+                                <select name="supplierId" lay-verify="" lay-search="">
                                     <option value="">全部</option>
                                     <option value="1">layer</option>
                                     <option value="2">form</option>
@@ -707,7 +707,7 @@
                 </tbody>
             </table>
             <div align="center">
-                <button type="button" class="layui-btn layui-btn-normal" id="find2">查询</button>
+                <button type="button" class="layui-btn layui-btn-normal" id="findPurchaseOrder">查询</button>
                 <button type="button" class="layui-btn layui-btn-normal">导出</button>
             </div>
 
@@ -715,8 +715,8 @@
     </div>
     <table class="layui-table" lay-size="sm" id="medicineTable" lay-filter="medicineTable">
         <button class="layui-btn layui-btn-sm" lay-submit lay-filter="add">添加</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">删除</button>
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">保存采购量</button>
+        <button class="layui-btn layui-btn-sm" lay-event="delete">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="save">保存采购量</button>
     </table>
 </div>
 <!--添加药品-->
@@ -947,13 +947,14 @@
                 </tbody>
             </table>
             <div align="center">
-                <button type="button" class="layui-btn layui-btn-normal" id="find3">查询</button>
+                <button type="button" class="layui-btn layui-btn-normal" >查询</button>
             </div>
         </form>
     </div>
     <table class="layui-table" lay-size="sm" id="addMedicineTable" lay-filter="addMedicineTable">
-        <button class="layui-btn layui-btn-sm" lay-submit lay-filter="addMedicine">添加</button>
+        <a class="layui-btn layui-btn-sm" id="addMedicine">添加</a>
     </table>
+
 </div>
 
 <script type="text/html" id="barDemo">
@@ -984,101 +985,75 @@
                 , {field: 'nameOfHospital', templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院'}
                 , {field: 'purchaseOrderNumber', title: '采购单编号',}
                 , {field: 'nameOfPurchaseOrder', title: '采购单名称'}
-                , {field: 'orderCreationTime', title: '建单时间',}
-                , {field: 'submissionTime', title: '提交时间'}
-                , {field: 'auditTime', title: '审核时间'}
+                , {
+                    field: 'orderCreationTime',
+                    templet: '<div>{{ layui.util.toDateString(d.orderCreationTime, "yyyy-MM-dd HH:mm:ss") }}</div>',
+                    title: '建单时间',
+                }
+                , {
+                    field: 'submissionTime',
+                    templet: '<div>{{ layui.util.toDateString(d.submissionTime, "yyyy-MM-dd HH:mm:ss") }}</div>',
+                    title: '提交时间'
+                }
+                , {
+                    field: 'auditTime',
+                    templet: '<div>{{ layui.util.toDateString(d.auditTime, "yyyy-MM-dd HH:mm:ss") }}</div>',
+                    title: '审核时间'
+                }
                 , {field: 'purchaseOrderStatus', title: '采购状态'}
                 , {fixed: 'right', width: 165, align: 'center', toolbar: '#barDemo'}
             ]]
 
         });
-        table.on('tool(TestAll)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
-            var data = obj.data //获得当前行数据
-                , layEvent = obj.event; //获得 lay-event 对应的值
-            var purchaseId = parseInt(data.purchaseId);
-            if (layEvent === 'del') {
-                layer.confirm('真的删除行么', function (index) {
-                    $.ajax({})
-                    obj.del(); //删除对应行（tr）的DOM结构
-                    layer.close(index);
-                    //向服务端发送删除指令
-                });
-            } else if (layEvent === 'detail') {
-                layer.open({
-                    type: 1,
-                    title: ['采购单药品列表', 'font-size:20px;text-align:center;'],
-                    area: ['100%', '100%'],
-                    scrollbar: false,
-                    content: $('#purchaseOrderDetail'),
-                    success: function () {
-                        form.render();
-                        form.val('purchaseOrderForm', {
-                            purchaseId: data.purchaseId,
-                            hospitalId: data.hospitalId,
-                            purchaseOrderNumber: data.purchaseOrderNumber,
-                            nameOfPurchaseOrder: data.nameOfPurchaseOrder,
-                            orderCreationTime: data.orderCreationTime,
-                            contacts: data.contacts,
-                            contactNumber: data.contactNumber,
-                            purchaseOrderStatus: data.purchaseOrderStatus,
-                            submissionTime: data.submissionTime,
-                            remarks: data.remarks,
-                            reviewer: data.reviewer,
-                            auditTime: data.auditTime,
-                            auditOpinion: data.auditOpinion,
 
-                        });
-                        table.render({
-                            elem: '#medicineTable',
-                            url: '/PurchaseOrder/findDrugByPurchaseOrderId/?purchaseId=' + purchaseId + '',
-                            cols: [[
-                                {type: 'checkbox', fixed: 'left'},
-                                {field: 'id', title: '采购单编号',},
-                                {field: 'approvalNumber', title: '采购单名称'},
-                                {field: 'commonNamePinyin', title: '采购医院',},
-                                {field: 'serialUmber', title: '流水号'},
-                                {field: 'dosageForm', title: '通用名',},
-                                {field: 'tradeName', title: '商品名',},
-                                {field: 'bidPrice', title: '中标价',},
-                                {fixed: 'right', width: 165, align: 'center', toolbar: '#barDemo'}
-                            ]],
-                            page: true
-                        });
-                    }
-                });
-            } else if (layEvent === 'edit') {
-                layer.open({
-                    type: 1,
-                    title: ['采购单修改', 'font-size:20px;text-align:center;'],
-                    area: ['100%', '100%'],
-                    scrollbar: false,
-                    content: $('#updatePage'),
-                    success: function (date) {
-                        form.render();
-                        form.val('formUpload', {
-                            purchaseId: data.purchaseId,
-                            hospitalId: data.hospitalId,
-                            purchaseOrderNumber: data.purchaseOrderNumber,
-                            nameOfPurchaseOrder: data.nameOfPurchaseOrder,
-                            orderCreationTime: data.orderCreationTime,
-                            contacts: data.contacts,
-                            contactNumber: data.contactNumber,
-                            purchaseOrderStatus: data.purchaseOrderStatus,
-                            submissionTime: data.submissionTime,
-                            remarks: data.remarks,
-                            reviewer: data.reviewer,
-                            auditTime: data.auditTime,
-                            auditOpinion: data.auditOpinion,
 
-                        });
-                    }
-                });
-            }
+      /*  purchaseOrderDetailsTable = table.render({
+            elem: '#medicineTable',
+            url: '/PurchaseOrder/findDrugByPurchaseOrderId/?purchaseId=' + purchaseId + '',
+            id:'deleteMedicineTableMark',
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field: 'id', title: '采购单编号',},
+                {field: 'approvalNumber', title: '采购单名称'},
+                {field: 'commonNamePinyin', title: '采购医院',},
+                {field: 'serialUmber', title: '流水号'},
+                {field: 'dosageForm', title: '通用名',},
+                {field: 'tradeName', title: '商品名',},
+                {field: 'bidPrice', title: '中标价',},
+                {field: 'purchaseVolume', title: '采购量', width: '80'},
+                {field: 'purchaseAmount', title: '采购金额', width: '90'},
+                {field: 'storageVolume', title: '入库量', width: '90'},
+                {field: 'approvalNumber', title: '药品批号', width: '90'},
+                {field: 'validityPeriodOfApprovalNumber', title: '药品有效期', width: '100'},
+                {field: 'returnQuantity', edit: 'text', title: '退货量', width: '80'},
+                {field: 'returnMoney', title: '退货金额', width: '90'},
+                {field: 'returnReason', edit: 'text', title: '退货原因', width: '90'},
+                {field: 'dosageFormDrug', title: '剂型', width: '60'},
+                {field: 'specifications', title: '规格', width: '60'},
+                {field: 'company', title: '单位', width: '60'},
+                {field: 'qualityLevelDescription', title: '质量层次', width: '90'},
+            ]],
+            page: true
+        });*/
+
+        //采购单模糊查询
+        $("#find").on("click", function () {
+            var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
+            var purchaseOrderStatus = $("[name=purchaseOrderStatus]").val();
+            var nameOfPurchaseOrder = $("[name=nameOfPurchaseOrder]").val();
+            var nameOfHospital = $("[name=nameOfHospital]").val();
+            tableIns.reload({
+                where: {
+                    purchaseOrderNumber: purchaseOrderNumber,
+                    purchaseOrderStatus: purchaseOrderStatus,
+                    nameOfPurchaseOrder: nameOfPurchaseOrder,
+                    nameOfHospital: nameOfHospital
+                }
+                , page: {
+                    curr: 1
+                }
+            });
         });
-        laydate.render({
-            elem: '#returnTime2',
-        });
-
         //创建采购单
         $("#create").click(function () {
             var index = layer.open({
@@ -1096,7 +1071,6 @@
                 }*/
             })
         });
-
         //保存采购单
         form.on('submit(savePurchaseOrder)', function (data) {
             // ajax方式添加
@@ -1140,108 +1114,7 @@
                 }
             })
         });
-        $("#find").on("click", function () {
-            var purchaseOrderNumber = $("[name=purchaseOrderNumber]").val();
-            var purchaseOrderStatus = $("[name=purchaseOrderStatus]").val();
-            var nameOfPurchaseOrder = $("[name=nameOfPurchaseOrder]").val();
-            var nameOfHospital = $("[name=nameOfHospital]").val();
-            tableIns.reload({
-                where: {
-                    purchaseOrderNumber: purchaseOrderNumber,
-                    purchaseOrderStatus:purchaseOrderStatus,
-                    nameOfPurchaseOrder:nameOfPurchaseOrder,
-                    nameOfHospital:nameOfHospital
-                }
-                , page: {
-                    curr: 1
-                }
-            });
-        });
-
-        //跳转添加采购单药品
-        var addMedic = null;
-        form.on('submit(add)', function (data) {
-            var purchaseId = $("purchaseId").val();
-            addMedic = layer.open({
-                type: 1,
-                title: ['添加采购药品', 'font-size:20px;text-align:center;'],
-                area: ['100%', '100%'],
-                scrollbar: false,
-                content: $("#addMedicine"),
-                success: function () {
-                    form.render();
-                    form.val('findAddMedicine', {
-                        purchaseId: purchaseId,
-                    });
-                    table.render({
-                        elem: '#addMedicineTable',
-                        url: '/Drug/findAllDrug/',
-                        id: 'addMedicineTableMark',
-                        cols: [[
-                            {type: 'checkbox', fixed: 'left'}
-                            , {field: 'serialUmber', title: '流水号',}
-                            , {field: 'dosageForm', title: '通用名'}
-                            , {field: 'tradeName', title: '商品名'}
-                            , {field: 'dosageFormDrug', title: '剂型',}
-                            , {field: 'specifications', title: '规格'}
-                            , {field: 'company', title: '单位',}
-                            , {field: 'conversionCoefficientNo', title: '转换系数',}
-                            , {field: 'qualityLevel', title: '质量层次',}
-                            , {field: 'nameOfManufacturer', title: '生产企业',}
-                            , {field: 'bidPrice', title: '中标价',}
-                            , {field: 'drugCategory', title: '药品类别',}
-                            , {field: 'drugTradeStatus', title: '药品交易状态',}
-                            , {field: 'purchaseAmount', title: '供货商',}
-                            , {field: 'experience', title: '供货状态',}
-
-                        ]],
-                        page: true
-                    });
-                }
-            })
-        });
-
-        //批量删除
-        $("#del").on('click',function () {
-            var checkStatus=table.checkStatus('main');
-            var selectCount=checkStatus.data.length;
-            if (selectCount == 0){
-                layer.msg('至少选中一条数据',function (){});
-                return false;
-            }layer.confirm('确定要删除吗？',function (index) {
-                layer.close(index);
-                var isStr="";
-                for (var i=0;i<selectCount;i++){
-                    isStr=isStr+","+checkStatus.data[i].purchaseId;}
-                $.ajax({
-                    type: 'post',
-                    data:{"ids":isStr},
-                    url: '',
-                    success:function (data) {
-                        layer.close(index);
-                        layer.msg(data.msg);
-                        table.reload('main')
-                    },error:function (code) {
-                        parent.layer.msg('操作失败！',{icon:5,time:1000});
-                    }
-                });
-            })
-        });
-
-        //添加药品
-        form.on('submit(addMedicine)', function (data) {
-            var checkStatus = table.checkStatus("addMedicineTableMark");
-            var data1 = checkStatus.data;
-            var purchaseOrderId = $("#purchaseOrderId").val();
-            $.ajax({
-                url: '',
-
-            })
-            layer.close(addMedic);
-            layer.msg("添加成功!");
-        });
-
-        //修改
+        //修改采购单
         var on = form.on('submit(updateSubmit)', function (dataEdit) {
             var purchaseOrders = JSON.stringify(dataEdit.field);
             var formData = new FormData;
@@ -1265,8 +1138,440 @@
                     }
                 }
             })
-        });
-    });
 
+        });
+        //提交采购单
+        form.on('submit(submitPurchaseOrder)', function (data) {
+            var purchaseId = $("#purchaseId").val();
+            $.ajax({
+                url: '/PurchaseOrder/submitPurchaseOrder',
+                type: 'post',
+                dataType: "json",
+                data: {
+                    purchaseId: purchaseId,
+                },
+                success: function (date) {
+                    layer.msg("提交成功!");
+
+                }
+            })
+        });
+        //批量删除采购单
+        $("#deleteAll").on('click', function () {
+            var checkStatus = table.checkStatus('test');
+            var data = checkStatus.data;
+            var selectCount = data.length;
+            layer.confirm('确定刪除吗？', function (index) {
+                layer.close(index);
+                var ids = [];
+                for (var i = 0; i < selectCount; i++) {
+                    ids.push(data[i].purchaseId);
+                }
+                $.ajax({
+                    type: 'post',
+                    data: {"ids": ids},
+                    url: '/PurchaseOrder/deleteAll',
+                    traditional: true,
+                    success: function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('test')
+                    }
+                });
+            })
+        });
+
+        //跳转添加采购单药品
+        var addMedic = null;
+        form.on('submit(add)', function (data) {
+            var purchaseId = $("purchaseId").val();
+            addMedic = layer.open({
+                type: 1,
+                title: ['添加采购药品', 'font-size:20px;text-align:center;'],
+                area: ['100%', '100%'],
+                scrollbar: false,
+                content: $("#addMedicine"),
+                success: function () {
+                    form.render();
+                    form.val('findAddMedicine', {
+                        purchaseId: purchaseId,
+                    });
+                    table.render({
+                        elem: '#addMedicineTable',
+                        url: '/Drug/findAllDrug/',
+                        id: 'listTable',
+                        cols: [[
+                            {type: 'checkbox', fixed: 'left'}
+                            , {field: 'serialUmber', title: '流水号',}
+                            , {field: 'dosageForm', title: '通用名'}
+                            , {field: 'tradeName', title: '商品名'}
+                            , {field: 'dosageFormDrug', title: '剂型',}
+                            , {field: 'specifications', title: '规格'}
+                            , {field: 'company', title: '单位',}
+                            , {field: 'conversionCoefficientNo', title: '转换系数',}
+                            , {field: 'qualityLevel', title: '质量层次',}
+                            , {field: 'nameOfManufacturer', title: '生产企业',}
+                            , {field: 'bidPrice', title: '中标价',}
+                            , {field: 'drugCategory', title: '药品类别',}
+                            , {field: 'drugTradeStatus', title: '药品交易状态',}
+
+                        ]],
+                        page: true
+                    });
+                }, cancel: function () {
+                    /*layer.close(addMedic);*/
+                    table.reload("deleteMedicineTableMark");
+                },
+            })
+        });
+
+        table.on('tool(TestAll)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                , layEvent = obj.event; //获得 lay-event 对应的值
+            var purchaseId = parseInt(data.purchaseId);
+            if (layEvent === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    $.ajax({})
+                    obj.del(); //删除对应行（tr）的DOM结构
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if (layEvent === 'detail') {
+                layer.open({
+                    type: 1,
+                    title: ['采购单药品列表', 'font-size:20px;text-align:center;'],
+                    area: ['100%', '100%'],
+                    scrollbar: false,
+                    content: $('#purchaseOrderDetail'),
+                    success: function () {
+                        form.render();
+                        form.val('purchaseOrderForm', {
+                            purchaseId: data.purchaseId,
+                            hospitalId: data.hospitalId,
+                            purchaseOrderNumber: data.purchaseOrderNumber,
+                            nameOfPurchaseOrder: data.nameOfPurchaseOrder,
+                            orderCreationTime: data.orderCreationTime,
+                            contacts: data.contacts,
+                            contactNumber: data.contactNumber,
+                            purchaseOrderStatus: data.purchaseOrderStatus,
+                            submissionTime: data.submissionTime,
+                            remarks: data.remarks,
+                            reviewer: data.reviewer,
+                            auditTime: data.auditTime,
+                            auditOpinion: data.auditOpinion,
+
+                        });
+                        table.render({
+                            elem: '#medicineTable',
+                            url: '/PurchaseOrder/findDrugByPurchaseOrderId/?purchaseId=' + purchaseId + '',
+                            cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field:'id', title: '采购单编号',},
+                                {field:'approvalNumber', title: '采购单名称'},
+                                {field:'commonNamePinyin',title: '采购医院',},
+                                {field:'serialUmber',title: '流水号'},
+                                {field:'dosageForm',title: '通用名',},
+                                {field:'tradeName', title: '商品名',},
+                                {field:'bidPrice', title: '中标价',},
+                                {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                            ]],
+                            page: true
+                        });
+                    }
+                });
+            } else if (layEvent === 'edit') {
+                layer.open({
+                    type: 1,
+                    title: ['采购单修改', 'font-size:20px;text-align:center;'],
+                    area: ['100%', '100%'],
+                    scrollbar: false,
+                    content: $('#updatePage'),
+                    success: function (date) {
+                        form.render();
+                        form.val('formUpload', {
+                            purchaseId: data.purchaseId,
+                            hospitalId: data.hospitalId,
+                            purchaseOrderNumber: data.purchaseOrderNumber,
+                            nameOfPurchaseOrder: data.nameOfPurchaseOrder,
+                            orderCreationTime: data.orderCreationTime,
+                            contacts: data.contacts,
+                            contactNumber: data.contactNumber,
+                            purchaseOrderStatus: data.purchaseOrderStatus,
+                            submissionTime: data.submissionTime,
+                            remarks: data.remarks,
+                            reviewer: data.reviewer,
+                            auditTime: data.auditTime,
+                            auditOpinion: data.auditOpinion,
+
+                        });
+                    }
+                });
+            }
+        });
+        laydate.render({
+            elem: '#returnTime2',
+        });
+
+        //添加药品
+        form.on('submit(addMedicine)', function (data) {
+            var checkStatus = table.checkStatus('listTable');
+            var data = checkStatus.data
+            var purchaseOrderId = $('#purchaseOrderId').val();
+            var array = new Array();
+            for (let index in data) {
+                data[index].purchaseOrderId = purchaseOrderId;
+                data[index].purchaseId = data[index].purchaseId;
+                array.push(data[index]);
+            }
+            $.ajax({
+                type: 'post',
+                data: JSON.stringify(array),
+                url: '/PurchaseOrder/insertDrug',
+                dataType: "json",
+                async: false,
+                contentType:'application/x-www-form-urlencoded;charset=UTF-8',
+                success: function (data) {
+                    layer.close(index);
+                    layer.msg(data.msg);
+                    table.reload('listTable')
+                }
+            })
+        });
+
+      /*  $("#find2").on("click", function () {
+            var serialUmber = $("[name=serialUmber]").val();
+            var dosageForm = $("[name=dosageForm]").val();
+            var dosageFormDrug = $("[name=dosageFormDrug]").val();
+            var specifications = $("[name=specifications]").val();
+            var company = $("[name=company]").val();
+            var conversionCoefficientNo = $("[name=conversionCoefficientNo]").val();
+            var nameOfManufacturer = $("[name=nameOfManufacturer]").val();
+            var tradeName = $("[name=tradeName]").val();
+            var qualityLevel = $("[name=qualityLevel]").val();
+            var drupCategory = $("[name=drupCategory]").val();
+            var warehousing = $("[name=warehousing]").val();
+            var drugBatchNumber = $("[name=drugBatchNumber]").val();
+            var invoiceNumber = $("[name=invoiceNumber]").val();
+            var supplierId = $("[name=supplierId]").val();
+            table.reload({
+                where: {
+                    serialUmber: serialUmber,
+                    dosageForm: dosageForm,
+                    dosageFormDrug: dosageFormDrug,
+                    specifications: specifications,
+                    company: company,
+                    conversionCoefficientNo: conversionCoefficientNo,
+                    nameOfManufacturer: nameOfManufacturer,
+                    tradeName: tradeName,
+                    qualityLevel: qualityLevel,
+                    drupCategory: drupCategory,
+                    warehousing: warehousing,
+                    drugBatchNumber: drugBatchNumber,
+                    invoiceNumber: invoiceNumber,
+                    supplierId: supplierId,
+
+                }
+                , page: {
+                    curr: 1
+                }
+            });
+        });*/
+
+        //删除采购单药品
+        form.on('submit(delete)', function (data) {
+            var checkStatus = table.checkStatus("deleteMedicineTableMark");
+            var data1 = checkStatus.data;
+            var array = new Array();
+            for (let index in data1) {
+                array.push(data1[index].id);
+            }
+            $.ajax({
+                url: '/PurchaseOrder/deleteDrug',
+                type: 'post',
+                dataType: "json",
+                data: {
+                    ids: array.toString(),
+                },
+                success: function (date) {
+                    table.reload("deleteMedicineTableMark");
+                    layer.msg("删除成功!");
+                }
+            })
+        });
+        //保存采购量
+        form.on('submit(save)', function (data) {
+            var checkStatus = table.checkStatus("deleteMedicineTableMark");
+            var data1 = checkStatus.data;
+            var array1 = new Array();
+            for (let index in data1) {
+                var s = data1[index];
+                array1.push(s);
+            }
+            $.ajax({
+                url: '/PurchaseOrder/saveCount',
+                type: 'post',
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(array1),
+                success: function (date) {
+                    table.reload("deleteMedicineTableMark");
+                    layer.msg("保存成功!");
+                }
+            })
+
+        });
+        //查询采购单的药品
+        form.on('submit(findPurchaseOrder)', function (data) {
+            var purchaseOrderId = $("#purchaseOrderId").val();
+            $.ajax({
+                url:'/PurchaseOrder/findDrugByPurchaseOrderId/',
+                type:'post',
+                dataType:"json",
+                data:'',
+                async: false,
+                processData : false, // 使数据不做处理
+                contentType : false, // 不要设置Content-Type请求头
+                success:function (data) {
+                    table.render({
+                        elem: '#addMedicineTable',
+                        id:'addMedicineTableMark',
+                        data:data,
+                        cols: [[
+                            {type: 'checkbox', fixed: 'left'},
+                            {field:'id', title: '采购单编号',},
+                            {field:'approvalNumber', title: '采购单名称'},
+                            {field:'commonNamePinyin',title: '采购医院',},
+                            {field:'serialUmber',title: '流水号'},
+                            {field:'dosageForm',title: '通用名',},
+                            {field:'tradeName', title: '商品名',},
+                            {field:'bidPrice', title: '中标价',},
+                            {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+                        ]],
+                        page: true
+                    });
+
+                    layer.close(addMedic);
+                    layer.msg("添加成功!");
+                }
+            })
+
+        });
+      /*  table.on('tool(TestAll)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            var PurchaseId = parseInt(data.PurchaseId);
+            if(layEvent === 'detail') {
+                layer.open({
+                    type: 1,
+                    title: ['采购单药品列表', 'font-size:20px;text-align:center;'],
+                    area: ['100%', '100%'],
+                    scrollbar: false,
+                    content: $('#purchaseOrderDetail'),
+                    success: function () {
+                        form.render();
+                        form.val('purchaseOrderForm', {
+                            purchaseId: data.purchaseId,
+                            hospitalId: data.hospitalId,
+                            purchaseOrderNumber: data.purchaseOrderNumber,
+                            nameOfPurchaseOrder: data.nameOfPurchaseOrder,
+                            orderCreationTime: data.orderCreationTime,
+                            contacts: data.contacts,
+                            contactNumber: data.contactNumber,
+                            purchaseOrderStatus: data.purchaseOrderStatus,
+                            submissionTime: data.submissionTime,
+                            remarks: data.remarks,
+                            reviewer: data.reviewer,
+                            auditTime: data.auditTime,
+                            auditOpinion: data.auditOpinion,
+                        });
+                        table.render({
+                            elem: '#medicineTable',
+                            url: '/PurchaseOrder/findDrugByPurchaseOrderId/?purchaseId=' + purchaseId + '',
+                            cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field: 'id', title: '采购单编号',},
+                                {field: 'approvalNumber', title: '采购单名称'},
+                                {field: 'commonNamePinyin', title: '采购医院',},
+                                {field: 'serialUmber', title: '流水号'},
+                                {field: 'dosageForm', title: '通用名',},
+                                {field: 'tradeName', title: '商品名',},
+                                {field: 'bidPrice', title: '中标价',},
+                                {field: 'purchaseVolume', title: '采购量', width: '80'},
+                                {field: 'purchaseAmount', title: '采购金额', width: '90'},
+                                {field: 'storageVolume', title: '入库量', width: '90'},
+                                {field: 'approvalNumber', title: '药品批号', width: '90'},
+                                {field: 'validityPeriodOfApprovalNumber', title: '药品有效期', width: '100'},
+                                {field: 'returnQuantity', edit: 'text', title: '退货量', width: '80'},
+                                {field: 'returnMoney', title: '退货金额', width: '90'},
+                                {field: 'returnReason', edit: 'text', title: '退货原因', width: '90'},
+                                {field: 'dosageFormDrug', title: '剂型', width: '60'},
+                                {field: 'specifications', title: '规格', width: '60'},
+                                {field: 'company', title: '单位', width: '60'},
+                                {field: 'qualityLevelDescription', title: '质量层次', width: '90'},
+                            ]],
+                            page: true
+                        });
+                    }
+                });
+            }else if (layEvent === 'edit') {
+                    layer.open({
+                        type: 1,
+                        title: ['采购单修改', 'font-size:20px;text-align:center;'],
+                        area: ['100%', '100%'],
+                        scrollbar: false,
+                        content: $('#updatePage'),
+                        success: function (date) {
+                            form.render();
+                            form.val('formUpload', {
+                                purchaseId: data.purchaseId,
+                                hospitalId: data.hospitalId,
+                                purchaseOrderNumber: data.purchaseOrderNumber,
+                                nameOfPurchaseOrder: data.nameOfPurchaseOrder,
+                                orderCreationTime: data.orderCreationTime,
+                                contacts: data.contacts,
+                                contactNumber: data.contactNumber,
+                                purchaseOrderStatus: data.purchaseOrderStatus,
+                                submissionTime: data.submissionTime,
+                                remarks: data.remarks,
+                                reviewer: data.reviewer,
+                                auditTime: data.auditTime,
+                                auditOpinion: data.auditOpinion,
+
+                            });
+                        }
+                    });
+                }
+            });*/
+
+    });
+    /* //批量删除
+           $("#del").on('click', function () {
+               var checkStatus = table.checkStatus('test');
+               var selectCount = checkStatus.data.length;
+               if (selectCount == 0) {
+                   layer.msg('至少选中一条数据', function () {
+                   });
+                   return false;
+               }
+               layer.confirm('确定要删除吗？', function (index) {
+                   layer.close(index);
+                   var isStr = "";
+                   for (var i = 0; i < selectCount; i++) {
+                       isStr = isStr + "," + checkStatus.data[i].purchaseId;
+                   }
+                   $.ajax({
+                       type: 'post',
+                       data: {"ids": isStr},
+                       url: '',
+                       success: function (data) {
+                           layer.close(index);
+                           layer.msg(data.msg);
+                           table.reload('main')
+                       }, error: function (code) {
+                           parent.layer.msg('操作失败！', {icon: 5, time: 1000});
+                       }
+                   });
+               })
+           });*/
 </script>
 </html>

@@ -16,16 +16,16 @@
         <result column="return_order_number" jdbcType="VARCHAR" property="returnOrderNumber"/>
         <result column="return_goods" jdbcType="VARCHAR" property="returnGoods"/>
         <result column="warehousing_amount" jdbcType="VARCHAR" property="warehousingAmount"/>
-        <result column="invoice_number" jdbcType="VARCHAR" property="invoiceNumber"/>
+        <result column="invoice_umber" jdbcType="VARCHAR" property="invoiceUmber"/>
         <result column="drug_batch_number" jdbcType="VARCHAR" property="drugBatchNumber"/>
         <result column="Validity_period_of_drug" jdbcType="TIMESTAMP" property="validityPeriodOfDrug"/>
         <result column="warehousing" jdbcType="TIMESTAMP" property="warehousing"/>
         <result column="reason_for_return" jdbcType="VARCHAR" property="reasonForReturn"/>
         <result column="return_status" jdbcType="VARCHAR" property="returnStatus"/>
         <result column="statement_of_account_id" jdbcType="INTEGER" property="statementOfAccountId"/>
-        <result column="settlement_volume" jdbcType="VARCHAR" property="settlementVolume"/>
-        <result column="settlement_amount" jdbcType="VARCHAR" property="settlementAmount"/>
-        <result column="settlement_status" jdbcType="VARCHAR" property="settlementStatus"/>
+        <result column="settlement_volume" jdbcType="INTEGER" property="settlementVolume"/>
+        <result column="settlement_amount" jdbcType="DOUBLE" property="settlementAmount"/>
+        <result column="settlement_status" jdbcType="INTEGER" property="settlementStatus"/>
         <association property="po" javaType="com.example.medicine.bean.PurchaseOrder">
             <result property="purchaseId" column="purchase_id" jdbcType="INTEGER"/>
             <result property="purchaseOrderNumber" column="purchase_order_number" jdbcType="VARCHAR"/>
@@ -322,14 +322,17 @@
     </insert>
     <select id="selectCount" resultType="java.lang.Integer">
         select count(*) from hospital_transaction_details
-  </select>
+    </select>
     <update id="deliver" parameterType="java.util.List">
-        <foreach collection="Array" item="ids"  open="(" close=")" separator=";">
-            update hospital_transaction_details
-            <set>
-                purchasing_status = 2
-            </set>
-            where purchase_order_id =#{ids}
+        update hospital_transaction_details  set purchasing_status = 2  where  hospital_transaction_details_id  in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+             #{ids}
+        </foreach>
+     </update>
+    <update id="unSupply" parameterType="java.util.List">
+        update hospital_transaction_details  set purchasing_status = 4  where  hospital_transaction_details_id  in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
         </foreach>
     </update>
 </mapper>

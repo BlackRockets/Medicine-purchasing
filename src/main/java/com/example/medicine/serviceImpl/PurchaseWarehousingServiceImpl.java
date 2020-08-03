@@ -30,6 +30,11 @@ public class PurchaseWarehousingServiceImpl implements PurchaseWarehousingServic
     }
 
     @Override
+    public int warehousing(List list) {
+        return purchaseWarehousingMapper.warehousing(list);
+    }
+
+    @Override
     public int update(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable) {
         int i =purchaseWarehousingMapper.update(hospitalTransactionPurchaseOrderWarehousingTable);
         return i;

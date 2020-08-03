@@ -24,7 +24,6 @@
             <result property="purchaseVolume" column="purchase_volume" jdbcType="INTEGER"/>
             <result property="purchaseAmount" column="purchase_amount" jdbcType="INTEGER"/>
             <result property="purchasingStatus" column="purchasing_status" jdbcType="INTEGER"/>
-            <result property="storageVolume" column="storage_volume" jdbcType="INTEGER"/>
             <result property="warehousingAmount" column="warehousing_amount" jdbcType="INTEGER"/>
             <result property="returnQuantity" column="return_quantity" jdbcType="INTEGER"/>
             <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
@@ -76,6 +75,32 @@
             <result property="auditOpinion" column="audit_opinion" jdbcType="VARCHAR"/>
             <result property="auditTime" column="audit_time" jdbcType="TIMESTAMP"/>
         </association>
+        <collection property="htd" javaType="com.example.medicine.bean.Hospital_Transaction_Details">
+            <result column="hospital_transaction_details_id" jdbcType="INTEGER" property="hospitalTransactionDetailsId"/>
+            <result column="purchase_order_id" jdbcType="INTEGER" property="purchaseOrderId"/>
+            <result column="drug_information_id" jdbcType="INTEGER" property="drugInformationId"/>
+            <result column="supplier_id" jdbcType="INTEGER" property="supplierId"/>
+            <result column="bid_price" jdbcType="DOUBLE" property="bidPrice"/>
+            <result column="transaction_price" jdbcType="DOUBLE" property="transactionPrice"/>
+            <result column="purchase_volume" jdbcType="VARCHAR" property="purchaseVolume"/>
+            <result column="purchasing_status" jdbcType="VARCHAR" property="purchasingStatus"/>
+            <result column="storage_volume" jdbcType="VARCHAR" property="storageVolume"/>
+            <result column="purchase_amount" jdbcType="VARCHAR" property="purchaseAmount"/>
+            <result column="return_order_id" jdbcType="INTEGER" property="returnOrderId"/>
+            <result column="return_order_number" jdbcType="VARCHAR" property="returnOrderNumber"/>
+            <result column="return_goods" jdbcType="VARCHAR" property="returnGoods"/>
+            <result column="warehousing_amount" jdbcType="VARCHAR" property="warehousingAmount"/>
+            <result column="invoice_number" jdbcType="VARCHAR" property="invoiceNumber"/>
+            <result column="drug_batch_number" jdbcType="VARCHAR" property="drugBatchNumber"/>
+            <result column="Validity_period_of_drug" jdbcType="TIMESTAMP" property="validityPeriodOfDrug"/>
+            <result column="warehousing" jdbcType="TIMESTAMP" property="warehousing"/>
+            <result column="reason_for_return" jdbcType="VARCHAR" property="reasonForReturn"/>
+            <result column="return_status" jdbcType="VARCHAR" property="returnStatus"/>
+            <result column="statement_of_account_id" jdbcType="INTEGER" property="statementOfAccountId"/>
+            <result column="settlement_volume" jdbcType="INTEGER" property="settlementVolume"/>
+            <result column="settlement_amount" jdbcType="DOUBLE" property="settlementAmount"/>
+            <result column="settlement_status" jdbcType="INTEGER" property="settlementStatus"/>
+        </collection>
     </resultMap>
 
     <!--查询单个-->
@@ -94,7 +119,7 @@
         limit #{offset}, #{limit}
     </select>
     <select id="selectAllPurchaseOrderWarehousing" resultMap="HospitalTransactionPurchaseOrderWarehousingTableMap">
-        select * from purchase_order a,purchase_order_details b,hospital_transaction_purchase_order_warehousing_table c,
+        select a.*,b.purchase_amount,b.purchase_volume,c.*,d.* from purchase_order a,purchase_order_details b,hospital_transaction_purchase_order_warehousing_table c,
         drug d where
         a.purchase_id=b.purchase_order_id and c.purchase_order_id=a.purchase_id and c.drug_information_id=d.ID and
         a.purchase_order_status =3
@@ -227,5 +252,27 @@
     <delete id="deleteById">
         delete from medicine.hospital_transaction_purchase_order_warehousing_table where purchase_order_stock_in_table_id = #{purchaseOrderStockInTableId}
     </delete>
-
+   <!-- <update id="warehousing"  parameterType="java.util.List">
+        update
+        hospital_transaction_purchase_order_warehousing_table
+        set storage_volume =#{list.storageVolume},
+        invoice_umber=#{list.invoiceNumber},
+        drug_batch_number=#{list.drugBatchNumber},
+        validity_period_of_drug=#{list.validityPeriodOfDrug}
+        where purchase_order_stock_in_table_id in
+        <foreach collection="list" separator=";" item="list" index="index">
+          #{list.purchase_order_stock_in_table_id}
+        </foreach>
+    </update>-->
+    <update id="warehousing"  parameterType="java.util.List">
+        <foreach collection="list" separator=";" item="item" index="index">
+            update
+            hospital_transaction_purchase_order_warehousing_table
+            set storage_volume =#{item.storageVolume},
+            invoice_umber=#{item.invoiceUmber},
+            drug_batch_number=#{item.drugBatchNumber},
+            validity_period_of_drug=#{item.validityPeriodOfDrug}
+            where purchase_order_stock_in_table_id =#{item.purchaseOrderStockInTableId}
+        </foreach>
+    </update>
 </mapper>

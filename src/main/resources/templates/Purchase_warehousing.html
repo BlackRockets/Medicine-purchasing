@@ -166,16 +166,9 @@
         </form>
     </div>
 </div>
-<div class="layui-row">
-    <form class="layui-form" action="">
-        <table class="layui-hide" lay-size="sm" id="TestAll" lay-filter="TestAll">
-            <button type="button" onclick="checkIn(this)" class="layui-btn layui-btn-sm" id="confirm">确认入库</button>
-        </table>
-    </form>
-</div>
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">入库</a>
-</script>
+<a class="layui-btn layui-btn-sm" id="warehousing">入库</a>
+
+<table class="layui-hide" id="TestAll" lay-filter="test"></table>
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 </body>
 <script>
@@ -188,12 +181,12 @@
         var laydate = layui.laydate;
         // 显示所有用户
         var tableIns = table.render({
+            id:'listReload',
             elem: '#TestAll',
             url: '/PurchaseWarehousing/findAllPurchaseOrder/',
             toolbar: 'default',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field: 'purchaseOrderStockInTableId', title: 'id', style: 'none'},
                 {field: 'purchaseOrderNumber', templet: '<div>{{d.po.purchaseOrderNumber}}</div>', title: '采购单编号'},
                 {field: 'nameOfPurchaseOrder', templet: '<div>{{d.po.nameOfPurchaseOrder}}</div>', title: '采购单名称'},
                 {field: 'serialUmber', templet: '<div>{{d.drug.serialUmber}}</div>', title: '流水号'},
@@ -203,62 +196,19 @@
                 /*{field: 'transactionPrice', title: '交易价',width:'100px'},*/
                 {field: 'purchaseVolume', templet: '<div>{{d.pod.purchaseVolume}}</div>', title: '采购量'},
                 {field: 'purchaseAmount', templet: '<div>{{d.pod.purchaseAmount}}</div>', title: '采购金额'},
-                {field: 'purchasingStatus', title: '入库量', edit: 'text'},
+                {field: 'storageVolume', title: '入库量',edit: 'text'},
                 /*{field: 'invoiceNumber',  title: '实际交易金额'},*/
-                {field: 'invoiceNumber', title: '发票号或入库单号', edit: 'text'},
+                {field: 'invoiceUmber', title: '发票号或入库单号',edit: 'text'},
                 {field: 'drugBatchNumber', title: '药品批号', edit: 'text'},
                 {field: 'validityPeriodOfDrug', title: '药品有效期', edit: 'text'},
                 {field: 'dosageFormDrug', templet: '<div>{{d.drug.dosageFormDrug}}</div>', title: '剂型'},
                 {field: 'specifications', templet: '<div>{{d.drug.specifications}}</div>', title: '规格'},
                 {field: 'company', templet: '<div>{{d.drug.company}}</div>', title: '单位'},
-                {fixed: 'right', title: '操作', toolbar: '#barDemo'}
 
             ]],
             // 表格容器id，用于表格重载
             page: true,
         });
-
-      /*  var checkStatus = table.checkStatus('TestAll');
-        var data=checkStatus.data;
-
-        function checkIn(obj){
-            var id = $(obj).attr('confirm');
-            var index = layer.open({
-                type: 1,
-                title: '弹出框标题',
-                area: ['550px', '200px'],
-                shadeClose: true, //点击遮罩关闭
-                content:
-                    '<div>\n' +
-                    '<a id="check">确认</a>\n' +
-                    '</div>'
-
-        });
-        $("#check".click(function (data) {
-           var hospitalTransactionPurchaseOrderWarehousingTables=JSON.stringify(data.field);
-            var formData = new FormData;
-            formData.append("hospitalTransactionPurchaseOrderWarehousingTables", hospitalTransactionPurchaseOrderWarehousingTables);
-            $.ajax({
-                type: 'post',
-                dataType: "json",
-                data: JSON.stringify(data.field),
-                url: '/PurchaseWarehousing/Warehousing/',
-                data: formData,
-                async: false,
-                processData: false, // 使数据不做处理
-                contentType: false, // 不要设置Content-Type请求头
-                success: function (date) {
-                    var res = String($.trim(date));
-                    if (res == "1") {
-                        layer.close(index);
-                        layer.msg("入库成功!");
-                        layui.table.reload("test");
-                    } else {
-
-                    }
-                }
-            })
-        }))*/
 
         table.on('tool(TestAll)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
             var data = obj.data;
@@ -338,30 +288,31 @@
                 }
             });
         });
-        /*  var on = form.on('submit(confirm)', function (dateEdit) {
-              var hospitalTransactionPurchaseOrderWarehousingTable = JSON.stringify(dateEdit.field);
-              var formData = new FormData;
-              formData.append("hospitalTransactionPurchaseOrderWarehousingTable",hospitalTransactionPurchaseOrderWarehousingTable);
-              $.ajax({
-                  type: 'post',
-                  dataType: "json",
-                  url: '/PurchaseWarehousing/Warehousing/',
-                  data: formData,
-                  async: false,
-                  processData: false, // 使数据不做处理
-                  contentType: false, // 不要设置Content-Type请求头
-                  success: function (date) {
-                      var res = String($.trim(date));
-                      if (res == "1") {
-                          layer.close(index);
-                          layer.msg("入库成功!");
-                          layui.table.reload("test");
-                      } else {
-
-                      }
-                  }
-              })
-          });*/
+        $("#warehousing").on('click', function () {
+            var checkStatus = table.checkStatus('listReload');
+            var data = checkStatus.data;
+            var selectCount = data.length;
+            layer.confirm('确认入库吗？', function (index) {
+                layer.close(index);
+                var list = new Array();
+                for (var i = 0; i < selectCount; i++) {
+                    list.push(data[i]);
+                }
+                console.log(JSON.stringify(list));
+                $.ajax({
+                    type: 'post',
+                    data: JSON.stringify(list),
+                    url: '/PurchaseWarehousing/Warehousing',
+                    traditional: true,
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('listReload')
+                    }
+                });
+            })
+        });
     });
 </script>
 </html>

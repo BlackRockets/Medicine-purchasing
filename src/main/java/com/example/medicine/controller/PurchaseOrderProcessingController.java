@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,7 @@ public class PurchaseOrderProcessingController {
     @RequestMapping(value = "findAllPurchaseOrderProcessing", produces = {"application/json;charset=utf-8"})
 
     public String findAllPurchaseOrder(@RequestParam(required = false) Integer page, @RequestParam(required = false) Integer limit, PurchaseOrder purchaseOrder,
-                                       PurchaseOrderDetails pod, Drug drug, HospitalInformationMaintenanceForm himf, Vendor_Information vi,Hospital_Transaction_Details htd) {
+                                       PurchaseOrderDetails pod, Drug drug, HospitalInformationMaintenanceForm himf, Vendor_Information vi, Hospital_Transaction_Details htd) {
         if (page != null && limit != null) {
             purchaseOrder.setPageNum(page);
             purchaseOrder.setPageSize(limit);
@@ -53,11 +55,36 @@ public class PurchaseOrderProcessingController {
         return purchaseOrderList;
 
     }
+
     @ResponseBody
     @RequestMapping(value = "deliver", produces = {"application/json;charset=utf-8"})
-    public String deliver(@RequestBody  List<Integer> ids){
-        int i= purchaseOrderService.deliver(ids);
-        System.out.println(ids);
+    public String deliver(@RequestParam("ids1") Integer[] ids1) {
+        List<Integer> Integers = Arrays.asList(ids1);
+        for (Integer integer : Integers) {
+            System.out.println(integer);
+        }
+
+        int i = purchaseOrderService.deliver(Integers);
         return JSON.toJSONString(i);
+
+
     }
+
+    @ResponseBody
+    @RequestMapping(value = "unSupply", produces = {"application/json;charset=utf-8"})
+    public String unSupply(@RequestParam("ids2") Integer[] ids2) {
+        List<Integer> Integers = Arrays.asList(ids2);
+
+        int i = purchaseOrderService.unSupply(Integers);
+        return JSON.toJSONString(i);
+
+
+    }
+    @ResponseBody
+    @RequestMapping("doImport")
+    public String doImport(@RequestParam("file") MultipartFile file){
+        purchaseOrderService.doImport(file);
+        return "success";
+    }
+
 }

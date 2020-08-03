@@ -10,7 +10,8 @@ public interface PurchaseWarehousingService  {
 
     List<HospitalTransactionPurchaseOrderWarehousingTable> selectAllPurchaseOrderWarehousing(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable);
 
-
+    //入库
+    int warehousing(List list);
     int update(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable);
 
     int insert(HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable);

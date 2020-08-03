@@ -14,13 +14,12 @@ import com.example.medicine.service.PurchaseWarehousingService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("PurchaseWarehousing")
@@ -28,6 +27,8 @@ public class PurchaseWarehousingController {
 
     @Autowired
     private PurchaseWarehousingService purchaseWarehousingService;
+
+
 
     @Autowired
     private PurchaseWarehousingMapper purchaseWarehousingMapper;
@@ -62,13 +63,9 @@ public class PurchaseWarehousingController {
 
     @ResponseBody
     @RequestMapping(value = "Warehousing", produces = {"application/json;charset=utf-8"})
-    public int Warehousing(String hospitalTransactionPurchaseOrderWarehousingTables) {
-        HospitalTransactionPurchaseOrderWarehousingTable hospitalTransactionPurchaseOrderWarehousingTable = null;
-        if (hospitalTransactionPurchaseOrderWarehousingTables != null && hospitalTransactionPurchaseOrderWarehousingTables != "") {
-            JSON parse = (JSON) JSON.parse(hospitalTransactionPurchaseOrderWarehousingTables);
-            hospitalTransactionPurchaseOrderWarehousingTable = JSON.toJavaObject(parse, HospitalTransactionPurchaseOrderWarehousingTable.class);
-        }
-        int i = purchaseWarehousingService.insert(hospitalTransactionPurchaseOrderWarehousingTable);
+    public int Warehousing(@RequestBody List<HospitalTransactionPurchaseOrderWarehousingTable> list) {
+        System.out.println(list);
+        int i=purchaseWarehousingService.warehousing(list);
         return i;
     }
 

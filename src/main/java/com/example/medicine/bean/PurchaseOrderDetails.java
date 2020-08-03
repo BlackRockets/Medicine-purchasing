@@ -69,6 +69,10 @@ public class PurchaseOrderDetails implements Serializable {
     private Integer drugInformationId;
 
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -133,9 +137,12 @@ public class PurchaseOrderDetails implements Serializable {
         this.purchaseVolume = purchaseVolume;
     }
 
-    public Integer getpurchaseAmount() { return purchaseAmount; }
+    public Integer getPurchaseAmount() {
+        return purchaseAmount;
+    }
 
-    public void setpurchaseAmount(Integer purchaseAmount) { this.purchaseAmount = purchaseAmount;
+    public void setPurchaseAmount(Integer purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
     }
 
     public Integer getPurchasingStatus() {
@@ -168,18 +175,6 @@ public class PurchaseOrderDetails implements Serializable {
 
     public void setReturnQuantity(Integer returnQuantity) {
         this.returnQuantity = returnQuantity;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Integer getPurchaseAmount() {
-        return purchaseAmount;
-    }
-
-    public void setPurchaseAmount(Integer purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
     }
 
     public Integer getDrugInformationId() {

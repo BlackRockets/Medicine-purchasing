@@ -1,38 +1,41 @@
 package com.example.medicine.bean;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.metadata.BaseRowModel;
+
 import java.util.Date;
 import java.util.List;
 
-public class PurchaseOrder {
-
+public class PurchaseOrder extends BaseRowModel {
+    @ExcelProperty(index = 0,value = "编号Id")
     private int purchaseId;
-
+    @ExcelProperty(index = 1,value = "采购单编号")
     private String purchaseOrderNumber;
-
+    @ExcelProperty(index = 2,value = "采购单名称")
     private Date orderCreationTime;
-
+    @ExcelProperty(index = 3,value = "采购单医院")
     private String nameOfPurchaseOrder;
-
+    @ExcelProperty(index = 4,value = "医院ID")
     private int hospitalId;
-
+    @ExcelProperty(index = 5,value = "联系人")
     private String contacts;
-
+    @ExcelProperty(index = 6,value = "联系电话")
     private String contactNumber;
-
+    @ExcelProperty(index = 7,value = "建单时间")
     private Date orderModifiedTime;
-
+    @ExcelProperty(index = 8,value = "最近修改时间")
     private Date lastModifiedTime;
-
+    @ExcelProperty(index = 9,value = "提交时间")
     private Date submissionTime;
-
+    @ExcelProperty(index = 10,value = "备注")
     private String remarks;
-
+    @ExcelProperty(index = 11,value = "采购单状态")
     private String purchaseOrderStatus;
-
+    @ExcelProperty(index = 12,value = "审核人")
     private String reviewer;
-
+    @ExcelProperty(index = 13,value = "审核意见")
     private String auditOpinion;
-
+    @ExcelProperty(index = 14,value = "审核时间")
     private Date auditTime;
 
     private PurchaseOrderDetails pod;
@@ -61,8 +64,6 @@ public class PurchaseOrder {
 
     //总套数
     private Integer total;
-
-
 
     public int getPurchaseId() {
         return purchaseId;

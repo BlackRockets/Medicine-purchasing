@@ -17,6 +17,37 @@
         <result property="warehousingAmount" column="warehousing_amount" jdbcType="INTEGER"/>
         <result property="returnQuantity" column="return_quantity" jdbcType="INTEGER"/>
         <result property="drugInformationId" column="drug_information_id" jdbcType="INTEGER"/>
+        <association property="drug" javaType="com.example.medicine.bean.Drug">
+            <id column="ID" jdbcType="INTEGER" property="id"/>
+            <result column="SERIAL_UMBER" jdbcType="VARCHAR" property="serialUmber"/>
+            <result column="DOSAGE_FORM" jdbcType="VARCHAR" property="dosageForm"/>
+            <result column="DOSAGE_FORM_DRUG" jdbcType="VARCHAR" property="dosageFormDrug"/>
+            <result column="SPECIFICATIONS" jdbcType="VARCHAR" property="specifications"/>
+            <result column="CONVERSION_COEFFICIENT_no" jdbcType="VARCHAR" property="conversionCoefficientNo"/>
+            <result column="NAME_OF_MANUFACTURER" jdbcType="VARCHAR" property="nameOfManufacturer"/>
+            <result column="TRADE_NAME" jdbcType="VARCHAR" property="tradeName"/>
+            <result column="BID_PRICE" jdbcType="VARCHAR" property="bidPrice"/>
+            <result column="COMPANY" jdbcType="VARCHAR" property="company"/>
+            <result column="COMMON_NAME_PINYIN" jdbcType="VARCHAR" property="commonNamePinyin"/>
+            <result column="PRODUCT_PHOTOS" jdbcType="VARCHAR" property="productPhotos"/>
+            <result column="APPROVAL_NUMBER" jdbcType="VARCHAR" property="approvalNumber"/>
+            <result column="VALIDITY_PERIOD_OF_APPROVAL_NUMBER" jdbcType="VARCHAR"
+                    property="validityPeriodOfApprovalNumber"/>
+            <result column="IMPORTED_DRUGS" jdbcType="INTEGER" property="importedDrugs"/>
+            <result column="PACKING_MATERIAL" jdbcType="VARCHAR" property="packingMaterial"/>
+            <result column="PACKAGING_UNIT" jdbcType="VARCHAR" property="packagingUnit"/>
+            <result column="LATEST_RETAIL_PRICE" jdbcType="DOUBLE" property="latestRetailPrice"/>
+            <result column="RETAIL_PRICE_SOURCE" jdbcType="VARCHAR" property="retailPriceSource"/>
+            <result column="QUALITY_LEVEL" jdbcType="VARCHAR" property="qualityLevel"/>
+            <result column="QUALITY_LEVEL_DESCRIPTION" jdbcType="VARCHAR" property="qualityLevelDescription"/>
+            <result column="DRUG_INSPECTION_REPORT" jdbcType="INTEGER" property="drugInspectionReport"/>
+            <result column="DRUG_INSPECTION_REPORT_NO" jdbcType="VARCHAR" property="drugInspectionReportNo"/>
+            <result column="VALIDITY_PERIOD_OF_DRUG_INSPECTION_REPORT" jdbcType="TIMESTAMP"
+                    property="validityPeriodOfDrugInspectionReport"/>
+            <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription"/>
+            <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory"/>
+            <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus"/>
+        </association>
     </resultMap>
 
     <!--查询单个-->
@@ -144,10 +175,93 @@
         </set>
         where id = #{id}
     </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.medicine.bean.PurchaseOrderDetails">
+        update purchase_order_details
+        <set>
+            <if test="purchaseOrderId != null and purchaseOrderId != ''">
+                purchase_order_id = #{purchaseOrderId},
+            </if>
+            <if test="purchaseOrderNumber != null and purchaseOrderNumber != ''">
+                purchase_order_number = #{purchaseOrderNumber},
+            </if>
+            <if test="nameOfPurchaseOrder != null and nameOfPurchaseOrder != ''">
+                name_of_purchase_order = #{nameOfPurchaseOrder},
+            </if>
+            <if test="orderCreationTime != null">
+                order_creation_time = #{orderCreationTime},
+            </if>
+            <if test="submissionTime != null">
+                submission_time = #{submissionTime},
+            </if>
+            <if test="auditTime != null">
+                audit_time = #{auditTime},
+            </if>
+            <if test="purchaseVolume != null">
+                purchase_volume = #{purchaseVolume},
+            </if>
+            <if test="purchaseAmount != null">
+                purchase_amount = #{purchaseAmount},
+            </if>
+            <if test="purchasingStatus != null">
+                purchasing_status = #{purchasingStatus},
+            </if>
+            <if test="storageVolume != null">
+                storage_volume = #{storageVolume},
+            </if>
+            <if test="warehousingAmount != null">
+                warehousing_amount = #{warehousingAmount},
+            </if>
+            <if test="returnQuantity != null">
+                return_quantity = #{returnQuantity},
+            </if>
+            <if test="drugInformationId != null">
+                drug_information_id = #{drugInformationId},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <insert id="insertSelective" parameterType="com.example.medicine.bean.PurchaseOrderDetails">
+        insert into purchase_order_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="purchaseOrderId != null">
+                purchase_order_id,
+            </if>
+            <if test="drugInformationId != null">
+                drug_information_id,
+            </if>
 
+            <if test="returnQuantity != null">
+                return_quantity,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="purchaseOrderId != null">
+                #{purchaseOrderId,jdbcType=INTEGER},
+            </if>
+            <if test="drugInformationId != null">
+                #{drugInformationId,jdbcType=INTEGER},
+            </if>
+
+            <if test="returnQuantity != null">
+                #{returnQuantity,jdbcType=INTEGER},
+            </if>
+
+        </trim>
+    </insert>
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from medicine.purchase_order_details where id = #{id}
+        delete from purchase_order_details
+        where id in
+        <foreach collection="array" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
     </delete>
 
 </mapper>

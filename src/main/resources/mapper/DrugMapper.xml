@@ -29,6 +29,7 @@
     <result column="PRODUCT_DESCRIPTION" jdbcType="VARCHAR" property="productDescription" />
     <result column="DRUG_CATEGORY" jdbcType="VARCHAR" property="drugCategory" />
     <result column="DRUG_TRADE_STATUS" jdbcType="INTEGER" property="drugTradeStatus" />
+
   </resultMap>
   <sql id="Base_Column_List">
     ID, SERIAL_UMBER, DOSAGE_FORM, DOSAGE_FORM_DRUG, SPECIFICATIONS, CONVERSION_COEFFICIENT_no, 
@@ -47,10 +48,11 @@
   </select>
   <select id="selectByPurchaseOrderId"  resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List" />
-    from drug WHERE id in(
+    from drug d WHERE d.id in(
     select b.drug_information_id from purchase_order a,purchase_order_details b
     WHERE a.purchase_id = b.purchase_order_id and a.purchase_id=#{purchaseId})
     limit #{startRow},#{pageSize}
+
   </select>
   <select id="selectAllDrug"  resultMap="BaseResultMap">
    SELECT * from drug

@@ -139,11 +139,34 @@
         </div>
     </div>
 </form>
-<div class="layui-inline">
-    <a class="layui-btn layui-btn-danger layui-btn-normal deliver_btn">批量删除</a>
-    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="deliver">发货</button>
+<!--导入-->
+<div class="layui-row" id="tolead" style="display:none;">
+    <form action="/PurchaseOrderProcessing/doImport" id="addZizhiForm" enctype="multipart/form-data" method="post">
+        <div class="layui-col-md11" style="text-align: center">
+            <div class="layui-form-item">
+                下载导入模板文件
+                <a href="#" style="color: #ff0000">点击下载采购单导入模板</a>
+            </div>
+            <div class="layui-form-item">
+                <p style="color: red"></p>
+            </div>
+            <div class="layui-form-item">
+                <input type="file" name="file" id="file" >
+                <!--accept=".xlsx"-->
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-sm" id="uploadFile2" onclick="imPort()">导入</button>
+                    <button type="button" class="layui-btn layui-btn-sm" onclick="">查看导入失败结果</button>
+                    <button type="button" class="layui-btn layui-btn-sm" onclick="close()">关闭</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-<a class="layui-btn layui-btn-sm" id="">导入发货清单</a>
+
+<a class="layui-btn layui-btn-sm" id="deliver">发货</a>
 <a class="layui-btn layui-btn-sm" id="unSupply">无法供货</a>
 
 <table class="layui-hide" id="TestAll" lay-filter="test"></table>
@@ -161,11 +184,11 @@
             , url: '/PurchaseOrderProcessing/findAllPurchaseOrderProcessing/'
             , cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {
+                /*{
                     field: 'hospitalTransactionDetailsId',
                     style: 'display: none',
                     templet: '<div>{{d.htd.hospitalTransactionDetailsId}}</div>'
-                },
+                },*/
                 {field: 'purchaseOrderNumber', title: '采购单编号'},
                 {field: 'nameOfPurchaseOrder', title: '采购单名称'},
                 {field: 'nameOfHospital', templet: '<div>{{d.himf.nameOfHospital}}</div>', title: '采购医院'},
@@ -195,7 +218,7 @@
                     title: '采购金额'
                 },
                 {field: 'nameOfEnterprise', templet: '<div>{{d.vi.nameOfEnterprise}}</div>', title: '供货企业'},
-                {field: 'purchasingStatus', templet: '<div>{{d.htd.nameOfEnterprise}}</div>', title: '采购状态'},
+                {field: 'purchasingStatus', templet: '<div>{{d.htd.purchasingStatus}}</div>', title: '采购状态'},
             ]]
         });
         $("#find").on("click", function () {
@@ -234,30 +257,57 @@
             });
         })
 
-        /*    $("#deliver").on('click',function () {
-                var checkStatus=table.checkStatus('listReload');
-                var data=checkStatus.data;
-                layer.confirm('确定要发货吗？',function (index) {
-                    layer.close(index);
-                    var isStr="";
-                    for (var i=0;i<selectCount;i++){
-                        isStr=isStr+","+checkStatus.data[i].purchaseId;}
-                    $.ajax({
-                        type: 'post',
-                        data:{"ids":isStr},
-                        url: 'PurchaseOrderProcessing/deliver',
-                        success:function (data) {
-                            layer.close(index);
-                            layer.msg(data.msg);
-                            table.reload('listReload')
-                        },error:function (code) {
-                            parent.layer.msg('操作失败！',{icon:5,time:1000});
-                        }
-                    });
-                })
-            });*/
+        $("#deliver").on('click', function () {
+            var checkStatus = table.checkStatus('listReload');
+            var data = checkStatus.data;
+            var selectCount = data.length;
+            layer.confirm('确定要发货吗？', function (index) {
+                layer.close(index);
+                var isStr = [];
+                for (var i = 0; i < selectCount; i++) {
+                    isStr.push(data[i].htd.hospitalTransactionDetailsId);
+                }
+                $.ajax({
+                    type: 'post',
+                    data: {"ids1": isStr},
+                    url: '/PurchaseOrderProcessing/deliver',
+                    traditional: true,
+                    success: function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('listReload')
+                    }
+                });
+            })
+        });
 
-        form.on('submit(deliver)', function () {
+        $("#unSupply").on('click', function () {
+            var checkStatus = table.checkStatus('listReload');
+            var data = checkStatus.data;
+            var selectCount = data.length;
+            layer.confirm('确定是无法供货吗？', function (index) {
+                layer.close(index);
+                var isStr = [];
+                for (var i = 0; i < selectCount; i++) {
+                    isStr.push(data[i].htd.hospitalTransactionDetailsId);
+                }
+                console.log(isStr);
+                $.ajax({
+                    type: 'post',
+                    data: {"ids2": isStr},
+                    url: '/PurchaseOrderProcessing/unSupply',
+                    traditional: true,
+                    success: function (data) {
+                        layer.close(index);
+                        layer.msg(data.msg);
+                        table.reload('listReload')
+                    }
+                });
+            })
+        });
+
+
+        /*form.on('submit(deliver)', function () {
             var checkStatus = table.checkStatus('listReload');
             var data = checkStatus.data;
             console.log(data)
@@ -270,7 +320,7 @@
             console.log(ids);
              $.ajax({
                  url: 'PurchaseOrderProcessing/deliver',
-                 contentType: "application/json",
+                 contentType: "json",
                  dataType: "json",
                  data: JSON.stringify(ids),
                  success: function (data) {
@@ -278,15 +328,73 @@
                      layer.open({
                          title: ['信息提示', 'font-size:20px;text-align:center;'],
                          area: ['60%', '60%'],
-                         /*content:$("#tishi").html()*/
+                         /!*content:$("#tishi").html()*!/
                      })
                      layui.table.reload("listReload");
 
                  }
              })
-        });
+        });*/
     });
+    function tolead(){
+        var index =layer.open({
+            type:1,
+            title:['发货清单导入','font-size:20px;text-align:center;'],
+            area: ['70%','70%'],
+            content: $('#tolead'),
+            shade:0,  /*因为没有这个属性 ， 获取不到数据*/
+            /* btn: ["确认", "取消"],
 
+             //点击确认执行的方法
+             yes: function (index, layero) {
+                 //要提交的ajax
+                 var option = {
+                     url : '/drugItem/doImport',
+                     type : 'POST',
+                     dataType : 'json',
+                     //headers : {"ClientCallMode" : "ajax"}, //添加请求头部
+                     success : function(data) {
+                         var msg="";
+                         if(data.states == 1){
+                             msg="上传成功！";
+
+                         }else{
+                             msg="上传失败！";
+                         }
+                         layer.open({
+                             title:'提示'
+                             ,content: msg
+                         });
+                         //清空输入框
+                         $("#level").val("");
+                         $("#type").val("");
+                         $("#file2").val("");
+                         //关闭弹出层
+                         layer.close(index);
+                     }
+                 };
+                 //提交   这个依赖form-js
+                 $("#addZizhiForm").ajaxSubmit(option);
+             }*/
+        });
+    }
+    function imPort() {
+        var data=new form($("#addZizhiForm")[0]);
+        $.ajax({
+            url:"/PurchaseOrderProcessing/doImport",
+            type:"post",
+            data:data,
+            dataType:"json",
+            async: false,
+            processData : false, // 使数据不做处理
+            contentType : false, // 不要设置Content-Type请求头
+            success:function (date) {
+                if(data != null && "success"==date){
+                    layer.msg("导入成功!");
+                }
+            }
+        })
+    };
 </script>
 
 </html>
