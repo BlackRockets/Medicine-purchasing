@@ -35,19 +35,28 @@ public class ReturnOrderController {
             returnOrder.setPageSize(limit);
         }
         List<Hospital_Transaction_Return_Form> returnOrders = returnOrderService.findAllReturnOrder(returnOrder);
+        Integer returnOrderStatus = 1;
+        for (Hospital_Transaction_Return_Form order : returnOrders) {
+            if(returnOrderStatus.equals(order.getReturnOrderStatus())){
+                order.setReturnOrderStatu("未提交");
+            }else {
+                order.setReturnOrderStatu("已提交");
+            }
+        }
         Integer total = returnOrderService.selectCount(returnOrder);
         ReturnUtil returnUtil = new ReturnUtil();
         String data = returnUtil.getData(returnOrders, total);
         return data;
     }
 
+
     @ResponseBody
     @RequestMapping(value = "saveReturnOrder",produces = {"application/json;charset=utf-8"})
-    public int saveReturnOrder(@RequestParam String returnOrder){
+    public String saveReturnOrder(@RequestParam String returnOrder){
         JSON parse = (JSON) JSON.parse(returnOrder);
         Hospital_Transaction_Return_Form returnOrder1 = JSON.toJavaObject(parse, Hospital_Transaction_Return_Form.class);
-        int id = returnOrderService.saveReturnOrder(returnOrder1);
-        return id;
+        String s = returnOrderService.saveReturnOrder(returnOrder1);
+        return s;
     }
 
     //获取每个退货单中的药品
@@ -65,6 +74,15 @@ public class ReturnOrderController {
         return returnOrderService.deleteReturnOrder(ids);
     }
 
+    //提交退货单
+    @ResponseBody
+    @RequestMapping(value = "submitReturnOrder",produces = {"application/json;charset=utf-8"})
+    public int submitReturnOrder(@RequestParam String returnOrderId){
+        Integer integer = Integer.valueOf(returnOrderId);
+        return returnOrderService.submitReturnOrder(integer);
+    }
+
+
     //删除退货单药品
     @ResponseBody
     @RequestMapping(value = "deleteReturnMedicine",produces = {"application/json;charset=utf-8"})
@@ -77,14 +95,6 @@ public class ReturnOrderController {
     @RequestMapping(value = "saveReturnCount",produces = {"application/json;charset=utf-8"})
     public int saveReturnCount(@RequestBody List<Hospital_Return_Order_Detail> returnOrderDetail){
         returnOrderService.saveReturnCount(returnOrderDetail);
-        return 1;
-    }
-
-    //提交退货单
-    @ResponseBody
-    @RequestMapping(value = "submitReturnOrder",produces = {"application/json;charset=utf-8"})
-    public int submitReturnOrder(Integer returnOrderId){
-
         return 1;
     }
 

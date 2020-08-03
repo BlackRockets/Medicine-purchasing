@@ -1,5 +1,6 @@
 package com.example.medicine.serviceImpl;
 
+import com.alibaba.fastjson.JSON;
 import com.example.medicine.bean.*;
 import com.example.medicine.common.ReturnUtil;
 import com.example.medicine.mapper.DrugMapper;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class ReturnOrderServiceImpl implements ReturnOrderService {
     @Autowired
@@ -45,11 +48,15 @@ public class ReturnOrderServiceImpl implements ReturnOrderService {
 
     //保存退货单
     @Override
-    public int saveReturnOrder(Hospital_Transaction_Return_Form returnOrder) {
+    public String saveReturnOrder(Hospital_Transaction_Return_Form returnOrder) {
+        UUID uuid = UUID.randomUUID();
+        String return_order_no = "returnOrder_"+uuid;
+        returnOrder.setReturnOrderNo(return_order_no);
         //添加之后获取自增主键
         returnOrderMapper.insertSelective(returnOrder);
-        Integer returnOrderId = returnOrder.getReturnOrderId();
-        return returnOrderId;
+        String list = JSON.toJSONString(returnOrder);
+
+        return list;
     }
 
     @Override
@@ -73,6 +80,12 @@ public class ReturnOrderServiceImpl implements ReturnOrderService {
     @Override
     public int deleteReturnOrder(String[] returnOrderId) {
         return returnOrderMapper.deleteReturnOrder(returnOrderId);
+    }
+
+    @Override
+    public int submitReturnOrder(Integer returnOrderId) {
+
+        return returnOrderMapper.submitReturnOrder(returnOrderId);
     }
 
     @Override

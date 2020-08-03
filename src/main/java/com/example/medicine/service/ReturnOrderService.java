@@ -13,13 +13,16 @@ public interface ReturnOrderService {
     Integer selectCount(Hospital_Transaction_Return_Form returnOrder);
 
     //保存退货单
-    int saveReturnOrder(Hospital_Transaction_Return_Form returnOrder);
+    String saveReturnOrder(Hospital_Transaction_Return_Form returnOrder);
 
     //查询每个退货单的药品
     String findByReturnOrderId(Hospital_Transaction_Return_Form returnOrder);
 
     //删除退货单
     int deleteReturnOrder(String[] returnOrderId);
+
+    //提交退货单
+    int submitReturnOrder(Integer returnOrderId);
 
     //删除退货单中的药品
     int deleteMedicine(String[] ids);

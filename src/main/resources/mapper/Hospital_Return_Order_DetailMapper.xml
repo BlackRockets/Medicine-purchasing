@@ -111,6 +111,12 @@
       <if test="returnStatus != null">
         return_status = #{returnStatus,jdbcType=INTEGER},
       </if>
+      <if test="returnStatus != null">
+        return_status = #{returnStatus,jdbcType=INTEGER},
+      </if>
+      <if test="returnReason != null">
+        return_reason = #{returnReason,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

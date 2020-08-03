@@ -83,13 +83,14 @@
         <form class="layui-form" lay-filter="formTestFilter2121" action="" style="margin-top: 50px">
             <div class="layui-form-item">
                 <div class="layui-inline">
+                    <!--应该是根据查询当前登录人所在医院的编号   没做-->
                     <label class="layui-form-label">医院编号：</label>
                     <div class="layui-input-inline">
                         <input type="tel" name="hospitalId" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-
                 <div class="layui-inline">
+                    <!--应该是根据查询当前登录人所在医院的名称   没做-->
                     <label class="layui-form-label">医院名称：</label>
                     <div class="layui-input-inline">
                         <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input">
@@ -100,7 +101,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">退货单编号：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="returnOrderNo" lay-verify="" autocomplete="off" class="layui-input">
+                        <input type="text" name="returnOrderNo" lay-verify="" readonly autocomplete="off" class="layui-input" placeholder="系统自动生成">
                     </div>
                 </div>
 
@@ -113,16 +114,15 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">退货时间：</label>
+                    <label class="layui-form-label">建单时间：</label>
                     <div class="layui-input-inline" >
-                        <input type="text"  lay-verify="" autocomplete="off" class="layui-input" id="returnTime1">
+                        <input type="text"  name="orderCreationTime" lay-verify="" autocomplete="off"  readonly class="layui-input" id="returnTime">
                     </div>
                 </div>
-
                 <div class="layui-inline">
-                    <label class="layui-form-label">建单时间：</label>
+                    <label class="layui-form-label">提交时间：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="orderCreationTime" lay-verify="" autocomplete="off" class="layui-input">
+                        <input type="button" name="submissionTime" lay-verify="" readonly autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -133,43 +133,24 @@
                         <input type="text" name="contacts" lay-verify="" autocomplete="off" class="layui-input">
                     </div>
                 </div>
-
                 <div class="layui-inline">
                     <label class="layui-form-label">联系电话：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="contactNumber" lay-verify="" autocomplete="off" class="layui-input">
+                        <input type="text" name="contactNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">退货单状态：</label>
-                    <div class="layui-input-block">
-                        <select name="returnOrderStatus" lay-verify="" lay-search="">
-                            <option value="0">请选择</option>
-                            <option value="1">layer</option>
-                            <option value="2">form</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label">提交时间：</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="submissionTime" lay-verify="" autocomplete="off" class="layui-input">
+                        <input type="text" name="returnOrderStatus" readonly lay-verify="" autocomplete="off" class="layui-input" >
                     </div>
                 </div>
-            </div>
-            <div class="layui-form-item" >
                 <div class="layui-inline">
                     <label class="layui-form-label">备注：</label>
                     <div class="layui-input-inline">
                         <input type="text" name="remarks" lay-verify="" autocomplete="off" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-inline">
-                    <label class="layui-form-label"></label>
-                    <div class="layui-input-inline">
-
                     </div>
                 </div>
             </div>
@@ -235,22 +216,12 @@
                 <tr>
                     <td>
                         <div class="layui-inline">
-                            <label class="layui-form-label">退货时间：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="email" lay-verify="" autocomplete="off" class="layui-input" id="returnTime2">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
                             <label class="layui-form-label">建单时间：</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="orderCreationTime" lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
-                </tr>
-                <tr>
                     <td>
                         <div class="layui-inline">
                             <label class="layui-form-label">联系人：</label>
@@ -259,34 +230,34 @@
                             </div>
                         </div>
                     </td>
+                </tr>
+                <tr>
                     <td>
                         <div class="layui-inline">
                             <label class="layui-form-label">联系电话：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="contactNumber" lay-verify="" autocomplete="off" class="layui-input">
+                                <input type="text" name="contactNumber" lay-verify="required|phone" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
-                </tr>
-                <tr>
                     <td>
                         <div class="layui-inline">
                             <label class="layui-form-label">退货单状态：</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="returnOrderStatus" lay-verify="" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">提交时间：</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="submissionTime" lay-verify="" autocomplete="off" class="layui-input">
+                                <input type="text" name="returnOrderStatus" readonly lay-verify="" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </td>
                 </tr>
                 <tr>
+                    <td>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">提交时间：</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="submissionTime" readonly lay-verify="" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </td>
                     <td>
                         <div class="layui-inline">
                             <label class="layui-form-label">备注：</label>
@@ -295,7 +266,6 @@
                             </div>
                         </div>
                     </td>
-                    <td></td>
                 </tr>
                 </tbody>
             </table>
@@ -775,8 +745,36 @@
                 {field:'orderCreationTime', title: '建单时间',},
                 {field:'submissionTime',title: '提交时间'},
                 {field:'remarks', title: '备注',},
-                {field:'returnOrderStatus',  title: '退货单状态'},
+                {field:'returnOrderStatu',  title: '退货单状态'},
                 {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+            ]],
+            page: true
+        });
+
+        returnOrderTable = table.render({
+            elem: '#medicineTable',
+            url:'/returnOrder/findDrugByReturnOrderId/?returnOrderId='+returnOrderId+'',
+            id:'deleteMedicineTableMark',
+            cols: [[
+                {type: 'checkbox', fixed: 'left'},
+                {field:'purchaseOrderId', title: '采购单编号',width:'100'},
+                {field:'nameOfPurchaseOrder', title: '采购单名称',width:'100'},
+                {field:'serialUmber',title: '流水号',width:'80'},
+                {field:'dosageForm',title: '通用名',width:'80'},
+                {field:'tradeName', title: '商品名',width:'80'},
+                {field:'bidPrice', title: '中标价',width:'80'},
+                {field:'purchaseVolume',title: '采购量',width:'80'},
+                {field:'purchaseAmount', title: '采购金额',width:'90'},
+                {field:'storageVolume', title: '入库量',width:'90'},
+                {field:'approvalNumber', title: '药品批号',width:'90'},
+                {field:'validityPeriodOfApprovalNumber', title: '药品有效期',width:'100'},
+                {field:'returnQuantity', edit: 'text', title: '退货量',width:'80'},
+                {field:'returnMoney', title: '退货金额',width:'90'},
+                {field:'returnReason', edit: 'text', title: '退货原因',width:'90'},
+                {field:'dosageFormDrug', title: '剂型',width:'60'},
+                {field:'specifications', title: '规格',width:'60'},
+                {field:'company', title: '单位',width:'60'},
+                {field:'qualityLevelDescription', title: '质量层次',width:'90'},
             ]],
             page: true
         });
@@ -811,12 +809,13 @@
                 scrollbar: false,
                 title:['创建退货单','font-size:20px;text-align:center;'],
                 area:['80%','90%'],
-                content:$("#createReturnOrder").html(),
+                content:$("#createReturnOrder"),
                 success: function(){
-                    form.render();
+                    /*打开之后查询出所在医院，对应赋值*/
+
                     laydate.render({
-                        elem: '#returnTime1',
-                        trigger: 'click'
+                        elem: '#returnTime',
+                        value: new Date(),
                     });
                 }
             })
@@ -835,8 +834,7 @@
                 async: false,
                 processData : false, // 使数据不做处理
                 contentType : false, // 不要设置Content-Type请求头
-                success:function (date) {
-                    var id = String($.trim(date));
+                success:function (data) {
                     layer.closeAll();
                     layer.open({
                         scrollbar: false,
@@ -845,36 +843,31 @@
                         area:['100%','100%'],
                         content:$("#returnOrderDetail"),
                         success: function(){
+                            data.returnOrderStatus = "未提交";
                             form.render();
                             form.val('returnOrderForm',{
-                                returnOrderId:id,
-                                returnOrderNo:data.field.returnOrderNo,
-                                returnOrderName:data.field.returnOrderName,
-                                contacts:data.field.contacts,
-                                contactNumber:data.field.contactNumber,
-                                builder:data.field.builder,
-                                orderCreationTime:data.field.orderCreationTime,
-                                submissionTime:data.field.submissionTime,
-                                remarks:data.field.remarks,
+                                returnOrderId:data.returnOrderId,
+                                hospitalId:data.hospitalId,
+                                returnOrderNo:data.returnOrderNo,
+                                returnOrderName:data.returnOrderName,
+                                contacts:data.contacts,
+                                contactNumber:data.contactNumber,
+                                builder:data.builder,
+                                returnOrderStatus:data.returnOrderStatus,
+                                orderCreationTime:data.orderCreationTime,
+                                submissionTime:data.submissionTime,
+                                remarks:data.remarks,
                             })
                             //保存之后退货单中没有药品   展示空表格
-                            table.render({
-                                elem: '#medicineTable',
-                                url:'/returnOrder/findDrugByReturnOrderId/?returnOrderId='+id+'',
-                                cols: [[
-                                    {type: 'checkbox', fixed: 'left'},
-                                    {field:'id', title: '采购单编号',},
-                                    {field:'approvalNumber', title: '采购单名称'},
-                                    {field:'commonNamePinyin',title: '采购医院',},
-                                    {field:'serialUmber',title: '流水号'},
-                                    {field:'dosageForm',title: '通用名',},
-                                    {field:'tradeName', title: '商品名',},
-                                    {field:'bidPrice', title: '中标价',},
-                                    {field:'returnCount', type:'normal',title: '退货量',},
-                                    {fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
-                                ]],
-                                page: true
-                            });
+                            returnOrderTable.reload({
+                                url:'/returnOrder/findDrugByReturnOrderId',
+                                page: {
+                                    curr: 1 //重新从第 1 页开始
+                                },
+                                where: {
+                                    returnOrderId:data.returnOrderId,
+                                }
+                            })
                         }
                     })
                 }
@@ -909,15 +902,15 @@
         form.on('submit(submitReturnOrder)', function (data) {
             var returnOrderId = $("#returnOrderId").val();
             $.ajax({
-                url:'/returnOrder/deleteReturnOrder',
+                url:'/returnOrder/submitReturnOrder',
                 type:'post',
                 dataType:"json",
                 data: {
-                    ids:array.toString(),
+                    returnOrderId:returnOrderId,
                 },
                 success:function (date) {
-                    layer.msg("删除成功!");
-                    table.reload("medicineTableMark");
+                    layer.msg("提交成功!");
+
                 }
             })
         });
@@ -1115,8 +1108,12 @@
                     area:['100%','100%'],
                     scrollbar: false,
                     content:$('#returnOrderDetail'),
-                   /* content: '<div><table id="templateTable" lay-filter="templateTable"></table></div>',*/
                     success: function () {
+                        if(data.returnOrderStatus == "1"){
+                            data.returnOrderStatus = "未提交";
+                        }else{
+                            data.returnOrderStatus = "已提交";
+                        }
                         form.render();
                         form.val('returnOrderForm',{
                             returnOrderId:data.returnOrderId,
@@ -1125,38 +1122,25 @@
                             contacts:data.contacts,
                             contactNumber:data.contactNumber,
                             builder:data.builder,
+                            hospitalId:data.hospitalId,
+                            returnOrderStatus:data.returnOrderStatus,
                             orderCreationTime:data.orderCreationTime,
                             submissionTime:data.submissionTime,
                             remarks:data.remarks,
                         });
-                        table.render({
-                            elem: '#medicineTable',
-                            url:'/returnOrder/findDrugByReturnOrderId/?returnOrderId='+returnOrderId+'',
-                            id:'deleteMedicineTableMark',
-                            cols: [[
-                                {type: 'checkbox', fixed: 'left'},
-                                {field:'purchaseOrderId', title: '采购单编号',width:'100'},
-                                {field:'nameOfPurchaseOrder', title: '采购单名称',width:'100'},
-                                {field:'serialUmber',title: '流水号',width:'80'},
-                                {field:'dosageForm',title: '通用名',width:'80'},
-                                {field:'tradeName', title: '商品名',width:'80'},
-                                {field:'bidPrice', title: '中标价',width:'80'},
-                                {field:'purchaseVolume',title: '采购量',width:'80'},
-                                {field:'purchaseAmount', title: '采购金额',width:'90'},
-                                {field:'storageVolume', title: '入库量',width:'90'},
-                                {field:'approvalNumber', title: '药品批号',width:'90'},
-                                {field:'validityPeriodOfApprovalNumber', title: '药品有效期',width:'100'},
-                                {field:'returnQuantity', edit: 'text', title: '退货量',width:'80'},
-                                {field:'returnMoney', title: '退货金额',width:'90'},
-                                {field:'returnReason', edit: 'text', title: '退货原因',width:'90'},
-                                {field:'dosageFormDrug', title: '剂型',width:'60'},
-                                {field:'specifications', title: '规格',width:'60'},
-                                {field:'company', title: '单位',width:'60'},
-                                {field:'qualityLevelDescription', title: '质量层次',width:'90'},
-                            ]],
-                            page: true
-                        });
-                    }
+                        returnOrderTable.reload({
+                            url:'/returnOrder/findDrugByReturnOrderId',
+                            page: {
+                                curr: 1 //重新从第 1 页开始
+                            },
+                            where: {
+                                returnOrderId:returnOrderId,
+                            }
+                        })
+                    },
+                   cancel: function(){
+                       table.reload("medicineTableMark");
+                   },
                 });
             }
         });

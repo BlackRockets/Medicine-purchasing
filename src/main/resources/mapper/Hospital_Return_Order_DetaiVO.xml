@@ -84,6 +84,10 @@
                 <if test="returnOrderId != null and returnOrderId != '' ">
                     re.return_order_id=#{returnOrderId}
                 </if>
+               <!-- <if test="returnOrderId != null and returnOrderId != '' ">
+                    po.purchase_order_number like CONCAT("%",#{purchaseOrderNumber},"%")
+                </if>-->
+
           </where>
         limit #{startRow},#{pageSize}
   </select>
