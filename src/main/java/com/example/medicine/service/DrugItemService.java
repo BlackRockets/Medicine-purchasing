@@ -8,6 +8,8 @@ import java.util.List;
 public interface DrugItemService {
     //起始加载数据
 
+    List<DrugItems>  selectDrugItemsNo();
+
     List<DrugItems> selectAllDrugItems(DrugItems drugItems);
 
     //增加
@@ -18,4 +20,5 @@ public interface DrugItemService {
 
     //导入
     void doImport(MultipartFile file);
+
 }

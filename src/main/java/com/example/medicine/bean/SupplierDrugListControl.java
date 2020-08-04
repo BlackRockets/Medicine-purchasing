@@ -1,36 +1,66 @@
 package com.example.medicine.bean;
 
-import java.io.Serializable;
 
-/**
- * 供应商药品目录控制表(SupplierDrugListControl)实体类
- *
- * @author makejava
- * @since 2020-07-30 15:32:59
- */
-public class SupplierDrugListControl implements Serializable {
-    private static final long serialVersionUID = 882391445219195046L;
-    /**
-     * 编号 id
-     */
+public class SupplierDrugListControl {
     private Integer supplierDrugListControlId;
-    /**
-     * 监督机构意见
-     */
+
     private String opinionsOfSupervisionOrganization;
-    /**
-     * 供货商(企)业id
-     */
+
     private Integer enterpriseId;
-    /**
-     * 药品信息id
-     */
+
     private Integer drugInformationId;
-    /**
-     * 监督机构控制状态(1：正常 ,2：暂停)
-     */
+
     private Integer supervisionOrganizationControlStatus;
 
+    private Drug drug;
+
+    private Vendor_Information vendor_information;
+
+    private Integer pageNum;
+
+    private Integer pageSize;
+
+    private Integer pageStart;
+
+    @Override
+    public String toString() {
+        return "SupplierDrugListControl{" +
+                "supplierDrugListControlId=" + supplierDrugListControlId +
+                ", opinionsOfSupervisionOrganization='" + opinionsOfSupervisionOrganization + '\'' +
+                ", enterpriseId=" + enterpriseId +
+                ", drugInformationId=" + drugInformationId +
+                ", supervisionOrganizationControlStatus=" + supervisionOrganizationControlStatus +
+                ", drug=" + drug +
+                ", vendor_information=" + vendor_information +
+                ", pageNum=" + pageNum +
+                ", pageSize=" + pageSize +
+                ", pageStart=" + pageStart +
+                '}';
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageStart() {
+        return pageStart;
+    }
+
+    public void setPageStart(Integer pageStart) {
+        this.pageStart = pageStart;
+    }
 
     public Integer getSupplierDrugListControlId() {
         return supplierDrugListControlId;
@@ -72,4 +102,19 @@ public class SupplierDrugListControl implements Serializable {
         this.supervisionOrganizationControlStatus = supervisionOrganizationControlStatus;
     }
 
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
+    public Vendor_Information getVendor_information() {
+        return vendor_information;
+    }
+
+    public void setVendor_information(Vendor_Information vendor_information) {
+        this.vendor_information = vendor_information;
+    }
 }

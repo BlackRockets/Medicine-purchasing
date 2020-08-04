@@ -2,7 +2,6 @@ package com.example.medicine.mapper;
 
 import com.example.medicine.bean.Hospital_Transaction_Details;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

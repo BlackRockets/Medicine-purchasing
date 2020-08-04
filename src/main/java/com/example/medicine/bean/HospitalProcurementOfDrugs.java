@@ -1,32 +1,29 @@
 package com.example.medicine.bean;
 
-import java.io.Serializable;
-
-/**
- * (HospitalProcurementOfDrugs)实体类
- *
- * @author makejava
- * @since 2020-07-29 15:37:11
- */
-public class HospitalProcurementOfDrugs implements Serializable {
-    private static final long serialVersionUID = 170716864764806247L;
-    /**
-     * id
-     */
+public class HospitalProcurementOfDrugs {
     private Integer procurementOfDrugsId;
-    /**
-     * 医院id
-     */
-    private String maintenanceTableId;
-    /**
-     * 药品信息id
-     */
-    private String informationOnDrugsId;
-    /**
-     * 供货商(企业)id
-     */
-    private String supplierId;
 
+    private Integer maintenanceTableId;
+
+    private Integer informationOnDrugsId;
+
+    private Integer supplierId;
+
+    private Drug drug;
+
+    private Vendor_Information  vendor_information;
+
+    @Override
+    public String toString() {
+        return "HospitalProcurementOfDrugs{" +
+                "procurementOfDrugsId=" + procurementOfDrugsId +
+                ", maintenanceTableId=" + maintenanceTableId +
+                ", informationOnDrugsId=" + informationOnDrugsId +
+                ", supplierId=" + supplierId +
+                ", drug=" + drug +
+                ", vendor_information=" + vendor_information +
+                '}';
+    }
 
     public Integer getProcurementOfDrugsId() {
         return procurementOfDrugsId;
@@ -36,28 +33,43 @@ public class HospitalProcurementOfDrugs implements Serializable {
         this.procurementOfDrugsId = procurementOfDrugsId;
     }
 
-    public String getMaintenanceTableId() {
+    public Integer getMaintenanceTableId() {
         return maintenanceTableId;
     }
 
-    public void setMaintenanceTableId(String maintenanceTableId) {
+    public void setMaintenanceTableId(Integer maintenanceTableId) {
         this.maintenanceTableId = maintenanceTableId;
     }
 
-    public String getInformationOnDrugsId() {
+    public Integer getInformationOnDrugsId() {
         return informationOnDrugsId;
     }
 
-    public void setInformationOnDrugsId(String informationOnDrugsId) {
+    public void setInformationOnDrugsId(Integer informationOnDrugsId) {
         this.informationOnDrugsId = informationOnDrugsId;
     }
 
-    public String getSupplierId() {
+    public Integer getSupplierId() {
         return supplierId;
     }
 
-    public void setSupplierId(String supplierId) {
+    public void setSupplierId(Integer supplierId) {
         this.supplierId = supplierId;
     }
 
+    public Drug getDrug() {
+        return drug;
+    }
+
+    public void setDrug(Drug drug) {
+        this.drug = drug;
+    }
+
+    public Vendor_Information getVendor_information() {
+        return vendor_information;
+    }
+
+    public void setVendor_information(Vendor_Information vendor_information) {
+        this.vendor_information = vendor_information;
+    }
 }

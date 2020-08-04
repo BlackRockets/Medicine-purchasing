@@ -25,6 +25,8 @@ public class Hospital_Transaction_Return_Form {
 
     private Integer returnOrderStatus;
 
+    private String returnOrderStatu;
+
     //页码
     private Integer pageNum=1;
 
@@ -33,6 +35,14 @@ public class Hospital_Transaction_Return_Form {
 
     //起始条数
     private Integer startRow;
+
+    public String getReturnOrderStatu() {
+        return returnOrderStatu;
+    }
+
+    public void setReturnOrderStatu(String returnOrderStatu) {
+        this.returnOrderStatu = returnOrderStatu;
+    }
 
     public Integer getPageNum() {
         return pageNum;

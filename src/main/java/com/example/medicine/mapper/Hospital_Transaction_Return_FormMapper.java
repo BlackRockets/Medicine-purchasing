@@ -14,4 +14,8 @@ public interface Hospital_Transaction_Return_FormMapper {
     List<Hospital_Transaction_Return_Form> selectAllReturnOrder(Hospital_Transaction_Return_Form record);
 
     int selectCount(Hospital_Transaction_Return_Form record);
+
+    int deleteReturnOrder(String[] returnOrderId);
+
+    int submitReturnOrder(Integer returnOrderId);
 }

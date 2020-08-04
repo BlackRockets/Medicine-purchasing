@@ -6,65 +6,65 @@ import java.io.Serializable;
  * 医院信息(HospitalInformationMaintenanceForm)实体类
  *
  * @author makejava
- * @since 2020-07-29 09:52:12
+ * @since 2020-07-26 15:35:36
  */
 public class HospitalInformationMaintenanceForm implements Serializable {
-    private static final long serialVersionUID = 144301242713265825L;
+    private static final long serialVersionUID = -23815717913820669L;
     /**
-     * 编号 id
-     */
+    * 编号 id
+    */
     private Integer maintenanceTableId;
     /**
-     * 医院名称
-     */
+    * 医院名称
+    */
     private String nameOfHospital;
     /**
-     * 通讯地址
-     */
+    * 通讯地址
+    */
     private String postalAddress;
     /**
-     * 邮政编码
-     */
+    * 邮政编码
+    */
     private Integer postalCode;
     /**
-     * 所属地区
-     */
+    * 所属地区
+    */
     private String region;
     /**
-     * 医院级别
-     */
+    * 医院级别
+    */
     private String hospitalLevel;
     /**
-     * 床位数
-     */
+    * 床位数
+    */
     private String numberOfBeds;
     /**
-     * 是否非营利性医疗机构
-     */
+    * 是否非营利性医疗机构
+    */
     private String profitMedicalInstitution;
     /**
-     * 院办电话
-     */
+    * 院办电话
+    */
     private String hospitalOfficeTelephone;
     /**
-     * 院办传真
-     */
+    * 院办传真
+    */
     private String faxOfHospitalOffice;
     /**
-     * 药剂科电话
-     */
+    * 药剂科电话
+    */
     private String pharmacyTelephone;
     /**
-     * 医院类型
-     */
+    * 医院类型
+    */
     private String typeOfHospital;
     /**
-     * 上年度药品收入
-     */
+    * 上年度药品收入
+    */
     private String drugRevenueOfLastYear;
     /**
-     * 上年度业务收入
-     */
+    * 上年度业务收入
+    */
     private String businessIncomeOfLastYear;
 
 

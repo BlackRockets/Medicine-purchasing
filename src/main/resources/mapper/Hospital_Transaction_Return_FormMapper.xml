@@ -56,6 +56,13 @@
     </where>
     limit #{startRow},#{pageSize}
   </select>
+  <delete id="deleteReturnOrder">
+    delete from  hospital_transaction_return_form
+    where return_order_id in
+    <foreach collection="array" item="item" separator="," open="(" close=")">
+      #{item}
+    </foreach>
+  </delete>
   <select id="selectCount" resultType="java.lang.Integer" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form">
     select count(*) from hospital_transaction_return_form
     <where>
@@ -104,6 +111,10 @@
       #{builder,jdbcType=VARCHAR}, #{orderCreationTime,jdbcType=TIMESTAMP}, #{submissionTime,jdbcType=TIMESTAMP}, 
       #{remarks,jdbcType=VARCHAR}, #{returnOrderStatus,jdbcType=INTEGER})
   </insert>
+  <update id="submitReturnOrder" parameterType="java.lang.Integer">
+        update hospital_transaction_return_form set return_order_status=2
+        where return_order_id = #{returnOrderId}
+  </update>
   <insert id="insertSelective" parameterType="com.example.medicine.bean.Hospital_Transaction_Return_Form" useGeneratedKeys="true" keyProperty="returnOrderId">
     insert into hospital_transaction_return_form
     <trim prefix="(" suffix=")" suffixOverrides=",">

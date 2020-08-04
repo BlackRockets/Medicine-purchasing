@@ -27,9 +27,21 @@ public interface DrugMapper {
 
     int updateByPrimaryKey(Drug record);
 
+    List<Drug> selectAllDrugs(Drug record);
+
+    List<Drug> selectAllDrugsNo();
+
+    List<String> selectDrugCategory();
+
+    List<Drug> findAllPurchaseingDrugs(Drug record);
+
+    int selectPurchaseingDrugsCount(Drug record);
+
+    List<Drug> selectPurchaseDrugs(List<Integer> list);
+
+    int updatePurchaseDrugs(List<Drug> list);
+
     List<Drug> selectByReturnOrderId(Hospital_Transaction_Return_Form returnOrder);
 
     List<Drug> selectByPurchaseOrderId(PurchaseOrder purchaseOrder);
-
-
 }

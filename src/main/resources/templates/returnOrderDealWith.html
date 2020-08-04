@@ -191,7 +191,7 @@
 <div class="layui-row">
     <form class="layui-form" action="">
         <table class="layui-hide" lay-size="sm" id="main">
-            <button type="button" class="layui-btn layui-btn-sm" id="add">确认退货</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-submit lay-filter="confirmReturnOrder">确认退货</button>
         </table>
     </form>
 </div>
@@ -201,106 +201,53 @@
 <script src="../static/layui/layui.js" charset="utf-8"></script>
 
 <script>
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form,
-            layer = layui.layer,
-            layedit = layui.layedit,
-            laydate = layui.laydate;
-
-
-        laydate.render({
-            elem: '#returnTime2',
-        });
-
-        $("#create").click(function(){
-            layer.open({
-                type:1,
-                title:'退货单',
-                area:['80%','80%'],
-                content:$("#createReturnOrder").html(),
-                success: function(){
-                    laydate.render({
-                        elem: '#returnTime1',
-                        trigger: 'click'
-                    });
-                }
-            })
-        });
-
-
-
-        $("#add").click(function(){
-            layui.layer.open({
-                type:1,
-                title:'添加退货药品',
-                area:['100%','100%'],
-                content:$("#addReturnMedicine").html(),
-                success: function(){
-                    form.render()
-                }
-            })
-        });
-    });
-
-    layui.use('table', function(){
+    layui.use(['table','form'],function(){
         var table = layui.table;
-
+        var form = layui.form;
         table.render({
             elem: '#main',
-            url:'/demo/table/user/',
+            toolbar: 'default',
+            url:'/returnOrder/findConfirmReturnOrder',
+            id:'confirmReturnOrderTableMark',
             cols: [[
                 {type: 'checkbox', fixed: 'left'},
-                {field:'id', title: '采购单编号',},
-                {field:'username', title: '采购单名称'},
-                {field:'sex',title: '采购医院',},
-                {field:'city',title: '流水号'},
-                {field:'sign',title: '通用名',},
-                {field:'experience', title: '商品名',},
-                {field:'score', title: '中标价',},
-                {field:'classify',title: '交易价'},
-                {field:'wealth', title: '采购量',},
-                {field:'classify',  title: '采购金额'},
-                {field:'classify',  title: '入库量'},
-                {field:'classify',  title: '药品批号'},
-                {field:'classify',  title: '药品有效期'},
-                {field:'classify',  title: '开始采购时间'},
-                {field:'classify',  title: '结束采购时间'},
-                {field:'classify',  title: '采购状态'},
-                {field:'classify',  title: '详细'},
+                {field:'returnOrderNo', title: '退货单编号'},
+                {field:'returnOrderName', title: '退货单名称'},
+                {field:'hospitalId',title: '下单医院'},
+                {field:'purchaseOrderNumber',title: '采购单编号'},
+                {field:'nameOfPurchaseOrder', title: '采购单名称'},
+                {field:'serialUmber', title: '流水号'},
+                {field:'dosageForm',title: '通用名'},
+                {field:'tradeName', title: '商品名'},
+                {field:'dosageFormDrug', title: '剂型'},
+                {field:'specifications', title: '规格'},
+                {field:'company', title: '单位'},
+                {field:'returnMoney', title: '质量层次'},
             ]],
             page: true
         });
+        form.on('submit(confirmReturnOrder)', function (data) {
+            var checkStatus = table.checkStatus("confirmReturnOrderTableMark");
+            var data1 = checkStatus.data;
+            var array1 = new Array();
+            for (let index in data1) {
+                var s = data1[index];
+                array1.push(s);
+            }
+            $.ajax({
+                url:'/returnOrder/confirmReturnOrder',
+                type:'post',
+                dataType:"json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(array1),
+                success:function (date) {
+                    table.reload("confirmReturnOrderTableMark");
+                    layer.msg("确认成功!");
+                }
+            })
 
-        table.render({
-            elem: '#addmedicine',
-            url:'/demo/table/user/',
-            cols: [[
-                {type: 'checkbox', fixed: 'left'},
-                {field:'id', title: '采购单编号',},
-                {field:'username', title: '采购单名称'},
-                {field:'sex',title: '采购医院',},
-                {field:'city',title: '流水号'},
-                {field:'sign',title: '通用名',},
-                {field:'experience', title: '商品名',},
-                {field:'score', title: '中标价',},
-                {field:'classify',title: '交易价'},
-                {field:'wealth', title: '采购量',},
-                {field:'classify',  title: '采购金额'},
-                {field:'classify',  title: '入库量'},
-                {field:'classify',  title: '药品批号'},
-                {field:'classify',  title: '药品有效期'},
-                {field:'classify',  title: '开始采购时间'},
-                {field:'classify',  title: '结束采购时间'},
-                {field:'classify',  title: '采购状态'},
-                {field:'classify',  title: '详细'},
-            ]],
-            page: true
         });
-
-
     });
-
-
 </script>
 </body>
 </html>
